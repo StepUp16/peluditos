@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="17dp">
+
+    <ImageView
+        android:id="@+id/imgLogin"
+        android:layout_width="450dp"
+        android:layout_height="450dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtCorreo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.302"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/login" />
+
+    <TextView
+        android:id="@+id/txtCorreo"
+        android:layout_width="500dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/spline_sans_medium"
+        android:text="Correo electronico"
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/edtEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogin"
+        app:lineHeight="24dp" />
+
+    <EditText
+        android:id="@+id/edtEmail"
+        android:layout_width="500dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bordes_redondeados"
+        android:ems="10"
+        android:fontFamily="@font/spline_sans"
+        android:hint="ejemplo@correo.com"
+        android:inputType="textEmailAddress"
+        android:paddingStart="17dp"
+        android:textColor="#9EB8A8"
+        android:textColorHint="#9EB8A8"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCorreo" />
+
+    <TextView
+        android:id="@+id/txtContraseña"
+        android:layout_width="500dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/spline_sans_medium"
+        android:text="Contraseña"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
+
+    <EditText
+        android:id="@+id/edtContraseña"
+        android:layout_width="500dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bordes_redondeados"
+        android:ems="10"
+        android:hint="********"
+        android:inputType="textPassword"
+        android:paddingStart="17dp"
+        android:textColor="#9EB8A8"
+        android:textColorHint="#9EB8A8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtContraseña" />
+
+    <TextView
+        android:id="@+id/txtOlvidarContraseña"
+        android:layout_width="500dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="35dp"
+        android:fontFamily="@font/spline_sans"
+        android:paddingTop="8dp"
+        android:text="Olvidé mi Contraseña"
+        android:textAlignment="textStart"
+        android:textColor="#29382E"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnIniciarSesion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtContraseña" />
+
+    <Button
+        android:id="@+id/btnIniciarSesion"
+        android:layout_width="500dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#38E07A"
+        android:fontFamily="@font/spline_sans_bold"
+        android:text="Iniciar Sesión"
+        android:textAlignment="center"
+        android:textColor="#121714"
+        android:textSize="20sp"
+        app:cornerRadius="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtOlvidarContraseña" />
+</androidx.constraintlayout.widget.ConstraintLayout>

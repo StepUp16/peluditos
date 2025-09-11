@@ -1,0 +1,5 @@
+<!-- app/src/main/res/drawable/bordes_redondeados.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#29382E"/>
+    <corners android:radius="12dp"/>
+</shape>

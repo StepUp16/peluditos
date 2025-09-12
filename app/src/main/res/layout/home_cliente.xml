@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:foregroundTint="#FF5722">
 
     <TextView
         android:id="@+id/txtInicio"
@@ -39,7 +40,6 @@
         android:layout_marginTop="19dp"
         android:layout_marginEnd="26dp"
         android:fontFamily="@font/epilogue_bold"
-        android:text="TextView"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,4 +69,61 @@
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtParrafoBienvenida" />
+
+    <TextView
+        android:id="@+id/txtFechaCita"
+        android:layout_width="228dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="26dp"
+        android:fontFamily="@font/epilogue"
+        android:textColor="#8A7361"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtProximasCitas" />
+
+    <TextView
+        android:id="@+id/txtMotivoCita"
+        android:layout_width="228dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/epilogue_bold"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtFechaCita" />
+
+    <TextView
+        android:id="@+id/txtNombreDoctor"
+        android:layout_width="228dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/epilogue"
+        android:textColor="#8A7361"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMotivoCita" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:tint="#ED6E12"
+        app:layout_constraintStart_toEndOf="@+id/txtFechaCita"
+        app:srcCompat="@drawable/ic_launcher_foreground"
+        tools:layout_editor_absoluteY="293dp" />
+
+    <TextView
+        android:id="@+id/txtNotificaciones"
+        android:layout_width="358dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/epilogue_bold"
+        android:text="Notificaciones"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNombreDoctor" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="17dp">
+    android:paddingStart="17dp"
+    android:backgroundColor="@color/design_default_color_on_secondary"
+    >
 
     <ImageView
         android:id="@+id/imgLogin"

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtInicio"
+        android:layout_width="310dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="37dp"
+        android:fontFamily="@font/epilogue_bold"
+        android:text="Inicio"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgNotificacion"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="129dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtInicio"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/notificaciones"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtMensajeBenvenida"
+        android:layout_width="498dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="26dp"
+        android:fontFamily="@font/epilogue_bold"
+        android:text="TextView"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgNotificacion" />
+
+    <TextView
+        android:id="@+id/txtParrafoBienvenida"
+        android:layout_width="498dp"
+        android:layout_height="72dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="@font/epilogue"
+        android:text="Bienvenida de nuevo a nuestra comunidad de amantes de las mascotas. Estamos aquí para cuidar de tus compañeros peludos."
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtMensajeBenvenida" />
+
+    <TextView
+        android:id="@+id/txtProximasCitas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/epilogue_bold"
+        android:text="Próximas Citas "
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtParrafoBienvenida" />
+</androidx.constraintlayout.widget.ConstraintLayout>

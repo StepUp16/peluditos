@@ -109,10 +109,11 @@
         android:layout_width="130dp"
         android:layout_height="70dp"
         android:layout_marginStart="16dp"
-        android:tint="#ED6E12"
         app:layout_constraintStart_toEndOf="@+id/txtFechaCita"
         app:srcCompat="@drawable/ic_launcher_foreground"
-        tools:layout_editor_absoluteY="293dp" />
+        app:tint="#ED6E12"
+        tools:layout_editor_absoluteY="293dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtNotificaciones"

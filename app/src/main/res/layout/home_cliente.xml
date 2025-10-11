@@ -8,53 +8,65 @@
 
     <TextView
         android:id="@+id/txtInicio"
-        android:layout_width="310dp"
-        android:layout_height="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="37dp"
+        android:layout_marginBottom="30dp"
         android:fontFamily="@font/epilogue_bold"
         android:text="Inicio"
+        android:textColor="#171412"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/txtMensajeBenvenida"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imgNotificacion"
-        android:layout_width="34dp"
-        android:layout_height="34dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="129dp"
         android:layout_marginTop="37dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="83dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtParrafoBienvenida"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.968"
         app:layout_constraintStart_toEndOf="@+id/txtInicio"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/notificaciones"
+        app:srcCompat="@drawable/icono_notificacion"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtMensajeBenvenida"
-        android:layout_width="498dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="26dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/epilogue_bold"
+        android:text="Hola,"
+        android:textColor="#171412"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgNotificacion" />
+        app:layout_constraintTop_toBottomOf="@+id/txtInicio"
+        tools:text="Hola, Sofia" />
 
     <TextView
         android:id="@+id/txtParrafoBienvenida"
-        android:layout_width="498dp"
-        android:layout_height="72dp"
+        android:layout_width="480dp"
+        android:layout_height="56dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="36dp"
         android:fontFamily="@font/epilogue"
-        android:text="Bienvenida de nuevo a nuestra comunidad de amantes de las mascotas. Estamos aquí para cuidar de tus compañeros peludos."
+        android:text="Bienvenid@ de nuevo a nuestra comunidad de amantes de las mascotas. Estamos aquí para cuidar de tus compañeros peludos."
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtProximasCitas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtMensajeBenvenida" />
 
@@ -63,68 +75,163 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="38dp"
         android:fontFamily="@font/epilogue_bold"
         android:text="Próximas Citas "
+        android:textColor="#171412"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtParrafoBienvenida" />
 
     <TextView
         android:id="@+id/txtFechaCita"
-        android:layout_width="228dp"
-        android:layout_height="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="29dp"
         android:fontFamily="@font/epilogue"
+        android:text=""
         android:textColor="#8A7361"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtProximasCitas" />
+        app:layout_constraintTop_toBottomOf="@+id/txtProximasCitas"
+        tools:text="22 de Julio, 10:00 AM" />
 
     <TextView
         android:id="@+id/txtMotivoCita"
-        android:layout_width="228dp"
-        android:layout_height="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/epilogue_bold"
+        android:text="Consulta General para "
         android:textColor="#000000"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtFechaCita" />
+        app:layout_constraintTop_toBottomOf="@+id/txtFechaCita"
+        tools:text="Consulta General para Max" />
 
     <TextView
         android:id="@+id/txtNombreDoctor"
-        android:layout_width="228dp"
-        android:layout_height="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/epilogue"
+        android:text=""
         android:textColor="#8A7361"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMotivoCita" />
+        app:layout_constraintTop_toBottomOf="@+id/txtMotivoCita"
+        tools:text="Dr. Martinez" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="130dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@+id/txtFechaCita"
+        android:id="@+id/imgCita"
+        android:layout_width="150dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="46dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtMotivoCita"
+        app:layout_constraintTop_toBottomOf="@+id/txtParrafoBienvenida"
         app:srcCompat="@drawable/ic_launcher_foreground"
         app:tint="#ED6E12"
-        tools:layout_editor_absoluteY="293dp"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtNotificaciones"
         android:layout_width="358dp"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="60dp"
         android:fontFamily="@font/epilogue_bold"
         android:text="Notificaciones"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNombreDoctor" />
+
+    <TextView
+        android:id="@+id/txtRecordatorioVacuna"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="103dp"
+        android:fontFamily="@font/epilogue"
+        android:text="Recordatorio de Vacunación"
+        android:textColor="#171412"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/imgRecordatorio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNotificaciones" />
+
+    <TextView
+        android:id="@+id/txtProximaVacuna"
+        android:layout_width="228dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:text="TextView"
+        android:textColor="#8A7361"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRecordatorioVacuna"
+        tools:text="Próxima vacuna para Luna en 2 semanas" />
+
+    <ImageView
+        android:id="@+id/imgRecordatorio"
+        android:layout_width="150dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="46dp"
+        android:tint="#ED6E12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtProximaVacuna"
+        app:layout_constraintTop_toBottomOf="@+id/txtNotificaciones"
+        app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <Button
+        android:id="@+id/btnAgregarMascota"
+        android:layout_width="470dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="44dp"
+        android:backgroundTint="#ED6E12"
+        android:text="Agregar Mascota"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgRecordatorio" />
+
+    <Button
+        android:id="@+id/btnSolicitarCita"
+        android:layout_width="470dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="44dp"
+        android:backgroundTint="#ED6E12"
+        android:text="Solicitar Cita"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAgregarMascota" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btnMenuCliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:background="#FFFFFF"
+        app:itemIconSize="24dp"
+        app:itemIconTint="@color/colores_botones_navegacion"
+        app:itemTextColor="@color/colores_botones_navegacion"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_cliente" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

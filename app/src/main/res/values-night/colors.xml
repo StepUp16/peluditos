@@ -1,0 +1,7 @@
+<resources>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="textColorSecondary">#9EB8A8</color>
+    <color name="menu_Cliente_activo">#FFFFFF</color>
+    <color name="menu_Cliente_inactivo">#9EB8A8</color>
+    <color name="navigationBarBackground">#171412</color>
+</resources>

@@ -3,7 +3,9 @@
     <style name="Base.Theme.Peluditos" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- esto apaga el color por defecto del elemento seleccionado -->
+        <item name="colorSecondaryContainer">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/navigationBarBackground</item>
     </style>
-
     <style name="Theme.Peluditos" parent="Base.Theme.Peluditos" />
 </resources>

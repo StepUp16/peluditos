@@ -3,5 +3,7 @@
     <style name="Base.Theme.Peluditos" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- esto apaga el color por defecto del elemento seleccionado -->
+        <item name="colorSecondaryContainer">@android:color/transparent</item>
     </style>
 </resources>

@@ -188,11 +188,11 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="27dp"
         android:layout_marginEnd="46dp"
-        android:tint="#ED6E12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txtProximaVacuna"
         app:layout_constraintTop_toBottomOf="@+id/txtNotificaciones"
-        app:srcCompat="@drawable/ic_launcher_foreground" />
+        app:srcCompat="@drawable/ic_launcher_foreground"
+        app:tint="#ED6E12" />
 
     <Button
         android:id="@+id/btnAgregarMascota"
@@ -227,8 +227,8 @@
         android:layout_marginBottom="4dp"
         android:background="@color/navigationBarBackground"
         app:itemIconSize="24dp"
-        app:itemIconTint="@color/colores_botones_navegacion"
-        app:itemTextColor="@color/colores_botones_navegacion"
+        app:itemIconTint="@color/selector_menu_cliente"
+        app:itemTextColor="@color/selector_menu_cliente"
         app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -3,3 +3,4 @@
     <item android:state_checked="true" android:color="@color/menu_Cliente_activo" />
     <item android:state_checked="false" android:color="@color/menu_Cliente_inactivo" />
 </selector>
+

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_dashboard"
+        android:icon="@drawable/icono_clientes"
+        android:title="Clientes" />
+
+    <item
+        android:id="@+id/nav_veterinarios"
+        android:icon="@drawable/icono_mascotas"
+        android:title="Pacientes" />
+
+    <item
+        android:id="@+id/nav_citas_admin"
+        android:icon="@drawable/icono_citas"
+        android:title="Citas" />
+
+    <item
+        android:id="@+id/nav_reportes"
+        android:icon="@drawable/icono_perfil"
+        android:title="Perfil" />
+
+</menu>

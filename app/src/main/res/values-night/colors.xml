@@ -3,5 +3,10 @@
     <color name="textColorSecondary">#9EB8A8</color>
     <color name="menu_Cliente_activo">#FFFFFF</color>
     <color name="menu_Cliente_inactivo">#9EB8A8</color>
-    <color name="navigationBarBackground">#171412</color>
+    <color name="navigationBarBackground">#121714</color>
+    <color name="navigationBarBackgrounAdmin">#121714</color>
+    <color name="textColorAdminPrimary">#FFFFFF</color>
+    <color name="textColorAdminSecondary">#638773</color>
+    <color name="menu_Cliente_Admin_activo">#FFFFFF</color>
+    <color name="menu_Cliente_Admin_inactivo">#9EB8A8</color>
 </resources>

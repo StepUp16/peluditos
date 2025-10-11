@@ -2,5 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="IconosAdministrador">#638773</color>
+    <color name="design_default_color_on_secondary">#F5F5F5</color>
+    <color name="menu_Cliente_activo">#171412</color>
+    <color name="menu_Cliente_inactivo">#8A7361</color>
 </resources>

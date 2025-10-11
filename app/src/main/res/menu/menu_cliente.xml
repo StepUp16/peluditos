@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/icono_home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/nav_mascotas"
+        android:icon="@drawable/icono_mascotas"
+        android:title="Mis Mascotas" />
+
+    <item
+        android:id="@+id/nav_citas"
+        android:icon="@drawable/icono_citas"
+        android:title="Citas" />
+
+    <item
+        android:id="@+id/nav_perfil"
+        android:icon="@drawable/icono_perfil"
+        android:title="Perfil" />
+
+</menu>

@@ -3,7 +3,7 @@
     <!--<solid android:color="#EEF4F0"/> -->
 
     <!-- AHORA (Forma correcta): -->
-    <solid android:color="@color/textColorPrimary"/>
+    <solid android:color="@color/entradaTextoAdmin"/>
     <corners android:radius="12dp"/>
 </shape>
 

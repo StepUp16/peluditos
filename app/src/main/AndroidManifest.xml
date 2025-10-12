@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Peluditos">
         <activity
-            android:name=".admin_Nuevo_Usuario"
+            android:name=".AdminNuevoPacienteActivity"
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />
         <activity

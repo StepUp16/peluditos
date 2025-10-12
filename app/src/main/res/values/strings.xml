@@ -30,4 +30,20 @@
     <string name="hint_rol">Selecciona el rol</string>
     <string name="btn_crear_usuario">Crear Usuario</string>
     <string name="btn_back_desc">Volver</string>
+
+    <!-- Cadenas usadas por admin_nuevo_paciente.xml -->
+    <string name="title_nuevo_paciente">Nuevo Paciente</string>
+    <string name="label_nombre_paciente">Nombre del Paciente</string>
+    <string name="hint_nombre_paciente">Nombre</string>
+    <string name="label_especie">Especie</string>
+    <string name="hint_especie">Especie</string>
+    <string name="label_raza">Raza</string>
+    <string name="hint_raza">Raza</string>
+    <string name="label_edad">Edad</string>
+    <string name="hint_edad">Edad</string>
+    <string name="label_peso">Peso</string>
+    <string name="hint_peso">Peso</string>
+    <string name="label_sexo">Sexo</string>
+    <string name="label_cliente">Cliente</string>
+    <string name="btn_guardar_paciente">Guardar Paciente</string>
 </resources>

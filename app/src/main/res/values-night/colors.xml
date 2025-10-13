@@ -10,4 +10,6 @@
     <color name="textColorAdminSecondary">#638773</color>
     <color name="menu_Cliente_Admin_activo">#FFFFFF</color>
     <color name="menu_Cliente_Admin_inactivo">#9EB8A8</color>
+    <color name="backgroundMain">#121714</color>
+    <color name="cardBackground">#29382E</color>
 </resources>

@@ -46,4 +46,48 @@
     <string name="label_sexo">Sexo</string>
     <string name="label_cliente">Cliente</string>
     <string name="btn_guardar_paciente">Guardar Paciente</string>
+
+    <!-- Cadenas para admin_recuperar_contrasena.xml -->
+    <string name="title_recuperar_contrasena">Recuperar Contraseña</string>
+    <!-- Reutiliza label_correo/hint_correo existentes para el campo -->
+    <string name="desc_recuperar_contrasena">Se enviará un correo electrónico con instrucciones para restablecer tu contraseña.</string>
+    <string name="btn_enviar_recuperacion">Enviar Enlace de Recuperación</string>
+
+    <!-- Cadenas para admin_confirmacion_envio_contrasena.xml -->
+    <string name="title_restablecer_contrasena">Restablecer contraseña</string>
+    <string name="heading_envio_exitoso">¡Correo de recuperación enviado!</string>
+    <string name="desc_envio_exitoso">Revisa tu bandeja de entrada, incluyendo la carpeta de spam, para encontrar el correo electrónico con las instrucciones para restablecer tu contraseña.</string>
+    <string name="hint_pin">PIN de Seguridad (6 dígitos)</string>
+    <string name="btn_verificar_pin">Verificar PIN</string>
+    <string name="btn_reenviar_pin">Reenviar PIN</string>
+
+    <!-- Cadenas para el layout de admmin_restablecer_contraseña -->
+    <string name="hint_nueva_contrasena">Nueva contraseña</string>
+    <string name="hint_confirmar_nueva_contrasena">Confirmar nueva contraseña</string>
+    <string name="desc_requisitos_contrasena">La contraseña debe tener al menos 8 caracteres, incluir una mayúscula y un número.</string>
+    <string name="btn_restablecer_contrasena">Restablecer contraseña</string>
+
+    <!-- Cadenas para admin_home -->
+    <string name="title_home">Inicio</string>
+    <string name="section_proximas_citas">Próximas Citas</string>
+    <string name="section_notificaciones">Notificaciones</string>
+    <string name="section_acceso_rapido">Acceso Rápido</string>
+    <string name="btn_crear_cita">Crear Cita</string>
+    <string name="btn_ver_pacientes">Ver Pacientes</string>
+    <string name="btn_ver_clientes">Ver Clientes</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_citas">Citas</string>
+    <string name="menu_pacientes">Pacientes</string>
+    <string name="menu_clientes">Clientes</string>
+    <string name="menu_perfil">Perfil</string>
+
+    <!-- Cadenas para admin_nueva_cita.xml -->
+    <string name="title_nueva_cita">Nueva Cita</string>
+    <string name="hint_paciente">Paciente</string>
+    <string name="hint_cliente">Cliente</string>
+    <string name="hint_fecha">Fecha</string>
+    <string name="hint_hora">Hora</string>
+    <string name="hint_motivo">Motivo de la cita</string>
+    <string name="btn_guardar_cita">Guardar Cita</string>
+    <string name="hint_notas_adicionales">Notas Adicionales</string>
 </resources>

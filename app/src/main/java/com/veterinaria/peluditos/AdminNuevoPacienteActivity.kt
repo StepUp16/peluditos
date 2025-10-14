@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 class AdminNuevoPacienteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.admin_nuevo_paciente)
+        setContentView(R.layout.admin_paciente_nuevo)
 
         // Back button
         val btnBack = findViewById<ImageButton>(R.id.btnBack)

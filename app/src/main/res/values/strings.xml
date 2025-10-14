@@ -109,4 +109,19 @@
     <string name="header_hoy">Hoy</string>
     <string name="add_cita_description">Agregar nueva cita</string>
 
+    <!-- Cadenas para admin_usuario_editar.xml -->
+    <string name="title_editar_usuario">Editar Usuario</string>
+
+    <!-- Cadenas para admin_usuario_listado.xml -->
+    <string name="title_administradores">Administradores</string>
+    <string name="add_usuario_description">Agregar nuevo usuario</string>
+
+    <!-- Cadenas para admin_perfil.xml -->
+    <string name="title_perfil">Perfil</string>
+    <string name="section_config_app">Configuración de la Aplicación</string>
+    <string name="option_gestionar_roles">Gestionar Roles y Permisos</string>
+    <string name="section_reportes">Reportes Generales</string>
+    <string name="option_estadisticas">Acceder a Estadísticas de la Clínica</string>
+    <string name="btn_ver_usuarios">Ver Usuarios Registrados</string>
+    <string name="btn_cerrar_sesion">Cerrar Sesión</string>
 </resources>

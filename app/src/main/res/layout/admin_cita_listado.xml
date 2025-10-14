@@ -80,7 +80,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHeaderHoy"
-        tools:listitem="@layout/item_cita" />
+        tools:listitem="@layout/admin_cita_listado_item" />
 
     <!-- Menú inferior fijo -->
     <LinearLayout
@@ -107,7 +107,8 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_home"
-                app:tint="@color/textColorPrimary" />
+
+                app:tint="#638773"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -129,7 +130,9 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_citas"
-                app:tint="#638773" />
+
+                app:tint="@color/textColorPrimary"
+                />
 
             <TextView
                 android:layout_width="wrap_content"

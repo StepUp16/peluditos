@@ -90,4 +90,23 @@
     <string name="hint_motivo">Motivo de la cita</string>
     <string name="btn_guardar_cita">Guardar Cita</string>
     <string name="hint_notas_adicionales">Notas Adicionales</string>
+
+    <!-- Cadenas para admin_cita_editar.xml -->
+    <string name="title_editar_cita">Editar Cita</string>
+    <string name="label_paciente">Paciente</string>
+    <string name="label_fecha">Fecha</string>
+    <string name="label_hora">Hora</string>
+    <string name="label_motivo">Motivo</string>
+    <string name="label_notas">Notas</string>
+    <string name="btn_guardar_cambios">Guardar Cambios</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_eliminar_cita">Eliminar Cita</string>
+
+    <!-- Cadenas para admin_cita_listado.xml -->
+    <string name="title_citas">Citas</string>
+    <string name="tab_calendario">Calendario</string>
+    <string name="tab_lista">Lista</string>
+    <string name="header_hoy">Hoy</string>
+    <string name="add_cita_description">Agregar nueva cita</string>
+
 </resources>

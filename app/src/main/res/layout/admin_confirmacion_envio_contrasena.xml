@@ -75,7 +75,7 @@
                 android:id="@+id/etPin"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@drawable/edittext_bg"
+                android:background="@drawable/edittext_cliente"
                 android:hint="@string/hint_pin"
                 android:padding="16dp"
                 android:textColorHint="#6B8E7A"

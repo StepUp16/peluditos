@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <!-- Botón de retroceso -->
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/btn_back_desc"
-        android:src="@drawable/ic_arrow_back"
-        app:tint="@color/textColorPrimary"
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:gravity="center"
+        android:fontFamily="@font/spline_sans_bold"
+        android:text="Nueva Cita"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:textColor="@color/textColorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <!-- ScrollView para los campos -->
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="37dp"
         android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,17 +40,9 @@
             android:paddingBottom="96dp">
 
             <!-- Título -->
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/title_nueva_cita"
-                android:textStyle="bold"
-                android:textSize="22sp"
-                android:gravity="center"
-                android:layout_marginBottom="24dp"/>
 
             <!-- Campo Paciente (Spinner) -->
+
             <Spinner
                 android:id="@+id/spinnerPaciente"
                 android:layout_width="match_parent"
@@ -58,6 +51,7 @@
                 android:padding="16dp"
                 android:layout_marginBottom="16dp"
                 android:spinnerMode="dropdown"
+                android:fontFamily="@font/spline_sans"
                 android:prompt="@string/hint_paciente" />
 
             <!-- Campo Cliente -->
@@ -71,6 +65,7 @@
                 android:textColorHint="@color/textColorSecondary"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
+                android:fontFamily="@font/spline_sans"
                 android:inputType="textPersonName"/>
 
             <!-- Campo Fecha con icono de calendario -->
@@ -81,6 +76,7 @@
                 android:background="@drawable/edittext_cliente"
                 android:layout_marginBottom="16dp"
                 android:gravity="center_vertical">
+
                 <EditText
                     android:id="@+id/etFecha"
                     android:layout_width="0dp"
@@ -91,7 +87,10 @@
                     android:paddingStart="16dp"
                     android:textColorHint="@color/textColorSecondary"
                     android:textSize="18sp"
-                    android:inputType="date"/>
+                    android:fontFamily="@font/spline_sans"
+                    android:inputType="date"
+                    />
+
                 <ImageView
                     android:id="@+id/iconFecha"
                     android:layout_width="32dp"
@@ -99,7 +98,8 @@
                     android:src="@drawable/icono_citas"
                     android:contentDescription="Calendario"
                     android:layout_marginEnd="16dp"
-                    android:tint="@color/textColorSecondary"/>
+                    />
+
             </LinearLayout>
 
             <!-- Campo Hora con icono de reloj -->
@@ -120,6 +120,7 @@
                     android:paddingStart="16dp"
                     android:textColorHint="@color/textColorSecondary"
                     android:textSize="18sp"
+                    android:fontFamily="@font/spline_sans"
                     android:inputType="time"/>
                 <ImageView
                     android:id="@+id/iconHora"
@@ -128,7 +129,8 @@
                     android:src="@drawable/icono_alarm"
                     android:contentDescription="Reloj"
                     android:layout_marginEnd="16dp"
-                    android:tint="@color/textColorSecondary"/>
+                    app:tint="@color/textColorSecondary"
+                    />
             </LinearLayout>
 
             <!-- Campo Motivo -->
@@ -142,6 +144,7 @@
                 android:textColorHint="@color/textColorSecondary"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
+                android:fontFamily="@font/spline_sans"
                 android:inputType="text"/>
 
             <!-- Campo Notas Adicionales (multilinea) -->
@@ -157,142 +160,42 @@
                 android:inputType="textMultiLine"
                 android:gravity="top|start"
                 android:maxLines="5"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginBottom="24dp"
+                android:fontFamily="@font/spline_sans"/>
 
         </LinearLayout>
     </ScrollView>
 
-    <!-- Botón Guardar Cita fijo -->
     <Button
         android:id="@+id/btnCrearCita"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:background="@drawable/btn_green_bg"
-        android:text="@string/btn_guardar_cita"
-        android:textColor="#081114"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomMenu"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!-- Menú inferior fijo -->
-    <LinearLayout
-        android:id="@+id/bottomMenu"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:orientation="horizontal"
-        android:background="@color/navigationBarBackground"
-        android:gravity="center"
+        android:background="@drawable/btn_cliente"
+        android:fontFamily="@font/spline_sans"
+        android:text="Crear Cita"
+        android:textColor="#171412"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/scrollView"
+        app:layout_constraintVertical_bias="0.942" />
 
-        <!-- Botón Home -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconHome"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_home"
-                app:tint="@color/textColorPrimary"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_home"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Citas -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconCitas"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_citas"
-                app:tint="#638773"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_citas"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Pacientes -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconPacientes"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_mascotas"
-                app:tint="#638773"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_pacientes"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Clientes -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconClientes"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_clientes"
-                app:tint="#638773"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_clientes"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Perfil -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconPerfil"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_perfil"
-                app:tint="#638773"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_perfil"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-    </LinearLayout>
-
+    <ImageView
+        android:id="@+id/imgCierre"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        app:tint="@color/textColorPrimary"
+        android:layout_marginStart="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
+        app:srcCompat="@drawable/icono_cierre" />
 </androidx.constraintlayout.widget.ConstraintLayout>

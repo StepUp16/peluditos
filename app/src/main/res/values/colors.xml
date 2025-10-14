@@ -12,6 +12,7 @@
     <color name="navigationBarBackground">#FFFFFF</color>
     <color name="navigationBarBackgrounAdmin">#FFFFFF</color>
     <color name="entradaTextoAdmin">#F0F5F2</color>
+    <color name="entradaTextoCliente">#F5F2F0</color>
     <color name="menu_Cliente_Admin_activo">#171412</color>
     <color name="menu_Cliente_Admin_inactivo">#638773</color>
     <color name="backgroundMain">#F3F8F5</color>

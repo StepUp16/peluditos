@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textSize="16sp"
-                android:textColor="@color/menu_Cliente_inactivo"
+                android:textColor="@color/menu_Cliente_Admin_inactivo"
                 android:fontFamily="@font/spline_sans"
                 tools:text="Perro, Golden Retriever" />
 
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:textSize="16sp"
-                android:textColor="@color/menu_Cliente_inactivo"
+                android:textColor="@color/menu_Cliente_Admin_inactivo"
                 android:fontFamily="@font/spline_sans"
                 tools:text="Edad: 5 años, Sexo: Macho" />
 
@@ -168,7 +168,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:textSize="14sp"
-                        android:textColor="@color/textColorSecondary"
+                        android:textColor="@color/menu_Cliente_Admin_inactivo"
                         android:fontFamily="@font/spline_sans"
                         tools:text="Teléfono: 7555-1234" />
 
@@ -184,7 +184,7 @@
                 android:layout_marginTop="24dp"
                 app:tabIndicatorColor="@color/menu_Cliente_activo"
                 app:tabSelectedTextColor="@color/menu_Cliente_activo"
-                app:tabTextColor="@color/menu_Cliente_inactivo">
+                app:tabTextColor="@color/menu_Cliente_Admin_inactivo">
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tabHistorialMedico"
                     android:layout_width="wrap_content"
@@ -245,7 +245,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:textSize="14sp"
-                            android:textColor="@color/textColorSecondary"
+                            android:textColor="@color/menu_Cliente_Admin_inactivo"
                             android:fontFamily="@font/spline_sans"
                             tools:text="2023-05-15" />
 
@@ -287,7 +287,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:textSize="14sp"
-                            android:textColor="@color/textColorSecondary"
+                            android:textColor="@color/menu_Cliente_Admin_inactivo"
                             android:fontFamily="@font/spline_sans"
                             tools:text="2022-11-20" />
 
@@ -329,7 +329,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:textSize="14sp"
-                            android:textColor="@color/textColorSecondary"
+                            android:textColor="@color/menu_Cliente_Admin_inactivo"
                             android:fontFamily="@font/spline_sans"
                             tools:text="2022-05-10" />
 

@@ -39,7 +39,7 @@
     <string name="hint_especie">Especie</string>
     <string name="label_raza">Raza</string>
     <string name="hint_raza">Raza</string>
-    <string name="label_edad">Edad</string>
+    <string name="label_edad">Edad </string>
     <string name="hint_edad">Edad</string>
     <string name="label_peso">Peso</string>
     <string name="hint_peso">Peso</string>
@@ -132,4 +132,15 @@
     <!-- Cadenas para admin_paciente_listado.xml -->
     <string name="title_Pacientes">Pacientes</string>
     <string name="add_paciente_description">Agregar nuevo paciente</string>
+
+    <!-- Cadenas para admin_paciente_detalle.xml -->
+    <string name="btn_editar_paciente">Editar paciente</string>
+
+    <!-- Cadenas para admin_paciente_editar.xml -->
+    <string name="label_cliente_asociado">Cliente Asociado</string>
+    <string name="hint_cliente_asociado">Cliente Asociado</string>
+    <string name="btn_cancelar_paciente">Cancelar</string>
+    <string name="btn_guardar_cambios_paciente">Guardar Cambios</string>
+
+
 </resources>

@@ -35,7 +35,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="+503 7485 8596"
+        android:text="Perro, Cliente: Juan Pérez"
         android:textSize="16sp"
         android:textColor="#6B8E7A"
         app:layout_constraintTop_toBottomOf="@+id/tvPacienteName"

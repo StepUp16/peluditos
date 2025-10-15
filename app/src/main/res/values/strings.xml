@@ -124,4 +124,8 @@
     <string name="option_estadisticas">Acceder a Estadísticas de la Clínica</string>
     <string name="btn_ver_usuarios">Ver Usuarios Registrados</string>
     <string name="btn_cerrar_sesion">Cerrar Sesión</string>
+
+    <!-- Cadenas para admin_usuario_cliente_listado.xml -->
+    <string name="title_clientes">Clientes</string>
+    <string name="add_cliente_description">Agregar nuevo cliente</string>
 </resources>

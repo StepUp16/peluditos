@@ -128,4 +128,8 @@
     <!-- Cadenas para admin_usuario_cliente_listado.xml -->
     <string name="title_clientes">Clientes</string>
     <string name="add_cliente_description">Agregar nuevo cliente</string>
+
+    <!-- Cadenas para admin_paciente_listado.xml -->
+    <string name="title_Pacientes">Pacientes</string>
+    <string name="add_paciente_description">Agregar nuevo paciente</string>
 </resources>

@@ -24,7 +24,7 @@
         android:id="@+id/tvEditarPacienteTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_editar_paciente"
+        android:text="@string/title_editar_paciente"
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/textColorPrimary"
@@ -34,13 +34,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/btnBack" />
 
+    <!-- Botones fijos en la parte inferior -->
+    <LinearLayout
+        android:id="@+id/llBotones"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp"
+        android:background="?attr/colorSurface"
+        app:layout_constraintBottom_toTopOf="@id/bottomMenu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Botones que se moverán aquí -->
+    </LinearLayout>
+
     <!-- Contenido principal desplazable -->
     <ScrollView
         android:id="@+id/scrollContenido"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/tvEditarPacienteTitle"
-        app:layout_constraintBottom_toTopOf="@id/bottomMenu"
+        app:layout_constraintBottom_toTopOf="@id/llBotones"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -235,54 +254,45 @@
                 android:layout_marginBottom="24dp"/>
 
 
-            <!-- Botones Cancelar y Guardar Cambios -->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp">
-                    <Button
-                        android:id="@+id/btnCrearCita"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="2"
-                        android:background="@drawable/btn_green_bg"
-                        app:backgroundTint="@null"
-                        android:text="@string/btn_cancelar_paciente"
-                        android:textColor="#081114"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:layout_marginEnd="8dp"/>
-                    <Button
-                        android:id="@+id/btnVerPacientes"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="3"
-                        android:background="@drawable/btn_green_bg"
-                        app:backgroundTint="@null"
-                        android:text="@string/btn_guardar_cambios_paciente"
-                        android:textColor="#081114"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:layout_marginStart="8dp"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
+
+    <!-- Botones Cancelar y Guardar Cambios (movidos dentro del LinearLayout fijo) -->
+    <Button
+        android:id="@+id/btnCancelarEdicion"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="2"
+        android:background="@drawable/btn_green_bg"
+        app:backgroundTint="@null"
+        android:text="@string/btn_cancelar_paciente"
+        android:textColor="#081114"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/llBotones"
+        app:layout_constraintTop_toTopOf="@+id/llBotones"
+        app:layout_constraintStart_toStartOf="@+id/llBotones"
+        app:layout_constraintEnd_toStartOf="@+id/btnGuardarCambios" />
+
+    <Button
+        android:id="@+id/btnGuardarCambios"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_weight="3"
+        android:background="@drawable/btn_green_bg"
+        app:backgroundTint="@null"
+        android:text="@string/btn_guardar_cambios_paciente"
+        android:textColor="#081114"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/llBotones"
+        app:layout_constraintTop_toTopOf="@+id/llBotones"
+        app:layout_constraintStart_toEndOf="@+id/btnCancelarEdicion"
+        app:layout_constraintEnd_toEndOf="@+id/llBotones" />
 
     <!-- Menú inferior fijo -->
     <LinearLayout
@@ -308,7 +318,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_perfil"
-                app:tint="#638773" />
+                app:tint="@color/menu_Cliente_Admin_inactivo" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -352,7 +362,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_citas"
-                app:tint="#638773" />
+                app:tint="@color/menu_Cliente_Admin_inactivo" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -374,7 +384,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_perfil"
-                app:tint="#638773" />
+                app:tint="@color/menu_Cliente_Admin_inactivo" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

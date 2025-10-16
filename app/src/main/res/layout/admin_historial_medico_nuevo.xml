@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
+
+    <!-- Barra superior -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/btn_back_desc"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/colorControlNormal" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_nuevo_historial"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btnBack" />
+
+    <!-- Contenido del Formulario -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintBottom_toTopOf="@+id/btnGuardarHistorial"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Selector de Paciente -->
+            <Spinner
+                android:id="@+id/spinnerPatient"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/hint_seleccionar_paciente"
+                android:padding="12dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Fecha de la Consulta -->
+            <EditText
+                android:id="@+id/etFechaConsulta"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/hint_fecha_consulta"
+                android:inputType="date"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Motivo de la Consulta -->
+            <EditText
+                android:id="@+id/etMotivoConsulta"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/hint_motivo_consulta"
+                android:inputType="textCapSentences"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Diagnóstico -->
+            <EditText
+                android:id="@+id/etDiagnostico"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/hint_diagnostico"
+                android:inputType="textMultiLine|textCapSentences"
+                android:gravity="top|start"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Tratamiento -->
+            <EditText
+                android:id="@+id/etTratamiento"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/hint_tratamiento"
+                android:inputType="textMultiLine|textCapSentences"
+                android:gravity="top|start"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Medicación -->
+            <EditText
+                android:id="@+id/etMedicacion"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/hint_medicacion"
+                android:inputType="textMultiLine|textCapSentences"
+                android:gravity="top|start"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Notas adicionales / Próximos pasos -->
+            <EditText
+                android:id="@+id/etNotasAdicionales"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/hint_notas_proximos_pasos"
+                android:inputType="textMultiLine|textCapSentences"
+                android:gravity="top|start"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Botón Guardar Historial -->
+    <Button
+        android:id="@+id/btnGuardarHistorial"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/btn_green_bg"
+        android:text="@string/btn_guardar_historial"
+        android:textColor="#081114"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

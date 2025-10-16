@@ -33,19 +33,23 @@
 
     <!-- Cadenas usadas por admin_nuevo_paciente.xml -->
     <string name="title_nuevo_paciente">Nuevo Paciente</string>
+    <string name="title_editar_paciente">Editar Paciente</string>
     <string name="label_nombre_paciente">Nombre del Paciente</string>
     <string name="hint_nombre_paciente">Nombre</string>
     <string name="label_especie">Especie</string>
     <string name="hint_especie">Especie</string>
     <string name="label_raza">Raza</string>
     <string name="hint_raza">Raza</string>
-    <string name="label_edad">Edad </string>
+    <string name="label_edad">Edad</string>
     <string name="hint_edad">Edad</string>
     <string name="label_peso">Peso</string>
     <string name="hint_peso">Peso</string>
     <string name="label_sexo">Sexo</string>
     <string name="label_cliente">Cliente</string>
+    <string name="label_cliente_asociado">Cliente Asociado</string>
     <string name="btn_guardar_paciente">Guardar Paciente</string>
+    <string name="btn_cancelar_paciente">Cancelar</string>
+    <string name="btn_guardar_cambios_paciente">Guardar Cambios</string>
 
     <!-- Cadenas para admin_recuperar_contrasena.xml -->
     <string name="title_recuperar_contrasena">Recuperar Contraseña</string>
@@ -134,13 +138,27 @@
     <string name="add_paciente_description">Agregar nuevo paciente</string>
 
     <!-- Cadenas para admin_paciente_detalle.xml -->
-    <string name="btn_editar_paciente">Editar paciente</string>
+    <string name="title_detalles_paciente">Detalles del Paciente</string>
+    <string name="btn_editar">Editar</string>
+    <string name="section_info_cliente">Información del Cliente</string>
+    <string name="tab_historial_medico">Historial Médico</string>
+    <string name="tab_citas_futuras">Citas Futuras</string>
+    <string name="tab_citas_pasadas">Citas Pasadas</string>
 
-    <!-- Cadenas para admin_paciente_editar.xml -->
-    <string name="label_cliente_asociado">Cliente Asociado</string>
-    <string name="hint_cliente_asociado">Cliente Asociado</string>
-    <string name="btn_cancelar_paciente">Cancelar</string>
-    <string name="btn_guardar_cambios_paciente">Guardar Cambios</string>
+    <!-- Cadenas para admin_historial_medico_nuevo.xml -->
+    <string name="title_nuevo_historial">Nuevo Historial Médico</string>
+    <string name="hint_seleccionar_paciente">Seleccionar Paciente</string>
+    <string name="hint_fecha_consulta">Fecha de la Consulta</string>
+    <string name="hint_motivo_consulta">Motivo de la Consulta</string>
+    <string name="hint_diagnostico">Diagnóstico</string>
+    <string name="hint_tratamiento">Tratamiento</string>
+    <string name="hint_medicacion">Medicación</string>
+    <string name="hint_notas_proximos_pasos">Notas adicionales / Próximos pasos</string>
+    <string name="btn_guardar_historial">Guardar Historial</string>
 
+    <!-- Cadenas para admin_historial_medico.xml -->
+    <string name="title_historial_medico">Historial Médico</string>
+    <string name="section_historial">Historial</string>
+    <string name="btn_nueva_entrada">Nueva entrada</string>
 
 </resources>

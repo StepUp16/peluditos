@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSurface">
 
-    <!-- Barra superior con botón de retorno -->
+    <!-- Barra superior -->
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="40dp"
@@ -18,31 +18,26 @@
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/textColorPrimary" />
+        app:tint="?attr/colorControlNormal" />
 
-    <!-- Título de la pantalla -->
     <TextView
-        android:id="@+id/tvDetallePacienteTitle"
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/title_nuevo_paciente"
+        android:text="@string/title_detalles_paciente"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:textColor="@color/textColorPrimary"
-        android:fontFamily="@font/spline_sans"
-        app:layout_constraintBottom_toBottomOf="@id/btnBack"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnBack"
-        tools:text="Detalles del Paciente" />
+        app:layout_constraintTop_toTopOf="@+id/btnBack" />
 
-    <!-- Contenido desplazable -->
+    <!-- Contenido principal con Scroll -->
     <ScrollView
-        android:id="@+id/scrollContenido"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tvDetallePacienteTitle"
-        app:layout_constraintBottom_toTopOf="@id/bottomMenu"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintBottom_toTopOf="@+id/bottomMenu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -53,295 +48,142 @@
             android:padding="24dp"
             android:gravity="center_horizontal">
 
-            <!-- Foto del paciente -->
+            <!-- Detalles del Paciente -->
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivPacienteFoto"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
+                android:id="@+id/ivPatientPhoto"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="16dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/paciente"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CircleImageView"
-                android:contentDescription="Foto del paciente"
-                tools:src="@drawable/paciente" />
+                android:contentDescription="Foto del paciente" />
 
-            <!-- Nombre del paciente -->
             <TextView
-                android:id="@+id/tvPacienteNombre"
+                android:id="@+id/tvPatientName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="@color/textColorPrimary"
-                android:fontFamily="@font/spline_sans"
-                tools:text="Max" />
+                android:layout_marginTop="12dp"
+                android:text="Buddy"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-            <!-- Especie y raza -->
             <TextView
-                android:id="@+id/tvPacienteEspecieRaza"
+                android:id="@+id/tvPatientBreed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textSize="16sp"
-                android:textColor="@color/menu_Cliente_Admin_inactivo"
-                android:fontFamily="@font/spline_sans"
-                tools:text="Perro, Golden Retriever" />
+                android:text="Perro, Golden Retriever"
+                android:textColor="#6B8E7A"
+                android:textSize="16sp" />
 
-            <!-- Edad y sexo -->
             <TextView
-                android:id="@+id/tvPacienteEdadSexo"
+                android:id="@+id/tvPatientInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:textSize="16sp"
-                android:textColor="@color/menu_Cliente_Admin_inactivo"
-                android:fontFamily="@font/spline_sans"
-                tools:text="Edad: 5 años, Sexo: Macho" />
+                android:text="Edad: 5 años, Sexo: Macho"
+                android:textColor="#6B8E7A"
+                android:textSize="16sp" />
 
-            <!-- Botón editar -->
             <Button
-                android:id="@+id/btnEditarPaciente"
+                android:id="@+id/btnEdit"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="56dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/btn_logout_bg"
-                android:text="@string/btn_editar_paciente"
+                android:background="@drawable/btn_edit_bg"
+                android:text="@string/btn_editar"
                 android:textColor="#081114"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/spline_sans"
-                app:backgroundTint="@null"
-                 />
-
-            <!-- Sección información del cliente -->
-            <TextView
-                android:id="@+id/tvHeaderInfoCliente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="Información del Cliente"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/textColorPrimary"
-                android:fontFamily="@font/spline_sans" />
+                app:backgroundTint="@null" />
 
-            <!-- Card con información del cliente -->
-            <LinearLayout
-                android:id="@+id/llClienteInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/ivClienteFoto"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/user_javier"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CircleImageView"
-                    android:contentDescription="Foto del cliente"
-                    tools:src="@drawable/cliente_sofia" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvClienteNombre"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/textColorPrimary"
-                        android:fontFamily="@font/spline_sans"
-                        tools:text="Ana García" />
-
-                    <TextView
-                        android:id="@+id/tvClienteTelefono"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/menu_Cliente_Admin_inactivo"
-                        android:fontFamily="@font/spline_sans"
-                        tools:text="Teléfono: 7555-1234" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Tabs para historial, citas futuras y pasadas -->
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabPaciente"
+            <!-- Información del Cliente -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                app:tabIndicatorColor="@color/menu_Cliente_activo"
-                app:tabSelectedTextColor="@color/menu_Cliente_activo"
-                app:tabTextColor="@color/menu_Cliente_Admin_inactivo">
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tabHistorialMedico"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Historial Médico" />
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tabCitasFuturas"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Citas Futuras" />
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tabCitasPasadas"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Citas Pasadas" />
-            </com.google.android.material.tabs.TabLayout>
+                android:text="@string/section_info_cliente"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-            <!-- Lista de citas (ejemplo) -->
             <LinearLayout
-                android:id="@+id/llListaCitas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp">
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp">
 
-                <!-- Cita ejemplo 1 -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivClientPhoto"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/user_sofia"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CircleImageView"
+                    android:contentDescription="Avatar del cliente" />
+
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp">
 
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/icono_citas"
-                        app:tint="#638773" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/tvClientName"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="16dp"
-                        android:orientation="vertical">
+                        android:text="Ana García"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/textColorPrimary"
-                            android:fontFamily="@font/spline_sans"
-                            tools:text="Vacunación anual" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/menu_Cliente_Admin_inactivo"
-                            android:fontFamily="@font/spline_sans"
-                            tools:text="2023-05-15" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!-- Cita ejemplo 2 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/icono_citas"
-                        app:tint="#638773" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <TextView
+                        android:id="@+id/tvClientPhone"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="16dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/textColorPrimary"
-                            android:fontFamily="@font/spline_sans"
-                            tools:text="Control de peso" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/menu_Cliente_Admin_inactivo"
-                            android:fontFamily="@font/spline_sans"
-                            tools:text="2022-11-20" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!-- Cita ejemplo 3 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/icono_citas"
-                        app:tint="#638773" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="16dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/textColorPrimary"
-                            android:fontFamily="@font/spline_sans"
-                            tools:text="Consulta general" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:textSize="14sp"
-                            android:textColor="@color/menu_Cliente_Admin_inactivo"
-                            android:fontFamily="@font/spline_sans"
-                            tools:text="2022-05-10" />
-
-                    </LinearLayout>
+                        android:text="Teléfono: 555-1234"
+                        android:textColor="#6B8E7A"
+                        android:textSize="14sp"/>
                 </LinearLayout>
 
             </LinearLayout>
+
+            <!-- Pestañas para Historial -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab_historial_medico" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab_citas_futuras" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab_citas_pasadas" />
+            </com.google.android.material.tabs.TabLayout>
+
+            <!-- Contenedor para el historial (RecyclerView) -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_historial_medico" />
 
         </LinearLayout>
     </ScrollView>
 
-    <!-- Menú inferior fijo igual al perfil -->
+    <!-- Menú inferior fijo -->
     <LinearLayout
         android:id="@+id/bottomMenu"
         android:layout_width="0dp"
@@ -360,21 +202,18 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
-
             <ImageView
                 android:id="@+id/iconClientes"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/icono_perfil"
+                android:src="@drawable/icono_clientes"
                 app:tint="#638773" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="@string/menu_clientes"
                 android:textSize="12sp"
-                android:fontFamily="@font/spline_sans" />
+                android:gravity="center" />
         </LinearLayout>
 
         <!-- Botón Pacientes (activo) -->
@@ -384,21 +223,18 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
-
             <ImageView
                 android:id="@+id/iconPacientes"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_mascotas"
                 app:tint="@color/textColorPrimary" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="@string/menu_pacientes"
                 android:textSize="12sp"
-                android:fontFamily="@font/spline_sans" />
+                android:gravity="center"/>
         </LinearLayout>
 
         <!-- Botón Citas -->
@@ -408,21 +244,18 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
-
             <ImageView
                 android:id="@+id/iconCitas"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_citas"
                 app:tint="#638773" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="@string/menu_citas"
                 android:textSize="12sp"
-                android:fontFamily="@font/spline_sans" />
+                android:gravity="center" />
         </LinearLayout>
 
         <!-- Botón Perfil -->
@@ -432,23 +265,19 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
-
             <ImageView
                 android:id="@+id/iconPerfil"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_perfil"
                 app:tint="#638773" />
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:text="@string/menu_perfil"
                 android:textSize="12sp"
-                android:fontFamily="@font/spline_sans" />
+                android:gravity="center"/>
         </LinearLayout>
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "887189247395",
+    "project_id": "peluditos-5f329",
+    "storage_bucket": "peluditos-5f329.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887189247395:android:69250e621b2d85d8877616",
+        "android_client_info": {
+          "package_name": "com.veterinaria.peluditos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUbGWM1bF-SL_SLDfg6Uc5n87SqWfldOY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

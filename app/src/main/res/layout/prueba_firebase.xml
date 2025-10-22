@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_prueba_firebase"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp"/>
+
+    <EditText
+        android:id="@+id/etNombrePrueba"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="@string/hint_nombre_prueba"
+        android:background="@drawable/edittext_bg"
+        android:padding="16dp"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btnGuardarFirebase"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="@string/btn_guardar_firebase"
+        android:background="@drawable/btn_green_bg"
+        app:backgroundTint="@null"
+        android:textColor="#081114"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnMostrarFirebase"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="@string/btn_mostrar_firebase"
+        android:background="@drawable/btn_green_bg"
+        app:backgroundTint="@null"
+        android:textColor="#081114"
+        android:textStyle="bold"
+        android:layout_marginBottom="32dp"/>
+
+    <TextView
+        android:id="@+id/tvLabelDato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_dato_almacenado"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tvDatoRecuperado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        android:text="---"/>
+
+</LinearLayout>

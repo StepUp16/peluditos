@@ -161,4 +161,10 @@
     <string name="section_historial">Historial</string>
     <string name="btn_nueva_entrada">Nueva entrada</string>
 
+    <!-- Cadenas para prueba_firebase.xml -->
+    <string name="title_prueba_firebase">Prueba de Conexión con Firebase</string>
+    <string name="hint_nombre_prueba">Ingresa un nombre</string>
+    <string name="btn_guardar_firebase">Guardar en Firebase</string>
+    <string name="btn_mostrar_firebase">Mostrar desde Firebase</string>
+    <string name="label_dato_almacenado">Dato almacenado:</string>
 </resources>

@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -76,9 +77,13 @@ public class prueba_firebase extends AppCompatActivity {
             return;
         }
 
+        Log.d(TAG, "Intentando guardar nombre: " + nombre);
+        Log.d(TAG, "Colección destino: " + COLLECTION_NAME);
+
         // Crear un nuevo usuario con un nombre
         Map<String, Object> usuario = new HashMap<>();
         usuario.put(KEY_NOMBRE, nombre);
+        usuario.put("timestamp", System.currentTimeMillis()); // Agregamos timestamp para mejor control
 
         // Agregar un nuevo documento con un ID generado a la colección
         db.collection(COLLECTION_NAME)
@@ -86,45 +91,68 @@ public class prueba_firebase extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "Documento agregado con ID: " + documentReference.getId());
-                        Toast.makeText(prueba_firebase.this, "Nombre guardado correctamente", Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "✅ ÉXITO: Documento agregado con ID: " + documentReference.getId());
+                        Log.d(TAG, "✅ Datos guardados en Firestore correctamente");
+                        Log.d(TAG, "✅ Ruta completa: " + COLLECTION_NAME + "/" + documentReference.getId());
+                        Toast.makeText(prueba_firebase.this, "✅ Nombre guardado correctamente en Firebase", Toast.LENGTH_LONG).show();
                         etNombrePrueba.setText(""); // Limpiar el campo de texto
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error al agregar el documento", e);
-                        Toast.makeText(prueba_firebase.this, "Error al guardar el nombre", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "❌ ERROR al agregar el documento", e);
+                        Log.e(TAG, "❌ Tipo de error: " + e.getClass().getSimpleName());
+                        Log.e(TAG, "❌ Mensaje de error: " + e.getMessage());
+                        Toast.makeText(prueba_firebase.this, "❌ Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
     }
 
     private void mostrarNombreDesdeFirebase() {
+        Log.d(TAG, "Consultando colección: " + COLLECTION_NAME);
+
         db.collection(COLLECTION_NAME)
+                .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING) // Mostrar el más reciente primero
                 .limit(1) // Para este ejemplo, solo traemos el primer documento que encuentre
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
+                            Log.d(TAG, "✅ Consulta exitosa. Documentos encontrados: " + task.getResult().size());
+
                             if (task.getResult().isEmpty()) {
-                                tvDatoRecuperado.setText("No hay datos");
-                                Toast.makeText(prueba_firebase.this, "No se encontraron datos", Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "⚠️ No se encontraron documentos en la colección: " + COLLECTION_NAME);
+                                tvDatoRecuperado.setText("No hay datos guardados");
+                                Toast.makeText(prueba_firebase.this, "No se encontraron datos en Firebase", Toast.LENGTH_SHORT).show();
                                 return;
                             }
+
                             // Recorremos el resultado (aunque solo esperamos uno)
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
+                                Log.d(TAG, "📄 Documento ID: " + document.getId());
+                                Log.d(TAG, "📄 Datos completos: " + document.getData());
+
                                 if (document.contains(KEY_NOMBRE)) {
                                     String nombreRecuperado = document.getString(KEY_NOMBRE);
+                                    Log.d(TAG, "✅ Nombre recuperado: " + nombreRecuperado);
                                     tvDatoRecuperado.setText(nombreRecuperado);
-                                    Toast.makeText(prueba_firebase.this, "Dato mostrado", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(prueba_firebase.this, "✅ Dato mostrado: " + nombreRecuperado, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Log.w(TAG, "⚠️ El documento no contiene el campo '" + KEY_NOMBRE + "'");
+                                    tvDatoRecuperado.setText("Error: campo no encontrado");
                                 }
                             }
                         } else {
-                            Log.w(TAG, "Error obteniendo documentos.", task.getException());
-                            Toast.makeText(prueba_firebase.this, "Error al obtener los datos", Toast.LENGTH_SHORT).show();
+                            Log.e(TAG, "❌ Error obteniendo documentos", task.getException());
+                            if (task.getException() != null) {
+                                Log.e(TAG, "❌ Mensaje de error: " + task.getException().getMessage());
+                            }
+                            tvDatoRecuperado.setText("Error al consultar");
+                            Toast.makeText(prueba_firebase.this, "❌ Error al obtener los datos: " +
+                                (task.getException() != null ? task.getException().getMessage() : "Error desconocido"),
+                                Toast.LENGTH_LONG).show();
                         }
                     }
                 });

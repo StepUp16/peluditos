@@ -37,20 +37,20 @@ android {
 
 dependencies {
 
-    implementation("androidx.compose.material:material-icons-extended:<latest-version>")
-    implementation(platform("androidx.compose:compose-bom:2023.10.01"))
-    implementation("androidx.compose.ui:ui-text-google-fonts:<latest_version>")
+    // Firebase BOM para gestionar versiones
+    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
 
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-
-    implementation("androidx.compose.ui:ui-text-google-fonts:1.6.3")
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-    implementation(libs.firebase.auth)
-    implementation(libs.firebase.firestore)
+
+    // Firebase dependencies (versions managed by BOM)
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

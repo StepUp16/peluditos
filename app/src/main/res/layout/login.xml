@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="17dp"
     android:background="@color/design_default_color_on_secondary"
-    >
+    android:paddingStart="17dp">
 
     <ImageView
         android:id="@+id/imgLogin"
-        android:layout_width="450dp"
+        android:layout_width="0dp"
         android:layout_height="450dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="28dp"
         app:layout_constraintBottom_toTopOf="@+id/txtCorreo"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +23,7 @@
 
     <TextView
         android:id="@+id/txtCorreo"
-        android:layout_width="500dp"
+        android:layout_width="0dp"
         android:layout_height="32dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="16dp"
@@ -42,7 +41,7 @@
 
     <EditText
         android:id="@+id/edtEmail"
-        android:layout_width="500dp"
+        android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginStart="2dp"
         android:layout_marginEnd="16dp"
@@ -62,7 +61,7 @@
 
     <TextView
         android:id="@+id/txtContraseña"
-        android:layout_width="500dp"
+        android:layout_width="0dp"
         android:layout_height="32dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="16dp"
@@ -76,7 +75,7 @@
 
     <EditText
         android:id="@+id/edtContraseña"
-        android:layout_width="500dp"
+        android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginStart="2dp"
         android:layout_marginEnd="16dp"
@@ -93,7 +92,7 @@
 
     <TextView
         android:id="@+id/txtOlvidarContraseña"
-        android:layout_width="500dp"
+        android:layout_width="0dp"
         android:layout_height="37dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="16dp"
@@ -111,7 +110,7 @@
 
     <Button
         android:id="@+id/btnIniciarSesion"
-        android:layout_width="500dp"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="16dp"

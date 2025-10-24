@@ -10,29 +10,47 @@
     <ImageView
         android:id="@+id/imgInicio"
         android:layout_width="0dp"
-        android:layout_height="438dp"
+        android:layout_height="0dp"
+        android:importantForAccessibility="no"
+        android:scaleType="centerCrop"
+        app:layout_constraintDimensionRatio="W,1:1.1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/img_bienvenida" />
 
-    <Button
+    <TextView
+        android:id="@+id/tvWelcomeTitle"
+        style="@style/TextAppearance.Material3.HeadlineLarge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/spline_sans_bold"
+        android:gravity="center"
+        android:text="Bienvenido a Peluditos"
+        android:textColor="?attr/colorOnSurface"
+        app:layout_constraintBottom_toTopOf="@+id/btnIniciar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnIniciar"
+        style="@style/Widget.Material3.Button"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="380dp"
-        android:layout_marginEnd="21dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="#38E07A"
+        android:backgroundTint="#4CAF50"
         android:fontFamily="@font/spline_sans_bold"
-        android:text="Iniciar"
-        android:textAlignment="center"
-        android:textColor="#000000"
+        android:text="@string/action_iniciar"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        app:cornerRadius="8dp"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgInicio" />
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

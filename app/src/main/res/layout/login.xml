@@ -94,6 +94,21 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Switch "Recordarme" -->
+    <Switch
+        android:id="@+id/switchRecordarme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/spline_sans"
+        android:text="Recordarme"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="14sp"
+        android:thumbTint="#38E07A"
+        android:trackTint="?attr/colorSurfaceVariant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutContraseña" />
+
     <!-- Texto para "Olvidé mi contraseña" -->
     <TextView
         android:id="@+id/txtOlvidarContraseña"
@@ -106,7 +121,25 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutContraseña" />
+        app:layout_constraintTop_toBottomOf="@+id/switchRecordarme" />
+
+    <!-- Botón "Registrarme" -->
+    <TextView
+        android:id="@+id/txtRegistrarme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/spline_sans_medium"
+        android:padding="8dp"
+        android:text="¿No tienes cuenta? Registrarme"
+        android:textColor="#38E07A"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtOlvidarContraseña" />
 
     <!-- Botón de Iniciar Sesión, restringido a la parte inferior -->
     <Button

@@ -17,4 +17,7 @@
     <color name="menu_Cliente_Admin_inactivo">#638773</color>
     <color name="backgroundMain">#F3F8F5</color>
     <color name="cardBackground">#F0F5F2</color>
+
+    <!-- Color para splash screen que coincide con el tema principal -->
+    <color name="splash_background">#F3F8F5</color>
 </resources>

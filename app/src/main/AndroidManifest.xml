@@ -40,7 +40,7 @@
             android:theme="@style/Theme.Peluditos" />
 
         <activity
-            android:name=".AdminMainActivity"
+            android:name=".admin_home"
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />
 
@@ -49,6 +49,22 @@
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />
 
+        <activity
+            android:name=".AdminUsuarioClienteListadoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
+        <activity
+            android:name=".AdminPacienteListadoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
+        <!-- Nueva actividad para crear una cita -->
+        <activity
+            android:name=".admin_cita_nueva"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+        
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -86,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 slideUp.start();
-                fadeOut.start();
+                fadeOut.start();//termina el spalshscreen
+                //otro comentario
             }
         });
 

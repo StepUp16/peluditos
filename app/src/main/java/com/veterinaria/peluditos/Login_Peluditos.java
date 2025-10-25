@@ -97,8 +97,9 @@ public class Login_Peluditos extends AppCompatActivity {
                                 if ("administrador".equals(rol)) {
                                     // Si el rol es "administrador", vamos al flujo de admin
                                     Toast.makeText(Login_Peluditos.this, "Bienvenido Administrador", Toast.LENGTH_SHORT).show();
-                                    // Reemplaza AdminMainActivity.class con el nombre de tu actividad principal de administrador
-                                    Intent intent = new Intent(Login_Peluditos.this, AdminMainActivity.class);
+                                    // --- CAMBIO REALIZADO AQUÍ ---
+                                    // Ahora abrimos admin_home, que tiene la lógica correcta.
+                                    Intent intent = new Intent(Login_Peluditos.this, admin_home.class);
                                     startActivity(intent);
                                     finish(); // Cierra la actividad de login
                                 } else if ("cliente".equals(rol)) {

@@ -104,8 +104,8 @@
         android:text="Recordarme"
         android:textColor="?attr/colorOnSurface"
         android:textSize="14sp"
-        android:thumbTint="#38E07A"
-        android:trackTint="?attr/colorSurfaceVariant"
+        android:thumbTint="@color/switch_thumb_color"
+        android:trackTint="@color/switch_track_color"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutContraseña" />
 

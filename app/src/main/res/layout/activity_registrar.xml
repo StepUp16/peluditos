@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="24dp"
+        android:paddingTop="32dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="32dp">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spline_sans_bold"
+            android:text="Crear Cuenta"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="28sp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Subtítulo -->
+        <TextView
+            android:id="@+id/txtSubtitulo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/spline_sans"
+            android:text="Completa tus datos para registrarte"
+            android:textColor="#9EB8A8"
+            android:textSize="16sp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitulo" />
+
+        <!-- Campo Nombre -->
+        <TextView
+            android:id="@+id/lblNombre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/spline_sans_medium"
+            android:text="Nombre"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtSubtitulo" />
+
+        <EditText
+            android:id="@+id/edtNombre"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bordes_redondeados"
+            android:fontFamily="@font/spline_sans"
+            android:hint="Ingresa tu nombre"
+            android:inputType="textPersonName"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="#9EB8A8"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblNombre" />
+
+        <!-- Campo Apellido -->
+        <TextView
+            android:id="@+id/lblApellido"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/spline_sans_medium"
+            android:text="Apellido"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtNombre" />
+
+        <EditText
+            android:id="@+id/edtApellido"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bordes_redondeados"
+            android:fontFamily="@font/spline_sans"
+            android:hint="Ingresa tu apellido"
+            android:inputType="textPersonName"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="#9EB8A8"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblApellido" />
+
+        <!-- Campo Email -->
+        <TextView
+            android:id="@+id/lblEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/spline_sans_medium"
+            android:text="Correo electrónico"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtApellido" />
+
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bordes_redondeados"
+            android:fontFamily="@font/spline_sans"
+            android:hint="ejemplo@correo.com"
+            android:inputType="textEmailAddress"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="#9EB8A8"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblEmail" />
+
+        <!-- Campo Teléfono -->
+        <TextView
+            android:id="@+id/lblTelefono"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/spline_sans_medium"
+            android:text="Teléfono"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
+
+        <EditText
+            android:id="@+id/edtTelefono"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bordes_redondeados"
+            android:fontFamily="@font/spline_sans"
+            android:hint="Ingresa tu teléfono"
+            android:inputType="phone"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="#9EB8A8"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblTelefono" />
+
+        <!-- Campo Contraseña -->
+        <TextView
+            android:id="@+id/lblContraseña"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/spline_sans_medium"
+            android:text="Contraseña"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtTelefono" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutContraseña"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="#9EB8A8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblContraseña">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtContraseña"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bordes_redondeados"
+                android:fontFamily="@font/spline_sans"
+                android:hint="Mínimo 8 caracteres, letras y números"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColorHint="#9EB8A8"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Campo Confirmar Contraseña -->
+        <TextView
+            android:id="@+id/lblConfirmarContraseña"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/spline_sans_medium"
+            android:text="Confirmar contraseña"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutContraseña" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutConfirmarContraseña"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="#9EB8A8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblConfirmarContraseña">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtConfirmarContraseña"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bordes_redondeados"
+                android:fontFamily="@font/spline_sans"
+                android:hint="Confirma tu contraseña"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColorHint="#9EB8A8"
+                android:textSize="16sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Botón Registrar -->
+        <Button
+            android:id="@+id/btnRegistrar"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="#38E07A"
+            android:fontFamily="@font/spline_sans_bold"
+            android:text="Registrarme"
+            android:textColor="#121714"
+            android:textSize="18sp"
+            app:cornerRadius="28dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutConfirmarContraseña" />
+
+        <!-- Enlace Ya tengo cuenta -->
+        <TextView
+            android:id="@+id/txtYaTengoCuenta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/spline_sans_medium"
+            android:padding="8dp"
+            android:text="¿Ya tienes cuenta? Iniciar sesión"
+            android:textColor="#38E07A"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnRegistrar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

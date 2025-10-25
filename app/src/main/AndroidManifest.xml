@@ -64,7 +64,7 @@
             android:name=".admin_cita_nueva"
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />
-        
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

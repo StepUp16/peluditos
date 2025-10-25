@@ -8,31 +8,35 @@
     android:paddingStart="24dp"
     android:paddingEnd="24dp">
 
-    <!-- La imagen sigue siendo flexible -->
+    <!-- 1. Altura de la imagen reducida para dar más espacio al formulario -->
     <ImageView
         android:id="@+id/imgLogin"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.50"
+        app:layout_constraintHeight_percent="0.35" 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/login" />
 
+    <!-- 2. Grupo de elementos encadenados para que se adapten verticalmente -->
+    
     <!-- Título para el campo de correo -->
     <TextView
         android:id="@+id/txtCorreo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/spline_sans_medium"
         android:text="Correo electrónico"
         android:textColor="?attr/colorOnSurface"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgLogin" />
+        app:layout_constraintTop_toBottomOf="@id/imgLogin"
+        app:layout_constraintBottom_toTopOf="@+id/edtEmail"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <!-- Campo de texto para el correo -->
     <EditText
@@ -40,7 +44,7 @@
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/bordes_redondeados"
+        android:background="@drawable/edittext_bg"
         android:ems="10"
         android:fontFamily="@font/spline_sans"
         android:hint="ejemplo@correo.com"
@@ -51,7 +55,8 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCorreo" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCorreo"
+        app:layout_constraintBottom_toTopOf="@+id/txtContraseña" />
 
     <!-- Título para la contraseña -->
     <TextView
@@ -65,7 +70,8 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/edtEmail"
+        app:layout_constraintBottom_toTopOf="@+id/layoutContraseña" />
 
     <!-- TextInputLayout que envuelve el EditText para añadir el icono del ojo -->
     <com.google.android.material.textfield.TextInputLayout
@@ -78,13 +84,14 @@
         app:passwordToggleTint="#9EB8A8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtContraseña">
+        app:layout_constraintTop_toBottomOf="@+id/txtContraseña"
+        app:layout_constraintBottom_toTopOf="@+id/switchRecordarme">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtContraseña"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bordes_redondeados"
+            android:background="@drawable/edittext_bg"
             android:fontFamily="@font/spline_sans"
             android:hint="********"
             android:inputType="textPassword"
@@ -94,7 +101,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Switch "Recordarme" -->
+    <!-- 3. Switch y TextView en la misma línea para ahorrar espacio -->
     <Switch
         android:id="@+id/switchRecordarme"
         android:layout_width="wrap_content"
@@ -107,21 +114,24 @@
         android:thumbTint="@color/switch_thumb_color"
         android:trackTint="@color/switch_track_color"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutContraseña" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutContraseña"
+        app:layout_constraintBottom_toTopOf="@+id/txtRegistrarme" />
 
-    <!-- Texto para "Olvidé mi contraseña" -->
     <TextView
         android:id="@+id/txtOlvidarContraseña"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/spline_sans"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/spline_sans_medium"
+        android:padding="8dp"
         android:text="Olvidé mi Contraseña"
-        android:textColor="#9EB8A8"
-        android:textSize="14sp"
+        android:textColor="#38E07A"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchRecordarme" />
+        app:layout_constraintTop_toTopOf="@+id/switchRecordarme"
+        app:layout_constraintBottom_toBottomOf="@+id/switchRecordarme" />
 
     <!-- Botón "Registrarme" -->
     <TextView
@@ -139,9 +149,10 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtOlvidarContraseña" />
+        app:layout_constraintTop_toBottomOf="@+id/switchRecordarme"
+        app:layout_constraintBottom_toTopOf="@+id/btnIniciarSesion"/>
 
-    <!-- Botón de Iniciar Sesión, restringido a la parte inferior -->
+    <!-- Botón de Iniciar Sesión, anclado a la parte inferior -->
     <Button
         android:id="@+id/btnIniciarSesion"
         android:layout_width="0dp"

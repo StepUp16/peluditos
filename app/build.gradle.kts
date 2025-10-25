@@ -46,7 +46,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-
+    implementation("androidx.core:core-splashscreen:1.0.1")
     // Firebase dependencies (versions managed by BOM)
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")

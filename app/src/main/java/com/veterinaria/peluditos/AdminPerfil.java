@@ -24,6 +24,7 @@ import com.veterinaria.peluditos.data.Usuario;
 
 public class AdminPerfil extends AppCompatActivity {
     private static final String TAG = "AdminPerfil";
+    private static final int REQUEST_CODE_EDITAR_PERFIL = 1001;
 
     // UI Elements
     private TextView tvUserName, tvUserEmail, tvUserRole;
@@ -105,11 +106,10 @@ public class AdminPerfil extends AppCompatActivity {
         // Botón editar perfil
         btnEditarPerfil.setOnClickListener(v -> {
             if (currentUser != null) {
-                // Comentamos temporalmente hasta que exista la clase AdminEditarPerfil
-                // Intent intent = new Intent(AdminPerfil.this, AdminEditarPerfil.class);
-                // intent.putExtra("usuario_uid", currentUser.getUid());
-                // startActivity(intent);
-                Toast.makeText(this, "Función de editar perfil en desarrollo", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(AdminPerfil.this, AdminUsuarioEditar.class);
+                intent.putExtra("USUARIO_ID", currentUser.getUid());
+                intent.putExtra("ES_PERFIL_PROPIO", true); // Flag para indicar que es edición de perfil propio
+                startActivityForResult(intent, REQUEST_CODE_EDITAR_PERFIL);
             } else {
                 Toast.makeText(this, "Error: No se pudieron cargar los datos del usuario",
                         Toast.LENGTH_SHORT).show();
@@ -328,5 +328,13 @@ public class AdminPerfil extends AppCompatActivity {
         super.onResume();
         // Recargar datos cuando regresamos a la actividad
         loadUserData();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_EDITAR_PERFIL && resultCode == RESULT_OK) {
+            loadUserData();
+        }
     }
 }

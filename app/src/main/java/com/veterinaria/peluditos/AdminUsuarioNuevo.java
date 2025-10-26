@@ -1,5 +1,7 @@
 package com.veterinaria.peluditos;
 
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -8,12 +10,16 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.content.Context;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.veterinaria.peluditos.data.Usuario;
+
+import java.util.UUID;
 
 public class AdminUsuarioNuevo extends AppCompatActivity {
     private EditText etNombre, etApellido, etCorreo, etTelefono, etDui, etDireccion, etPassword, etConfirmPassword;
@@ -75,6 +81,32 @@ public class AdminUsuarioNuevo extends AppCompatActivity {
         return password.matches(passwordPattern);
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private void guardarUsuarioLocal(String nombre, String apellido, String email,
+                                     String telefono, String dui, String direccion, String rol) {
+        // Usar el DUI como ID
+        String localUid = dui.replace("-", "").trim();
+
+        // Crear objeto Usuario
+        Usuario nuevoUsuario = new Usuario(
+                localUid, nombre, apellido, email,
+                telefono, dui, direccion, rol
+        );
+
+        // Guardar solo en Room
+        viewModel.insert(nuevoUsuario);
+
+        Toast.makeText(AdminUsuarioNuevo.this,
+                "Usuario guardado localmente. Se sincronizará cuando haya conexión",
+                Toast.LENGTH_LONG).show();
+        finish();
+    }
+
     private void crearUsuario() {
         String nombre = etNombre.getText().toString().trim();
         String apellido = etApellido.getText().toString().trim();
@@ -88,7 +120,7 @@ public class AdminUsuarioNuevo extends AppCompatActivity {
 
         // Validaciones
         if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || telefono.isEmpty() ||
-            dui.isEmpty() || direccion.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                dui.isEmpty() || direccion.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(this, "Todos los campos son requeridos", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -128,33 +160,80 @@ public class AdminUsuarioNuevo extends AppCompatActivity {
             return;
         }
 
+        // Validación específica para DUI
+        if (dui.length() < 9) {
+            etDui.setError("El DUI debe tener al menos 9 dígitos");
+            etDui.requestFocus();
+            return;
+        }
+
         // Deshabilitar el botón mientras se procesa
         btnCrearUsuario.setEnabled(false);
 
-        // Crear usuario en Firebase Auth
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        String uid = task.getResult().getUser().getUid();
+        if (isNetworkAvailable()) {
+            // Usar el DUI como ID del documento
+            String docId = dui.replace("-", "").trim();
 
-                        // Crear objeto Usuario
-                        Usuario nuevoUsuario = new Usuario(
-                                uid, nombre, apellido, email,
-                                telefono, dui, direccion, rol
-                        );
+            // Verificar si ya existe un usuario con ese DUI
+            FirebaseFirestore.getInstance()
+                    .collection("usuarios")
+                    .document(docId)
+                    .get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            Toast.makeText(AdminUsuarioNuevo.this,
+                                    "Ya existe un usuario registrado con este DUI",
+                                    Toast.LENGTH_LONG).show();
+                            btnCrearUsuario.setEnabled(true);
+                        } else {
+                            // Si no existe, proceder con la creación
+                            mAuth.createUserWithEmailAndPassword(email, password)
+                                    .addOnCompleteListener(this, task -> {
+                                        if (task.isSuccessful()) {
+                                            // Crear objeto Usuario con el DUI como ID
+                                            Usuario nuevoUsuario = new Usuario(
+                                                    docId, nombre, apellido, email,
+                                                    telefono, dui, direccion, rol
+                                            );
 
-                        // Guardar en Room y Firestore
-                        viewModel.insert(nuevoUsuario);
-
+                                            // Guardar en Firestore primero
+                                            FirebaseFirestore.getInstance()
+                                                    .collection("usuarios")
+                                                    .document(docId)
+                                                    .set(nuevoUsuario)
+                                                    .addOnSuccessListener(aVoid -> {
+                                                        // Una vez guardado en Firestore, guardar en Room
+                                                        viewModel.insert(nuevoUsuario);
+                                                        Toast.makeText(AdminUsuarioNuevo.this,
+                                                                "Usuario creado exitosamente",
+                                                                Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                    })
+                                                    .addOnFailureListener(e -> {
+                                                        Toast.makeText(AdminUsuarioNuevo.this,
+                                                                "Error al guardar en Firestore: " + e.getMessage(),
+                                                                Toast.LENGTH_LONG).show();
+                                                        btnCrearUsuario.setEnabled(true);
+                                                    });
+                                        } else {
+                                            Toast.makeText(AdminUsuarioNuevo.this,
+                                                    "Error al crear usuario en Firebase: " + task.getException().getMessage(),
+                                                    Toast.LENGTH_LONG).show();
+                                            btnCrearUsuario.setEnabled(true);
+                                        }
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(e -> {
                         Toast.makeText(AdminUsuarioNuevo.this,
-                                "Usuario creado exitosamente", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(AdminUsuarioNuevo.this,
-                                "Error al crear usuario: " + task.getException().getMessage(),
+                                "Error al verificar DUI: " + e.getMessage(),
                                 Toast.LENGTH_LONG).show();
                         btnCrearUsuario.setEnabled(true);
-                    }
-                });
+                    });
+        } else {
+            // Si no hay conexión, guardar solo localmente
+            guardarUsuarioLocal(nombre, apellido, email, telefono, dui, direccion, rol);
+            btnCrearUsuario.setEnabled(true);
+        }
     }
 }

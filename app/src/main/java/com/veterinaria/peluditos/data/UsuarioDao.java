@@ -13,7 +13,7 @@ public interface UsuarioDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Usuario usuario);
 
-    @Query("SELECT * FROM usuarios")
+    @Query("SELECT * FROM usuarios WHERE rol = 'cliente'")
     LiveData<List<Usuario>> getAllUsuarios();
 
     @Query("SELECT * FROM usuarios WHERE uid = :uid")

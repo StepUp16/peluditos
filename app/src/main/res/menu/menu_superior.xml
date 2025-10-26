@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/mapa_google"
+        android:title="Ubicación"/>
+    <item android:id="@+id/mapa_normal"
+        android:title="Mapa Normal"/>
+    <item android:id="@+id/mapa_satellite"
+        android:title="Mapa Satélite"/>
+    <item android:id="@+id/mapa_hybrid"
+        android:title="Mapa Híbrido"/>
+    <item android:id="@+id/mapa_terrain"
+        android:title="Mapa Terreno"/>
+</menu>

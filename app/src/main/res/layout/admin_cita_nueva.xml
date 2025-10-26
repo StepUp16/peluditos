@@ -54,7 +54,7 @@
                 android:id="@+id/spinnerPaciente"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
+                android:background="@drawable/edittext_bg"
                 android:padding="16dp"
                 android:layout_marginBottom="16dp"
                 android:spinnerMode="dropdown"
@@ -65,10 +65,10 @@
                 android:id="@+id/etCliente"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
+                android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_cliente"
                 android:padding="16dp"
-                android:textColorHint="@color/textColorSecondary"
+                android:textColorHint="@color/textColorPrimary"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="textPersonName"/>
@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:orientation="horizontal"
-                android:background="@drawable/edittext_cliente"
+                android:background="@drawable/edittext_bg"
                 android:layout_marginBottom="16dp"
                 android:gravity="center_vertical">
                 <EditText
@@ -86,10 +86,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/edittext_bg"
                     android:hint="@string/hint_fecha"
                     android:paddingStart="16dp"
-                    android:textColorHint="@color/textColorSecondary"
+                    android:textColorHint="@color/textColorPrimary"
                     android:textSize="18sp"
                     android:inputType="date"/>
                 <ImageView
@@ -99,7 +99,7 @@
                     android:src="@drawable/icono_citas"
                     android:contentDescription="Calendario"
                     android:layout_marginEnd="16dp"
-                    android:tint="@color/textColorSecondary"/>
+                    app:tint="@color/textColorSecondary"/>
             </LinearLayout>
 
             <!-- Campo Hora con icono de reloj -->
@@ -107,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:orientation="horizontal"
-                android:background="@drawable/edittext_cliente"
+                android:background="@drawable/edittext_bg"
                 android:layout_marginBottom="16dp"
                 android:gravity="center_vertical">
                 <EditText
@@ -115,10 +115,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/edittext_bg"
                     android:hint="@string/hint_hora"
                     android:paddingStart="16dp"
-                    android:textColorHint="@color/textColorSecondary"
+                    android:textColorHint="@color/textColorPrimary"
                     android:textSize="18sp"
                     android:inputType="time"/>
                 <ImageView
@@ -128,7 +128,7 @@
                     android:src="@drawable/icono_alarm"
                     android:contentDescription="Reloj"
                     android:layout_marginEnd="16dp"
-                    android:tint="@color/textColorSecondary"/>
+                    app:tint="@color/textColorSecondary"/>
             </LinearLayout>
 
             <!-- Campo Motivo -->
@@ -136,10 +136,10 @@
                 android:id="@+id/etMotivo"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
+                android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_motivo"
                 android:padding="16dp"
-                android:textColorHint="@color/textColorSecondary"
+                android:textColorHint="@color/textColorPrimary"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="text"/>
@@ -149,10 +149,10 @@
                 android:id="@+id/etNotasAdicionales"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:background="@drawable/edittext_cliente"
+                android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_notas_adicionales"
                 android:padding="16dp"
-                android:textColorHint="@color/textColorSecondary"
+                android:textColorHint="@color/textColorPrimary"
                 android:textSize="18sp"
                 android:inputType="textMultiLine"
                 android:gravity="top|start"

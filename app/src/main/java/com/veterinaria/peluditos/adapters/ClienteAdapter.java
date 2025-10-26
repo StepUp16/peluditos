@@ -19,6 +19,11 @@ import java.util.List;
 public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteViewHolder> {
     private List<Usuario> usuarios = new ArrayList<>();
     private OnDeleteClickListener deleteListener;
+    private OnEditClickListener editListener;
+
+    public interface OnEditClickListener {
+        void onEditClick(Usuario usuario);
+    }
 
     public interface OnDeleteClickListener {
         void onDeleteClick(Usuario usuario);
@@ -26,6 +31,10 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
 
     public void setOnDeleteClickListener(OnDeleteClickListener listener) {
         this.deleteListener = listener;
+    }
+
+    public void setOnEditClickListener(OnEditClickListener listener) {
+        this.editListener = listener;
     }
 
     @NonNull
@@ -39,7 +48,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
     @Override
     public void onBindViewHolder(@NonNull ClienteViewHolder holder, int position) {
         Usuario usuario = usuarios.get(position);
-        holder.bind(usuario, deleteListener);
+        holder.bind(usuario, deleteListener, editListener);
     }
 
     @Override
@@ -57,6 +66,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
         private final TextView tvUserRole;
         private final ShapeableImageView ivUserAvatar;
         private final ImageButton btnDelete;
+        private final ImageButton btnEdit;
 
         public ClienteViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,9 +74,10 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
             tvUserRole = itemView.findViewById(R.id.tvUserRole);
             ivUserAvatar = itemView.findViewById(R.id.ivUserAvatar);
             btnDelete = itemView.findViewById(R.id.btnDelete);
+            btnEdit = itemView.findViewById(R.id.btnEdit);
         }
 
-        public void bind(Usuario usuario, OnDeleteClickListener listener) {
+        public void bind(Usuario usuario, OnDeleteClickListener deleteListener, OnEditClickListener editListener) {
             String nombreCompleto = usuario.getNombre() + " " + usuario.getApellido();
             tvUserName.setText(nombreCompleto);
             tvUserRole.setText(usuario.getRol());
@@ -75,8 +86,15 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
 
             // Configurar el botón de eliminar
             btnDelete.setOnClickListener(v -> {
-                if (listener != null) {
-                    listener.onDeleteClick(usuario);
+                if (deleteListener != null) {
+                    deleteListener.onDeleteClick(usuario);
+                }
+            });
+
+            // Configurar el botón de editar
+            btnEdit.setOnClickListener(v -> {
+                if (editListener != null) {
+                    editListener.onEditClick(usuario);
                 }
             });
         }

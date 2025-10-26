@@ -2,259 +2,118 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <!-- Botón de retroceso en la esquina superior izquierda -->
     <ImageButton
         android:id="@+id/btnBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/btn_back_desc"
-        android:src="@drawable/ic_arrow_back"
-        app:tint="@color/textColorPrimary"
+        android:contentDescription="Regresar"
+        android:src="@drawable/baseline_arrow_back_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- ScrollView se conecta arriba y termina arriba del botón para que el botón quede fijo -->
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btnGuardarCambios">
+        app:tint="@color/black" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Editar Usuario"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+        app:layout_constraintStart_toEndOf="@+id/btnBack"
+        app:layout_constraintTop_toTopOf="@+id/btnBack" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBack">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
-            android:paddingTop="64dp"
-            android:paddingBottom="96dp"> <!-- espacio extra para que no quede tapado -->
+            android:padding="16dp">
 
-            <!-- Título centro -->
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/title_editar_usuario"
-                android:textStyle="bold"
-                android:textSize="22sp"
-                android:gravity="center"
-                android:layout_marginBottom="24dp"/>
-
-            <!-- Nombre -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/label_nombre"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
             <EditText
                 android:id="@+id/etNombre"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
-                android:hint="@string/hint_nombre"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android:inputType="textPersonName"
-                android:autofillHints="name"/>
-
-            <!-- Apellido -->
-            <TextView
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_apellido"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginTop="8dp"
+                android:hint="Nombre"
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
+
             <EditText
                 android:id="@+id/etApellido"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
-                android:hint="@string/hint_apellido"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android:inputType="textPersonName"
-                android:autofillHints="familyName"/>
-
-            <!-- Correo Electrónico -->
-            <TextView
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_correo"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginTop="8dp"
+                android:hint="Apellido"
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
+
             <EditText
                 android:id="@+id/etCorreo"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
-                android:hint="@string/hint_correo"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android.inputType="textEmailAddress"
-                android:autofillHints="emailAddress"/>
-
-            <!-- Teléfono -->
-            <TextView
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_telefono"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginTop="8dp"
+                android:hint="Correo electrónico"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp" />
+
             <EditText
                 android:id="@+id/etTelefono"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
-                android:hint="@string/hint_telefono"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android:inputType="phone"
-                android:autofillHints="phone"/>
-
-            <!-- DUI -->
-            <TextView
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_dui"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginTop="8dp"
+                android:hint="Teléfono"
+                android:inputType="phone"
+                android:minHeight="48dp" />
+
             <EditText
                 android:id="@+id/etDui"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
-                android:hint="@string/hint_dui"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android:inputType="text"
-                android:autofillHints="username"/>
-
-            <!-- Dirección -->
-            <TextView
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/label_direccion"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginTop="8dp"
+                android:hint="DUI"
+                android:inputType="number"
+                android:minHeight="48dp" />
+
             <EditText
                 android:id="@+id/etDireccion"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
-                android:hint="@string/hint_direccion"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Dirección"
                 android:inputType="textPostalAddress"
-                android:autofillHints="postalAddress"/>
+                android:minHeight="48dp" />
 
-            <!-- Contraseña -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/label_contrasena"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
-            <EditText
-                android:id="@+id/etPassword"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
-                android:hint="@string/hint_contrasena"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android:inputType="textPassword"
-                android:autofillHints="password"/>
-
-            <!-- Confirmar Contraseña -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/label_confirmar_contrasena"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
-            <EditText
-                android:id="@+id/etConfirmPassword"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
-                android:hint="@string/hint_confirmar_contrasena"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android:inputType="textPassword"
-                android:autofillHints="password"/>
-
-            <!-- Rol -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/label_rol"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
             <Spinner
                 android:id="@+id/spinnerRol"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
-                android:padding="12dp"
-                android:spinnerMode="dropdown"
-                android:layout_marginBottom="24dp"/>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:minHeight="48dp" />
+
+            <Button
+                android:id="@+id/btnGuardar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Guardar Cambios"
+                android:textColor="@color/white" />
 
         </LinearLayout>
     </ScrollView>
-
-    <!-- Botón fijo en el pie -->
-    <Button
-        android:id="@+id/btnGuardarCambios"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/btn_green_bg"
-        android:text="@string/btn_guardar_cambios"
-        android:textColor="#081114"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

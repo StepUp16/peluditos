@@ -60,6 +60,11 @@
             android:theme="@style/Theme.Peluditos" />
 
         <activity
+            android:name=".AdminUsuarioEditar"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
+        <activity
             android:name=".AdminPacienteListadoActivity"
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />

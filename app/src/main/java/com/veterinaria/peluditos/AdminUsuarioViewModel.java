@@ -46,6 +46,10 @@ public class AdminUsuarioViewModel extends AndroidViewModel {
         return usuarioDao.getUsuario(uid);
     }
 
+    public LiveData<Usuario> getUsuarioByEmail(String email) {
+        return usuarioDao.getUsuarioByEmail(email);
+    }
+
     public void sincronizarUsuariosLocales(Context context) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
             List<Usuario> usuariosLocales = usuarioDao.getUsuariosLocales();

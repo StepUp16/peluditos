@@ -67,6 +67,11 @@
             android:theme="@style/Theme.Peluditos" />
 
         <activity
+            android:name=".AdminPerfil"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
+        <activity
             android:name=".AdminPacienteListadoActivity"
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />
@@ -80,6 +85,7 @@
             android:name=".RegistrarActivity"
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />
+
 
         <!-- Actividad correcta para Google Maps -->
         <activity

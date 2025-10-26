@@ -9,6 +9,16 @@
     <!-- Nuevas cadenas para bienvenida.xml -->
     <string name="action_iniciar">Iniciar</string>
 
+    <!-- Cadenas para la pantalla de Login -->
+    <string name="login_email_label">Correo electrónico</string>
+    <string name="login_email_hint">ejemplo@correo.com</string>
+    <string name="login_password_label">Contraseña</string>
+    <string name="login_password_hint">********</string>
+    <string name="login_forgot_password">Olvidé mi Contraseña</string>
+    <string name="login_remember_me">Recordarme</string>
+    <string name="login_button">Iniciar Sesión</string>
+    <string name="login_no_account">¿No tienes cuenta? Registrarme</string>
+
     <!-- Nuevas cadenas para admin_nuevo_usuario.xml -->
     <string name="title_nuevo_usuario">Nuevo Usuario</string>
     <string name="label_nombre">Nombre</string>
@@ -86,6 +96,9 @@
     <string name="menu_clientes">Clientes</string>
     <string name="menu_perfil">Perfil</string>
 
+    <!-- Cadenas para el menú superior -->
+    <string name="menu_logout">Cerrar Sesión</string>
+
     <!-- Cadenas para admin_nueva_cita.xml -->
     <string name="title_nueva_cita">Nueva Cita</string>
     <string name="hint_paciente">Paciente</string>
@@ -128,7 +141,7 @@
     <string name="section_reportes">Reportes Generales</string>
     <string name="option_estadisticas">Acceder a Estadísticas de la Clínica</string>
     <string name="btn_ver_usuarios">Ver Usuarios Registrados</string>
-    <string name="btn_cerrar_sesion">Cerrar Sesión</string>
+    <string name="btn_editar_perfil">Editar Perfil</string>
 
     <!-- Cadenas para admin_usuario_cliente_listado.xml -->
     <string name="title_clientes">Clientes</string>

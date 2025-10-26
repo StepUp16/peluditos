@@ -13,11 +13,14 @@ public interface UsuarioDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Usuario usuario);
 
-    @Query("SELECT * FROM usuarios WHERE rol = 'cliente'")
+    @Query("SELECT * FROM usuarios")
     LiveData<List<Usuario>> getAllUsuarios();
 
     @Query("SELECT * FROM usuarios WHERE uid = :uid")
     LiveData<Usuario> getUsuario(String uid);
+
+    @Query("SELECT * FROM usuarios WHERE email = :email LIMIT 1")
+    LiveData<Usuario> getUsuarioByEmail(String email);
 
     @Query("DELETE FROM usuarios WHERE uid = :uid")
     void deleteUsuario(String uid);

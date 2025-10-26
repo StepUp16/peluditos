@@ -160,12 +160,12 @@
                 app:backgroundTint="@null" />
 
             <Button
-                android:id="@+id/btnLogout"
+                android:id="@+id/btnEditarPerfil"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/btn_logout_bg"
-                android:text="@string/btn_cerrar_sesion"
+                android:text="@string/btn_editar_perfil"
                 android:textColor="#081114"
                 android:textSize="18sp"
                 android:textStyle="bold"

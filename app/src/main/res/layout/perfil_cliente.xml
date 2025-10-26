@@ -284,7 +284,7 @@
                 android:layout_height="56dp"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/btn_cliente"
-                android:text="@string/btn_cerrar_sesion"
+                android:text="@string/menu_logout"
                 android:textColor="#081114"
                 android:textSize="18sp"
                 android:textStyle="bold"

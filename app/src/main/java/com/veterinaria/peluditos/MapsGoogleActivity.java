@@ -44,7 +44,7 @@ public class MapsGoogleActivity extends AppCompatActivity implements OnMapReadyC
 
         // Añade un marcador de ejemplo en una ubicación y mueve la cámara
         // Puedes cambiar estas coordenadas por las de tu clínica
-        LatLng clinicaUbicacion = new LatLng(13.6929, -89.2182); // Coordenadas de ejemplo (El Salvador)
+        LatLng clinicaUbicacion = new LatLng(13.6988, -89.1913); // Coordenadas de ejemplo (El Salvador)
         mMap.addMarker(new MarkerOptions().position(clinicaUbicacion).title("Clínica Peluditos"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(clinicaUbicacion, 15)); // El 15 es el nivel de zoom
     }

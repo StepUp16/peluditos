@@ -73,13 +73,13 @@ public class maps_google extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         // Coordenadas de UES, San Salvador
-        LatLng ues = new LatLng(13.71622, -89.20323);
+        LatLng ues = new LatLng(13.6988, -89.1913);
         // Agregar marcador en esa ubicación
         mMap.addMarker(new MarkerOptions()
                 .position(ues)
-                .title("Universidad de El Salvador - San Salvador"));
+                .title("Clínica Peluditos - San Salvador"));
         // Mover la cámara al marcador con zoom
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ues, 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ues, 18));
         // -----------------------------
         // HABILITAR CONTROLES DE MAPA
         // -----------------------------

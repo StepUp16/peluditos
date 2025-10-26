@@ -89,8 +89,8 @@ public class AdminUsuarioNuevo extends AppCompatActivity {
 
     private void guardarUsuarioLocal(String nombre, String apellido, String email,
                                      String telefono, String dui, String direccion, String rol) {
-        // Usar el DUI como ID
-        String localUid = dui.replace("-", "").trim();
+        // Usar el prefijo local_ para identificar registros pendientes de sincronización
+        String localUid = "local_" + dui.replace("-", "").trim();
 
         // Crear objeto Usuario
         Usuario nuevoUsuario = new Usuario(

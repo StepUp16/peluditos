@@ -1,8 +1,11 @@
 package com.veterinaria.peluditos;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -23,6 +26,8 @@ public class AdminUsuarioClienteListadoActivity extends AppCompatActivity {
     private ClienteAdapter adapter;
     private AdminUsuarioViewModel viewModel;
     private FirebaseFirestore firestore;
+    private ConnectivityManager.NetworkCallback networkCallback;
+    private ConnectivityManager connectivityManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class AdminUsuarioClienteListadoActivity extends AppCompatActivity {
 
         // Configurar RecyclerView y su adaptador
         setupRecyclerView();
+        setupNetworkCallback();
 
         // Configurar el botón flotante para agregar cliente
         FloatingActionButton fabAddClient = findViewById(R.id.fabAddClient);
@@ -52,6 +58,47 @@ public class AdminUsuarioClienteListadoActivity extends AppCompatActivity {
 
         // Cargar usuarios desde Firestore
         loadFirestoreUsers();
+    }
+
+    private void setupNetworkCallback() {
+        connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        networkCallback = new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onAvailable(Network network) {
+                super.onAvailable(network);
+                // Ejecutar en el hilo principal
+                runOnUiThread(() -> {
+                    // Cuando hay conexión disponible, intentar sincronizar usuarios locales
+                    viewModel.sincronizarUsuariosLocales(AdminUsuarioClienteListadoActivity.this);
+                    Toast.makeText(AdminUsuarioClienteListadoActivity.this,
+                            "Conexión establecida, sincronizando usuarios...",
+                            Toast.LENGTH_SHORT).show();
+                });
+            }
+
+            @Override
+            public void onLost(Network network) {
+                super.onLost(network);
+                runOnUiThread(() -> {
+                    Toast.makeText(AdminUsuarioClienteListadoActivity.this,
+                            "Conexión perdida, los cambios se guardarán localmente",
+                            Toast.LENGTH_SHORT).show();
+                });
+            }
+        };
+
+        NetworkRequest networkRequest = new NetworkRequest.Builder()
+                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+                .build();
+
+        connectivityManager.registerNetworkCallback(networkRequest, networkCallback);
+
+        // Verificar conexión inicial y sincronizar si está disponible
+        if (isNetworkAvailable()) {
+            viewModel.sincronizarUsuariosLocales(this);
+        }
     }
 
     private void setupRecyclerView() {
@@ -115,9 +162,25 @@ public class AdminUsuarioClienteListadoActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (connectivityManager != null && networkCallback != null) {
+            connectivityManager.unregisterNetworkCallback(networkCallback);
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        // Recargar datos cuando la actividad vuelve a primer plano
-        loadFirestoreUsers();
+        // Verificar si hay conexión y sincronizar si es necesario
+        if (isNetworkAvailable()) {
+            viewModel.sincronizarUsuariosLocales(this);
+        }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+        return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
     }
 }

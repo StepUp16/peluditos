@@ -57,6 +57,21 @@ public class AdminUsuarioClienteListadoActivity extends AppCompatActivity {
     private void setupRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.recyclerViewClientes);
         adapter = new ClienteAdapter();
+
+        // Configurar el listener para eliminar usuarios
+        adapter.setOnDeleteClickListener(usuario -> {
+            // Mostrar diálogo de confirmación
+            new androidx.appcompat.app.AlertDialog.Builder(this)
+                    .setTitle("Eliminar Usuario")
+                    .setMessage("¿Estás seguro que deseas eliminar a " + usuario.getNombre() + " " + usuario.getApellido() + "?")
+                    .setPositiveButton("Eliminar", (dialog, which) -> {
+                        // Eliminar usuario de todas las bases de datos
+                        viewModel.deleteUsuario(usuario, this);
+                    })
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+        });
+
         recyclerView.setAdapter(adapter);
     }
 

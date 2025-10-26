@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -69,7 +71,6 @@
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />
 
-        <!-- Nueva actividad para crear una cita -->
         <activity
             android:name=".admin_cita_nueva"
             android:exported="false"
@@ -80,9 +81,20 @@
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />
 
+        <!-- Actividad correcta para Google Maps -->
+        <activity
+            android:name=".maps_google"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <!-- API KEY DE GOOGLE MAPS-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAsH4KZlxtN9dYYehbYp2sxkcC_mkhezDk"/>
 
     </application>
 

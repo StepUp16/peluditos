@@ -50,6 +50,11 @@
             android:theme="@style/Theme.Peluditos" />
 
         <activity
+            android:name=".AdminUsuarioNuevo"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
+        <activity
             android:name=".AdminUsuarioClienteListadoActivity"
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />

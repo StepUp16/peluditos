@@ -40,8 +40,20 @@
         android:textColor="#6B8E7A"
         app:layout_constraintTop_toBottomOf="@+id/tvUserName"
         app:layout_constraintStart_toEndOf="@+id/ivUserAvatar"
-        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+        app:layout_constraintEnd_toStartOf="@+id/btnEdit"
         app:layout_constraintBottom_toBottomOf="@+id/ivUserAvatar" />
+
+    <ImageButton
+        android:id="@+id/btnEdit"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Editar usuario"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintEnd_toStartOf="@+id/btnDelete"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:tint="@color/black" />
 
     <ImageButton
         android:id="@+id/btnDelete"

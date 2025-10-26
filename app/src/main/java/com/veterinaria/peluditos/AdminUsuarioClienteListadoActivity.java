@@ -119,6 +119,13 @@ public class AdminUsuarioClienteListadoActivity extends AppCompatActivity {
                     .show();
         });
 
+        // Configurar el listener para editar usuarios
+        adapter.setOnEditClickListener(usuario -> {
+            Intent intent = new Intent(this, AdminUsuarioEditar.class);
+            intent.putExtra("USUARIO_ID", usuario.getUid());
+            startActivity(intent);
+        });
+
         recyclerView.setAdapter(adapter);
     }
 

@@ -64,6 +64,17 @@ public class AdminUsuarioNuevo extends AppCompatActivity {
         btnBack.setOnClickListener(v -> finish());
     }
 
+    private boolean isValidEmail(String email) {
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        return email.matches(emailPattern);
+    }
+
+    private boolean isValidPassword(String password) {
+        // Al menos 8 caracteres, al menos una letra y un número
+        String passwordPattern = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
+        return password.matches(passwordPattern);
+    }
+
     private void crearUsuario() {
         String nombre = etNombre.getText().toString().trim();
         String apellido = etApellido.getText().toString().trim();
@@ -82,8 +93,38 @@ public class AdminUsuarioNuevo extends AppCompatActivity {
             return;
         }
 
+        // Validación de longitud para nombre
+        if (nombre.length() < 7) {
+            etNombre.setError("El nombre debe tener al menos 7 caracteres");
+            etNombre.requestFocus();
+            return;
+        }
+
+        // Validación de longitud para apellido
+        if (apellido.length() < 7) {
+            etApellido.setError("El apellido debe tener al menos 7 caracteres");
+            etApellido.requestFocus();
+            return;
+        }
+
+        // Validación de formato de correo electrónico
+        if (!isValidEmail(email)) {
+            etCorreo.setError("Ingrese un correo electrónico válido");
+            etCorreo.requestFocus();
+            return;
+        }
+
+        // Validación de contraseña
+        if (!isValidPassword(password)) {
+            etPassword.setError("La contraseña debe tener al menos 8 caracteres y contener letras y números");
+            etPassword.requestFocus();
+            return;
+        }
+
+        // Validación de coincidencia de contraseñas
         if (!password.equals(confirmPassword)) {
-            Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+            etConfirmPassword.setError("Las contraseñas no coinciden");
+            etConfirmPassword.requestFocus();
             return;
         }
 

@@ -100,8 +100,10 @@ public class Login_Peluditos extends AppCompatActivity {
 
     private void cargarDatosRecordados() {
         if (sessionManager.isRememberMeEnabled()) {
-            String savedEmail = sessionManager.getSavedEmail();
-            edtEmail.setText(savedEmail);
+            String emailGuardado = sessionManager.getSavedEmail();
+            String passwordGuardada = sessionManager.getSavedPassword();
+            edtEmail.setText(emailGuardado);
+            edtContraseña.setText(passwordGuardada);
             chipRecordarme.setChecked(true);
         }
     }
@@ -156,7 +158,7 @@ public class Login_Peluditos extends AppCompatActivity {
                             // Y ahora, verificamos su rol en Firestore
                             if (user != null) {
                                 // Guardar datos si "Recordarme" está activado
-                                sessionManager.saveRememberMe(chipRecordarme.isChecked(), correo);
+                                sessionManager.saveRememberMe(chipRecordarme.isChecked(), correo, contrasena);
                                 verificarRol(user.getUid());
                             }
                         } else {

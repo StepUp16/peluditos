@@ -10,7 +10,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +29,7 @@ public class Login_Peluditos extends AppCompatActivity {
     // 1. Declaramos los elementos de la UI y las instancias de Firebase
     private EditText edtEmail, edtContraseña;
     private Button btnIniciarSesion;
-    private Switch switchRecordarme;
+    private Chip chipRecordarme;
     private TextView txtRegistrarme;
 
     private FirebaseAuth mAuth;
@@ -56,7 +55,7 @@ public class Login_Peluditos extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtEmail);
         edtContraseña = findViewById(R.id.edtContraseña);
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion);
-        switchRecordarme = findViewById(R.id.switchRecordarme);
+        chipRecordarme = findViewById(R.id.chipRecordarme);
         txtRegistrarme = findViewById(R.id.txtRegistrarme);
 
         // 4. Verificar si ya hay una sesión activa
@@ -103,7 +102,7 @@ public class Login_Peluditos extends AppCompatActivity {
         if (sessionManager.isRememberMeEnabled()) {
             String savedEmail = sessionManager.getSavedEmail();
             edtEmail.setText(savedEmail);
-            switchRecordarme.setChecked(true);
+            chipRecordarme.setChecked(true);
         }
     }
 
@@ -157,7 +156,7 @@ public class Login_Peluditos extends AppCompatActivity {
                             // Y ahora, verificamos su rol en Firestore
                             if (user != null) {
                                 // Guardar datos si "Recordarme" está activado
-                                sessionManager.saveRememberMe(switchRecordarme.isChecked(), correo);
+                                sessionManager.saveRememberMe(chipRecordarme.isChecked(), correo);
                                 verificarRol(user.getUid());
                             }
                         } else {

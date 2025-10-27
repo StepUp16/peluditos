@@ -85,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtContraseña"
-        app:layout_constraintBottom_toTopOf="@+id/switchRecordarme">
+        app:layout_constraintBottom_toTopOf="@+id/chipRecordarme">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtContraseña"
@@ -101,21 +101,21 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- 3. Switch y TextView en la misma línea para ahorrar espacio -->
-    <Switch
-        android:id="@+id/switchRecordarme"
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chipRecordarme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:fontFamily="@font/spline_sans"
         android:text="Recordarme"
-        android:textColor="?attr/colorOnSurface"
-        android:textSize="14sp"
-        android:thumbTint="@color/switch_thumb_color"
-        android:trackTint="@color/switch_track_color"
+        android:textColor="@color/textColorPrimary"
+        android:checkable="true"
+        app:chipBackgroundColor="@color/chip_background_color"
+        app:chipStrokeColor="#9EB8A8"
+        app:chipStrokeWidth="1dp"
+        android:fontFamily="@font/spline_sans"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutContraseña"
-        app:layout_constraintBottom_toTopOf="@+id/txtRegistrarme" />
+        app:layout_constraintBottom_toTopOf="@+id/btnIniciarSesion" />
 
     <TextView
         android:id="@+id/txtOlvidarContraseña"
@@ -130,8 +130,8 @@
         android:textColor="#38E07A"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/switchRecordarme"
-        app:layout_constraintBottom_toBottomOf="@+id/switchRecordarme" />
+        app:layout_constraintTop_toTopOf="@+id/chipRecordarme"
+        app:layout_constraintBottom_toBottomOf="@+id/chipRecordarme" />
 
     <!-- Botón "Registrarme" -->
     <TextView
@@ -149,7 +149,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switchRecordarme"
+        app:layout_constraintTop_toBottomOf="@+id/chipRecordarme"
         app:layout_constraintBottom_toTopOf="@+id/btnIniciarSesion"/>
 
     <!-- Botón de Iniciar Sesión, anclado a la parte inferior -->

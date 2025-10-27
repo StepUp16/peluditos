@@ -16,6 +16,8 @@ public class Usuario {
     private String dui;
     private String direccion;
     private String rol;
+    private boolean sincronizado = true;
+    private long timestampModificacion = System.currentTimeMillis();
 
     public Usuario(@NonNull String uid, String nombre, String apellido, String email,
                   String telefono, String dui, String direccion, String rol) {
@@ -27,6 +29,8 @@ public class Usuario {
         this.dui = dui;
         this.direccion = direccion;
         this.rol = rol;
+        this.sincronizado = true;
+        this.timestampModificacion = System.currentTimeMillis();
     }
 
     @NonNull
@@ -53,4 +57,10 @@ public class Usuario {
 
     public String getRol() { return rol; }
     public void setRol(String rol) { this.rol = rol; }
+
+    public boolean isSincronizado() { return sincronizado; }
+    public void setSincronizado(boolean sincronizado) { this.sincronizado = sincronizado; }
+
+    public long getTimestampModificacion() { return timestampModificacion; }
+    public void setTimestampModificacion(long timestampModificacion) { this.timestampModificacion = timestampModificacion; }
 }

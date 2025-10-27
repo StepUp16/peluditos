@@ -1,46 +1,30 @@
 package com.veterinaria.peluditos;
 
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.veterinaria.peluditos.adapters.ClienteAdapter;
-import com.veterinaria.peluditos.data.Usuario;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AdminUsuarioClienteListadoActivity extends AppCompatActivity {
     private ClienteAdapter adapter;
     private AdminUsuarioViewModel viewModel;
-    private FirebaseFirestore firestore;
-    private ConnectivityManager.NetworkCallback networkCallback;
-    private ConnectivityManager connectivityManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_usuario_cliente_listado);
 
-        // Inicializar ViewModel y Firestore
+        // Inicializar ViewModel
         viewModel = new ViewModelProvider(this).get(AdminUsuarioViewModel.class);
-        firestore = FirebaseFirestore.getInstance();
 
         // Configurar RecyclerView y su adaptador
         setupRecyclerView();
-        setupNetworkCallback();
 
         // Configurar el botón flotante para agregar cliente
         FloatingActionButton fabAddClient = findViewById(R.id.fabAddClient);
@@ -54,51 +38,8 @@ public class AdminUsuarioClienteListadoActivity extends AppCompatActivity {
         btnBack.setOnClickListener(v -> finish());
 
         // Observar cambios en la base de datos local
+        // El repositorio maneja automáticamente la sincronización con Firestore
         observeLocalUsers();
-
-        // Cargar usuarios desde Firestore
-        loadFirestoreUsers();
-    }
-
-    private void setupNetworkCallback() {
-        connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        networkCallback = new ConnectivityManager.NetworkCallback() {
-            @Override
-            public void onAvailable(Network network) {
-                super.onAvailable(network);
-                // Ejecutar en el hilo principal
-                runOnUiThread(() -> {
-                    // Cuando hay conexión disponible, intentar sincronizar usuarios locales
-                    viewModel.sincronizarUsuariosLocales(AdminUsuarioClienteListadoActivity.this);
-                    Toast.makeText(AdminUsuarioClienteListadoActivity.this,
-                            "Conexión establecida, sincronizando usuarios...",
-                            Toast.LENGTH_SHORT).show();
-                });
-            }
-
-            @Override
-            public void onLost(Network network) {
-                super.onLost(network);
-                runOnUiThread(() -> {
-                    Toast.makeText(AdminUsuarioClienteListadoActivity.this,
-                            "Conexión perdida, los cambios se guardarán localmente",
-                            Toast.LENGTH_SHORT).show();
-                });
-            }
-        };
-
-        NetworkRequest networkRequest = new NetworkRequest.Builder()
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                .addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
-                .build();
-
-        connectivityManager.registerNetworkCallback(networkRequest, networkCallback);
-
-        // Verificar conexión inicial y sincronizar si está disponible
-        if (isNetworkAvailable()) {
-            viewModel.sincronizarUsuariosLocales(this);
-        }
     }
 
     private void setupRecyclerView() {
@@ -112,7 +53,7 @@ public class AdminUsuarioClienteListadoActivity extends AppCompatActivity {
                     .setTitle("Eliminar Usuario")
                     .setMessage("¿Estás seguro que deseas eliminar a " + usuario.getNombre() + " " + usuario.getApellido() + "?")
                     .setPositiveButton("Eliminar", (dialog, which) -> {
-                        // Eliminar usuario de todas las bases de datos
+                        // Eliminar usuario
                         viewModel.deleteUsuario(usuario, this);
                     })
                     .setNegativeButton("Cancelar", null)
@@ -135,59 +76,5 @@ public class AdminUsuarioClienteListadoActivity extends AppCompatActivity {
                 adapter.setUsuarios(usuarios);
             }
         });
-    }
-
-    private void loadFirestoreUsers() {
-        firestore.collection("usuarios")
-                .whereEqualTo("rol", "cliente")  // Filtrar solo usuarios con rol "cliente"
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    List<Usuario> usuariosFirestore = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                        String uid = document.getId();
-                        String nombre = document.getString("nombre");
-                        String apellido = document.getString("apellido");
-                        String email = document.getString("email");
-                        String telefono = document.getString("telefono");
-                        String dui = document.getString("dui");
-                        String direccion = document.getString("direccion");
-                        String rol = document.getString("rol");
-
-                        Usuario usuario = new Usuario(uid, nombre, apellido, email,
-                                                   telefono, dui, direccion, rol);
-                        usuariosFirestore.add(usuario);
-                    }
-                    // Actualizar la base de datos local con los datos de Firestore
-                    for (Usuario usuario : usuariosFirestore) {
-                        viewModel.insert(usuario);
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Error al cargar usuarios: " + e.getMessage(),
-                            Toast.LENGTH_SHORT).show();
-                });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (connectivityManager != null && networkCallback != null) {
-            connectivityManager.unregisterNetworkCallback(networkCallback);
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Verificar si hay conexión y sincronizar si es necesario
-        if (isNetworkAvailable()) {
-            viewModel.sincronizarUsuariosLocales(this);
-        }
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
-        return capabilities != null && capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
     }
 }

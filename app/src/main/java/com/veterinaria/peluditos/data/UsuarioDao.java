@@ -16,6 +16,9 @@ public interface UsuarioDao {
     @Query("SELECT * FROM usuarios")
     LiveData<List<Usuario>> getAllUsuarios();
 
+    @Query("SELECT * FROM usuarios WHERE rol = 'cliente'")
+    LiveData<List<Usuario>> getAllClientes();
+
     @Query("SELECT * FROM usuarios WHERE uid = :uid")
     LiveData<Usuario> getUsuario(String uid);
 

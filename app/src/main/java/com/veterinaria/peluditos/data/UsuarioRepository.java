@@ -34,7 +34,7 @@ public class UsuarioRepository {
         AppDatabase db = AppDatabase.getDatabase(application);
         usuarioDao = db.usuarioDao();
         firestore = FirebaseFirestore.getInstance();
-        allUsuarios = usuarioDao.getAllUsuarios();
+        allUsuarios = usuarioDao.getAllClientes();
         setupNetworkCallback(application);
     }
 

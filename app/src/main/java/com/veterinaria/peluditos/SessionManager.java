@@ -7,6 +7,7 @@ public class SessionManager {
     private static final String PREF_NAME = "PeluditosPrefs";
     private static final String KEY_REMEMBER_ME = "remember_me";
     private static final String KEY_EMAIL = "email";
+    private static final String KEY_PASSWORD = "password";
     private static final String KEY_IS_LOGGED_IN = "is_logged_in";
     private static final String KEY_USER_ROLE = "user_role";
 
@@ -32,13 +33,15 @@ public class SessionManager {
     /**
      * Guardar datos de "Recordarme"
      */
-    public void saveRememberMe(boolean remember, String email) {
+    public void saveRememberMe(boolean remember, String email, String password) {
         if (remember) {
             editor.putBoolean(KEY_REMEMBER_ME, true);
             editor.putString(KEY_EMAIL, email);
+            editor.putString(KEY_PASSWORD, password);
         } else {
             editor.putBoolean(KEY_REMEMBER_ME, false);
             editor.remove(KEY_EMAIL);
+            editor.remove(KEY_PASSWORD);
         }
         editor.apply();
     }
@@ -72,12 +75,20 @@ public class SessionManager {
     }
 
     /**
+     * Obtener la contraseña guardada
+     */
+    public String getSavedPassword() {
+        return sharedPreferences.getString(KEY_PASSWORD, "");
+    }
+
+    /**
      * Cerrar sesión y limpiar datos
      */
     public void logoutUser() {
         // Mantener los datos de "Recordarme" si estaban activados
         boolean rememberMe = isRememberMeEnabled();
         String savedEmail = getSavedEmail();
+        String savedPassword = getSavedPassword();
 
         // Limpiar todas las preferencias
         editor.clear();
@@ -86,6 +97,7 @@ public class SessionManager {
         if (rememberMe) {
             editor.putBoolean(KEY_REMEMBER_ME, true);
             editor.putString(KEY_EMAIL, savedEmail);
+            editor.putString(KEY_PASSWORD, savedPassword);
         }
 
         editor.apply();

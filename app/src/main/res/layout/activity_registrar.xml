@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
     android:fillViewport="true">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:background="#00FFFFFF"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -105,6 +112,38 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblApellido" />
 
+        <!-- Campo DUI -->
+        <TextView
+            android:id="@+id/lblDUI"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/spline_sans_medium"
+            android:text="DUI"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtApellido" />
+
+        <EditText
+            android:id="@+id/edtDUI"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_bg"
+            android:fontFamily="@font/spline_sans"
+            android:hint="Ingresa tu número de DUI"
+            android:inputType="number"
+            android:maxLength="9"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColorHint="#9EB8A8"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblDUI" />
+
         <!-- Campo Email -->
         <TextView
             android:id="@+id/lblEmail"
@@ -117,7 +156,7 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtApellido" />
+            app:layout_constraintTop_toBottomOf="@+id/edtDUI" />
 
         <EditText
             android:id="@+id/edtEmail"

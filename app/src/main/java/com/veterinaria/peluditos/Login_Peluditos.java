@@ -169,32 +169,39 @@ public class Login_Peluditos extends AppCompatActivity {
     }
 
     private void verificarRol(String uid) {
-        // 6. Buscamos en la colección "usuarios" el documento con el UID del usuario logueado
-        db.collection("usuarios").document(uid).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document != null && document.exists()) {
-                                // Si el documento existe, leemos el campo "rol"
-                                String rol = document.getString("rol");
+        // Primero buscamos el usuario por email para obtener su DUI
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null || user.getEmail() == null) {
+            Toast.makeText(Login_Peluditos.this, "Error: No se pudo obtener la información del usuario", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-                                // Guardar sesión activa
-                                sessionManager.createLoginSession(rol);
+        db.collection("usuarios")
+                .whereEqualTo("email", user.getEmail())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                        // Tomamos el primer documento que coincida con el email
+                        DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                        String rol = document.getString("rol");
 
-                                // Navegar según el rol
-                                navegarSegunRol(rol);
+                        // Guardar sesión activa
+                        sessionManager.createLoginSession(rol);
 
-                            } else {
-                                // Esto no debería pasar si el admin crea bien los usuarios
-                                Toast.makeText(Login_Peluditos.this, "No se encontraron datos para este usuario.", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            // Error al buscar en Firestore
-                            Toast.makeText(Login_Peluditos.this, "Error al obtener datos: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+                        // Navegar según el rol
+                        navegarSegunRol(rol);
+                    } else {
+                        Toast.makeText(Login_Peluditos.this,
+                            "No se encontraron datos para este usuario.",
+                            Toast.LENGTH_SHORT).show();
+                        // Cerrar sesión de Firebase Auth ya que no encontramos los datos en Firestore
+                        mAuth.signOut();
                     }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(Login_Peluditos.this,
+                        "Error al obtener datos: " + e.getMessage(),
+                        Toast.LENGTH_SHORT).show();
                 });
     }
 

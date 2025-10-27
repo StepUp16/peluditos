@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 
 public class RegistrarActivity extends AppCompatActivity {
 
-    private EditText edtNombre, edtApellido, edtEmail, edtTelefono, edtContraseña, edtConfirmarContraseña;
+    private EditText edtNombre, edtApellido, edtEmail, edtTelefono, edtContraseña, edtConfirmarContraseña, edtDUI;
     private Button btnRegistrar;
     private TextView txtYaTengoCuenta;
 
@@ -36,6 +36,10 @@ public class RegistrarActivity extends AppCompatActivity {
     // Patrón para validar contraseña alfanumérica de mínimo 8 caracteres
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^(?=.*[0-9])(?=.*[a-zA-Z]).{8,}$");
+
+    // Patrón para validar DUI (9 dígitos)
+    private static final Pattern DUI_PATTERN =
+            Pattern.compile("^[0-9]{9}$");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public class RegistrarActivity extends AppCompatActivity {
         // Vincular elementos de la UI
         edtNombre = findViewById(R.id.edtNombre);
         edtApellido = findViewById(R.id.edtApellido);
+        edtDUI = findViewById(R.id.edtDUI);
         edtEmail = findViewById(R.id.edtEmail);
         edtTelefono = findViewById(R.id.edtTelefono);
         edtContraseña = findViewById(R.id.edtContraseña);
@@ -78,6 +83,7 @@ public class RegistrarActivity extends AppCompatActivity {
     private void registrarUsuario() {
         String nombre = edtNombre.getText().toString().trim();
         String apellido = edtApellido.getText().toString().trim();
+        String dui = edtDUI.getText().toString().trim();
         String email = edtEmail.getText().toString().trim();
         String telefono = edtTelefono.getText().toString().trim();
         String contraseña = edtContraseña.getText().toString().trim();
@@ -93,6 +99,18 @@ public class RegistrarActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(apellido)) {
             edtApellido.setError("El apellido es requerido");
             edtApellido.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(dui)) {
+            edtDUI.setError("El DUI es requerido");
+            edtDUI.requestFocus();
+            return;
+        }
+
+        if (!DUI_PATTERN.matcher(dui).matches()) {
+            edtDUI.setError("El DUI debe tener 9 dígitos");
+            edtDUI.requestFocus();
             return;
         }
 
@@ -153,7 +171,7 @@ public class RegistrarActivity extends AppCompatActivity {
                             // Registro exitoso, guardar datos adicionales en Firestore
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null) {
-                                guardarDatosUsuario(user.getUid(), nombre, apellido, email, telefono);
+                                guardarDatosUsuario(user.getUid(), nombre, apellido, dui, email, telefono);
                             }
                         } else {
                             // Error en el registro
@@ -167,16 +185,17 @@ public class RegistrarActivity extends AppCompatActivity {
                 });
     }
 
-    private void guardarDatosUsuario(String uid, String nombre, String apellido, String email, String telefono) {
+    private void guardarDatosUsuario(String uid, String nombre, String apellido, String dui, String email, String telefono) {
         Map<String, Object> usuario = new HashMap<>();
         usuario.put("nombre", nombre);
         usuario.put("apellido", apellido);
+        usuario.put("dui", dui);
         usuario.put("email", email);
         usuario.put("telefono", telefono);
         usuario.put("rol", "cliente"); // Por defecto los usuarios registrados son clientes
         usuario.put("fechaRegistro", System.currentTimeMillis());
 
-        db.collection("usuarios").document(uid)
+        db.collection("usuarios").document(dui)
                 .set(usuario)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

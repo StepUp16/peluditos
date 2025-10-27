@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Color cuando el chip está seleccionado (checked) -->
-    <item android:color="#38E07A" android:state_checked="true" />
-    <!-- Color cuando el chip está deseleccionado (unchecked) -->
-    <item android:color="#E0E0E0" />
+    <item android:color="#38E07A" android:state_checked="true"/>
+    <item android:color="#9EB8A8" android:state_checked="false"/>
 </selector>
+

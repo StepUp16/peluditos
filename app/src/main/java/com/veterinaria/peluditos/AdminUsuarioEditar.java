@@ -1,7 +1,6 @@
 package com.veterinaria.peluditos;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -133,18 +132,34 @@ public class AdminUsuarioEditar extends AppCompatActivity {
     private void cargarDesdeLocal() {
         Log.d(TAG, "Cargando datos desde base local");
 
-        viewModel.getUsuario(usuarioId).observe(this, usuario -> {
-            if (usuario != null) {
-                usuarioOriginal = usuario;
-                mostrarDatosEnUI(usuario);
-                Log.d(TAG, "Datos cargados desde base local exitosamente");
-            } else {
-                Log.e(TAG, "Usuario no encontrado en base local");
-                Toast.makeText(this, "Error: No se encontraron datos del usuario",
-                        Toast.LENGTH_LONG).show();
-                finish();
+        // Usar una consulta única en lugar de observe para evitar actualizaciones automáticas
+        new Thread(() -> {
+            try {
+                // Obtener el usuario directamente sin LiveData
+                Usuario usuario = viewModel.getUsuarioDirecto(usuarioId);
+                if (usuario != null) {
+                    runOnUiThread(() -> {
+                        usuarioOriginal = usuario;
+                        mostrarDatosEnUI(usuario);
+                        Log.d(TAG, "Datos cargados desde base local exitosamente");
+                    });
+                } else {
+                    runOnUiThread(() -> {
+                        Log.e(TAG, "Usuario no encontrado en base local");
+                        Toast.makeText(this, "Error: No se encontraron datos del usuario",
+                                Toast.LENGTH_LONG).show();
+                        finish();
+                    });
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Error al cargar usuario desde base local", e);
+                runOnUiThread(() -> {
+                    Toast.makeText(this, "Error al cargar datos del usuario",
+                            Toast.LENGTH_LONG).show();
+                    finish();
+                });
             }
-        });
+        }).start();
     }
 
     private Usuario createUsuarioFromDocument(DocumentSnapshot document) {
@@ -307,7 +322,8 @@ public class AdminUsuarioEditar extends AppCompatActivity {
     private void guardarEnLocal(Usuario usuario, boolean mostrarMensaje) {
         Log.d(TAG, "Guardando en base local");
 
-        viewModel.insert(usuario);
+        // Usar update en lugar de insert para preservar el estado de sincronización
+        viewModel.update(usuario);
 
         runOnUiThread(() -> {
             btnGuardar.setEnabled(true);

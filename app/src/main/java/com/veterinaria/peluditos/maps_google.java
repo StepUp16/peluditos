@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class maps_google extends AppCompatActivity implements OnMapReadyCallback{
     private GoogleMap mMap;
     private FirebaseAuth mAuth;
-    private SessionManager sessionManager; // <--- 1. Instancia de SessionManager
+    private SessionManager sessionManager; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +35,17 @@ public class maps_google extends AppCompatActivity implements OnMapReadyCallback
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // --- ¡AQUÍ ESTÁ LA SOLUCIÓN! ---
+        // 1. Mostrar la flecha de retroceso en la Toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle(""); // Opcional: para quitar el nombre de la app
+        }
+
         // Inicializar FirebaseAuth y SessionManager
         mAuth = FirebaseAuth.getInstance();
-        sessionManager = new SessionManager(this); // <--- 2. Inicializar SessionManager
+        sessionManager = new SessionManager(this); 
 
         //Inicializar el fragment del mapa
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.main);
@@ -48,6 +56,13 @@ public class maps_google extends AppCompatActivity implements OnMapReadyCallback
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    // 2. Manejar el clic en la flecha de retroceso
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed(); // Simula el botón de "atrás" del sistema
+        return true;
     }
 
     @Override
@@ -62,15 +77,11 @@ public class maps_google extends AppCompatActivity implements OnMapReadyCallback
         int itemId = item.getItemId();
 
         if (itemId == R.id.menu_logout) {
-            // --- 3. LÓGICA DE CIERRE DE SESIÓN COMPLETA Y CORREGIDA ---
-            // a. Cerrar sesión en Firebase
+            // Lógica para cerrar sesión
             mAuth.signOut();
-            // b. Limpiar la sesión local guardada
             sessionManager.logoutUser();
 
-            // c. Redirigir a la pantalla de Login
             Intent intent = new Intent(maps_google.this, Login_Peluditos.class);
-            // Limpiar la pila de actividades para que el usuario no pueda volver atrás
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
             finish(); 
@@ -79,7 +90,9 @@ public class maps_google extends AppCompatActivity implements OnMapReadyCallback
         } else if (mMap != null) {
             // Lógica para cambiar el tipo de mapa
             if (itemId == R.id.perfil) {
-                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                // Navegación al perfil (sin cerrar esta pantalla para una mejor UX)
+                Intent intent = new Intent(this, AdminPerfil.class);
+                startActivity(intent);
                 return true;
             }
         }
@@ -91,7 +104,7 @@ public class maps_google extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-        // Coordenadas de UES, San Salvador (Tus cambios han sido respetados)
+        // Coordenadas de UES, San Salvador
         LatLng ues = new LatLng(13.6988, -89.1913);
         
         mMap.addMarker(new MarkerOptions()

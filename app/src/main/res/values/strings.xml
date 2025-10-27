@@ -20,7 +20,7 @@
     <string name="login_no_account">¿No tienes cuenta? Registrarme</string>
 
     <!-- Nuevas cadenas para admin_nuevo_usuario.xml -->
-    <string name="title_nuevo_usuario">Nuevo Usuario</string>
+    <string name="title_nuevo_usuario">Nuevo Usuario Cliente</string>
     <string name="label_nombre">Nombre</string>
     <string name="hint_nombre">Ingresa el nombre</string>
     <string name="label_apellido">Apellido</string>

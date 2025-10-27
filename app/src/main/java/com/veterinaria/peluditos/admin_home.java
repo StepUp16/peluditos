@@ -34,6 +34,10 @@ public class admin_home extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("");
+        }
+
         // 2. Inicializar FirebaseAuth y SessionManager
         mAuth = FirebaseAuth.getInstance();
         sessionManager = new SessionManager(this);

@@ -5,13 +5,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
     android:fillViewport="true">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="88dp"
-        android:background="#00FFFFFF"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"/>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

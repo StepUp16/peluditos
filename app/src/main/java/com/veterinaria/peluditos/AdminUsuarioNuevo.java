@@ -1,5 +1,6 @@
 package com.veterinaria.peluditos;
 
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -67,7 +68,15 @@ public class AdminUsuarioNuevo extends AppCompatActivity {
 
     private void setupListeners() {
         btnCrearUsuario.setOnClickListener(v -> crearUsuario());
-        btnBack.setOnClickListener(v -> finish());
+        // --- ¡AQUÍ ESTÁ LA SOLUCIÓN! ---
+        btnBack.setOnClickListener(v -> {
+            // Creamos un Intent explícito para forzar el regreso a admin_home
+            Intent intent = new Intent(AdminUsuarioNuevo.this, admin_home.class);
+            // Estas flags limpian el historial de pantallas intermedias (como la lista)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish(); // Cerramos la actividad actual
+        });
     }
 
     private boolean isValidEmail(String email) {

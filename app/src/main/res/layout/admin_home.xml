@@ -24,17 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
-            android:id="@+id/imgAvatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/person_outline_24"
-            app:tint="@color/textColorPrimary"
-            android:contentDescription="Avatar"/>
-            <!--android:background="@drawable/icono_perfil"-->
-
-
-
         <TextView
             android:id="@+id/tvTitleHome"
             android:layout_width="0dp"

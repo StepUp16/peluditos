@@ -2,7 +2,7 @@
 <resources>
     <string-array name="roles_array">
         <item>cliente</item>
-        <item>admin</item>
+        <item>administrador</item>
         <item>veterinario</item>
     </string-array>
 </resources>

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,8 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.veterinaria.peluditos.data.Usuario;
-
-import java.util.UUID;
 
 public class AdminUsuarioNuevo extends AppCompatActivity {
     private EditText etNombre, etApellido, etCorreo, etTelefono, etDui, etDireccion, etPassword, etConfirmPassword;
@@ -135,15 +132,29 @@ public class AdminUsuarioNuevo extends AppCompatActivity {
         }
 
         // Validación de longitud para nombre
-        if (nombre.length() < 7) {
-            etNombre.setError("El nombre debe tener al menos 7 caracteres");
+        if (nombre.length() < 2) {
+            etNombre.setError("El nombre debe tener al menos 2 caracteres");
+            etNombre.requestFocus();
+            return;
+        }
+
+        // Validación de caracteres válidos para nombre (solo letras y espacios)
+        if (!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")) {
+            etNombre.setError("El nombre solo puede contener letras y espacios");
             etNombre.requestFocus();
             return;
         }
 
         // Validación de longitud para apellido
-        if (apellido.length() < 7) {
-            etApellido.setError("El apellido debe tener al menos 7 caracteres");
+        if (apellido.length() < 2) {
+            etApellido.setError("El apellido debe tener al menos 2 caracteres");
+            etApellido.requestFocus();
+            return;
+        }
+
+        // Validación de caracteres válidos para apellido (solo letras y espacios)
+        if (!apellido.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")) {
+            etApellido.setError("El apellido solo puede contener letras y espacios");
             etApellido.requestFocus();
             return;
         }
@@ -169,10 +180,31 @@ public class AdminUsuarioNuevo extends AppCompatActivity {
             return;
         }
 
-        // Validación específica para DUI
-        if (dui.length() < 9) {
-            etDui.setError("El DUI debe tener al menos 9 dígitos");
+        // Validación de formato de teléfono (solo números)
+        if (!telefono.matches("^[0-9]+$")) {
+            etTelefono.setError("El teléfono solo puede contener números y guiones");
+            etTelefono.requestFocus();
+            return;
+        }
+
+        // Validación de longitud de teléfono
+        if (telefono.length() < 8) {
+            etTelefono.setError("El teléfono debe tener al menos 8 caracteres");
+            etTelefono.requestFocus();
+            return;
+        }
+
+        // Validación específica para DUI (formato: 0123456789)
+        if (!dui.matches("^[0-9]+$")) {
+            etDui.setError("El DUI debe tener solo 9 digitos");
             etDui.requestFocus();
+            return;
+        }
+
+        // Validación de longitud de dirección
+        if (direccion.length() < 10) {
+            etDireccion.setError("La dirección debe tener al menos 10 caracteres");
+            etDireccion.requestFocus();
             return;
         }
 

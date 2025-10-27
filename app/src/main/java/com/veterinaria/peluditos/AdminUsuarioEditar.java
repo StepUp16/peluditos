@@ -256,8 +256,22 @@ public class AdminUsuarioEditar extends AppCompatActivity {
             return false;
         }
 
+        // Validación de caracteres válidos para nombre (solo letras y espacios)
+        if (!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")) {
+            etNombre.setError("El nombre solo puede contener letras y espacios");
+            etNombre.requestFocus();
+            return false;
+        }
+
         if (apellido.length() < 2) {
             etApellido.setError("El apellido debe tener al menos 2 caracteres");
+            etApellido.requestFocus();
+            return false;
+        }
+
+        // Validación de caracteres válidos para apellido (solo letras y espacios)
+        if (!apellido.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")) {
+            etApellido.setError("El apellido solo puede contener letras y espacios");
             etApellido.requestFocus();
             return false;
         }
@@ -276,15 +290,36 @@ public class AdminUsuarioEditar extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
 
-        if (telefono.length() < 8) {
-            etTelefono.setError("El teléfono debe tener al menos 8 dígitos");
+        // Validación de formato de teléfono (solo números y guiones)
+        if (!telefono.matches("^[0-9]+$")) {
+            etTelefono.setError("El teléfono solo puede contener números");
             etTelefono.requestFocus();
             return false;
         }
 
-        if (dui.length() < 9) {
-            etDui.setError("El DUI debe tener al menos 9 caracteres");
+        if (telefono.length() != 8) {
+            etTelefono.setError("El teléfono debe tener exactamente 8 dígitos");
+            etTelefono.requestFocus();
+            return false;
+        }
+
+        // Validación específica para DUI (formato: 123456789)
+        if (!dui.matches("^[0-9]+$")) {
+            etDui.setError("El DUI solo puede contener números");
             etDui.requestFocus();
+            return false;
+        }
+
+        if (dui.length() != 9) {
+            etDui.setError("El DUI debe tener exactamente 9 dígitos");
+            etDui.requestFocus();
+            return false;
+        }
+
+        // Validación de longitud de dirección
+        if (direccion.length() < 10) {
+            etDireccion.setError("La dirección debe tener al menos 10 caracteres");
+            etDireccion.requestFocus();
             return false;
         }
 

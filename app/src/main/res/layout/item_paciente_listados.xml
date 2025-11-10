@@ -26,6 +26,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/tvClientPhone"
+        app:layout_constraintEnd_toStartOf="@+id/btnEditPaciente"
         app:layout_constraintStart_toEndOf="@+id/ivUserAvatar"
         app:layout_constraintTop_toTopOf="@+id/ivUserAvatar"
         app:layout_constraintVertical_chainStyle="packed" />
@@ -38,8 +39,33 @@
         android:text="Perro, Cliente: Juan Pérez"
         android:textSize="16sp"
         android:textColor="#6B8E7A"
-        app:layout_constraintTop_toBottomOf="@+id/tvPacienteName"
+        app:layout_constraintBottom_toBottomOf="@+id/ivUserAvatar"
+        app:layout_constraintEnd_toStartOf="@+id/btnEditPaciente"
         app:layout_constraintStart_toEndOf="@+id/ivUserAvatar"
-        app:layout_constraintBottom_toBottomOf="@+id/ivUserAvatar" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPacienteName" />
+
+    <ImageButton
+        android:id="@+id/btnEditPaciente"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/desc_editar_paciente"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnDeletePaciente"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?attr/colorControlNormal" />
+
+    <ImageButton
+        android:id="@+id/btnDeletePaciente"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/desc_eliminar_paciente"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#FF4444" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

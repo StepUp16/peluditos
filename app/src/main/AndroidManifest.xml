@@ -27,7 +27,12 @@
         </activity>
 
         <activity
-            android:name=".AdminNuevoPacienteActivity"
+            android:name=".AdminPacienteNuevoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
+        <activity
+            android:name=".AdminPacienteEditarActivity"
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />
 

@@ -23,7 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnGuardarPaciente">
@@ -77,18 +77,14 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
-            <EditText
-                android:id="@+id/etEspecie"
+            <Spinner
+                android:id="@+id/spinnerEspecie"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_cliente"
-                android:hint="@string/hint_especie"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android:inputType="text"
-                android:autofillHints="none"/>
+                android:padding="12dp"
+                android:spinnerMode="dropdown"
+                android:layout_marginBottom="16dp"/>
 
             <!-- Raza -->
             <TextView
@@ -98,18 +94,14 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
-            <EditText
-                android:id="@+id/etRaza"
+            <Spinner
+                android:id="@+id/spinnerRaza"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_cliente"
-                android:hint="@string/hint_raza"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android:inputType="text"
-                android:autofillHints="none"/>
+                android:padding="12dp"
+                android:spinnerMode="dropdown"
+                android:layout_marginBottom="16dp"/>
 
             <!-- Edad -->
             <TextView

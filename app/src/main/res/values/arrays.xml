@@ -5,5 +5,75 @@
         <item>administrador</item>
         <item>veterinario</item>
     </string-array>
+
+    <string-array name="sexo_paciente_array">
+        <item>@string/placeholder_select_sexo</item>
+        <item>Macho</item>
+        <item>Hembra</item>
+    </string-array>
+
+    <string-array name="especies_array">
+        <item>@string/placeholder_select_especie</item>
+        <item>@string/especie_perro</item>
+        <item>@string/especie_gato</item>
+        <item>@string/especie_ave</item>
+        <item>@string/especie_reptil</item>
+        <item>@string/especie_otro</item>
+    </string-array>
+
+    <string-array name="razas_placeholder_array">
+        <item>@string/placeholder_select_raza</item>
+    </string-array>
+
+    <string-array name="razas_perro_array">
+        <item>@string/placeholder_select_raza</item>
+        <item>Labrador Retriever</item>
+        <item>Golden Retriever</item>
+        <item>Bulldog</item>
+        <item>Poodle</item>
+        <item>Beagle</item>
+        <item>Pastor Alemán</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="razas_gato_array">
+        <item>@string/placeholder_select_raza</item>
+        <item>Persa</item>
+        <item>Siamés</item>
+        <item>Maine Coon</item>
+        <item>Bengalí</item>
+        <item>Azul Ruso</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="razas_ave_array">
+        <item>@string/placeholder_select_raza</item>
+        <item>Canario</item>
+        <item>Periquito</item>
+        <item>Cacatúa</item>
+        <item>Guacamaya</item>
+        <item>Loro</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="razas_reptil_array">
+        <item>@string/placeholder_select_raza</item>
+        <item>Iguana</item>
+        <item>Tortuga</item>
+        <item>Serpiente</item>
+        <item>Gecko</item>
+        <item>Camaleón</item>
+        <item>Otro</item>
+    </string-array>
+
+    <string-array name="razas_otro_array">
+        <item>@string/placeholder_select_raza</item>
+        <item>Conejo</item>
+        <item>Hurón</item>
+        <item>Hámster</item>
+        <item>Cobaya</item>
+        <item>Mini Pig</item>
+        <item>Otro</item>
+    </string-array>
 </resources>
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    tools:context=".AdminPacienteListadoActivity">
 
     <!-- Barra superior -->
     <TextView
@@ -35,7 +35,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewCitas"
+        android:id="@+id/recyclerViewPacientes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -47,6 +47,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAddPaciente"
         tools:listitem="@layout/item_paciente_listados" />
+
+    <TextView
+        android:id="@+id/tvEmptyState"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/empty_pacientes"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/recyclerViewPacientes"
+        app:layout_constraintBottom_toBottomOf="@id/recyclerViewPacientes"
+        app:layout_constraintStart_toStartOf="@+id/recyclerViewPacientes"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewPacientes"
+        tools:visibility="visible" />
 
     <!-- Menú inferior fijo -->
     <LinearLayout

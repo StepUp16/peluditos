@@ -20,4 +20,7 @@
 
     <!-- Color para splash screen que coincide con el tema principal -->
     <color name="splash_background">#F3F8F5</color>
+    <color name="colorSurfaceElevated">#FFFFFFFF</color>
+    <color name="dividerColor">#1AF0F0F0</color>
+    <color name="warningColor">#FF9800</color>
 </resources>

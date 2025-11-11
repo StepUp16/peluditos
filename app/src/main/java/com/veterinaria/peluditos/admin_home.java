@@ -88,9 +88,8 @@ public class admin_home extends AppCompatActivity {
         });
 
         iconCitas.setOnClickListener(v -> {
-            // Navegar a listado de citas (cuando esté implementado)
-            // Intent intent = new Intent(admin_home.this, AdminCitaListadoActivity.class);
-            // startActivity(intent);
+            Intent intent = new Intent(admin_home.this, admin_cita_listado.class);
+            startActivity(intent);
         });
 
         iconPacientes.setOnClickListener(v -> {

@@ -49,9 +49,6 @@
                 android:gravity="center"
                 android:layout_marginBottom="24dp"/>
 
-            <!-- Campo Paciente (Spinner) -->
-
-            <!-- Campo Cliente -->
             <Spinner
                 android:id="@+id/spinnerPaciente"
                 android:layout_width="match_parent"
@@ -71,6 +68,24 @@
                 android:layout_marginBottom="16dp"
                 android:spinnerMode="dropdown"
                 android:prompt="@string/hint_cliente"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_estado_cita"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+
+            <Spinner
+                android:id="@+id/spinnerEstado"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/edittext_bg"
+                android:padding="16dp"
+                android:layout_marginBottom="16dp"
+                android:spinnerMode="dropdown"
+                android:prompt="@string/placeholder_select_estado"/>
 
             <!-- Campo Fecha con icono de calendario -->
             <LinearLayout

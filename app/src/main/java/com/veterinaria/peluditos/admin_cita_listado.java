@@ -9,12 +9,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import com.veterinaria.peluditos.adapters.CitaAdapter;
 import com.veterinaria.peluditos.data.Cita;
@@ -44,6 +47,7 @@ public class admin_cita_listado extends AppCompatActivity {
     private LinearLayout iconPacientesContainer;
     private LinearLayout iconClientesContainer;
     private LinearLayout iconPerfilContainer;
+    private String[] estadosDisponibles;
 
     private final SimpleDateFormat headerDateFormat =
             new SimpleDateFormat("EEEE, d 'de' MMMM", Locale.getDefault());
@@ -55,6 +59,7 @@ public class admin_cita_listado extends AppCompatActivity {
 
         selectedDateMillis = startOfDay(System.currentTimeMillis());
         citaViewModel = new ViewModelProvider(this).get(AdminCitaViewModel.class);
+        estadosDisponibles = getResources().getStringArray(R.array.cita_estados_array);
 
         initViews();
         setupRecyclerView();
@@ -138,7 +143,17 @@ public class admin_cita_listado extends AppCompatActivity {
         citaAdapter = new CitaAdapter();
         recyclerView.setAdapter(citaAdapter);
 
-        citaAdapter.setOnCitaClickListener(this::openCitaDetail);
+        citaAdapter.setOnCitaActionListener(new CitaAdapter.OnCitaActionListener() {
+            @Override
+            public void onCitaClick(Cita cita) {
+                openCitaDetail(cita);
+            }
+
+            @Override
+            public void onCambiarEstado(Cita cita) {
+                showEstadoDialog(cita);
+            }
+        });
     }
 
     private void setupAddCitaButton() {
@@ -241,5 +256,31 @@ public class admin_cita_listado extends AppCompatActivity {
     private void openCitaDetail(Cita cita) {
         Intent intent = new Intent(this, admin_cita_nueva.class);
         startActivity(intent);
+    }
+
+    private void showEstadoDialog(Cita cita) {
+        if (cita == null) {
+            return;
+        }
+        int checked = 0;
+        String estadoActual = cita.getEstado();
+        if (estadoActual != null) {
+            for (int i = 0; i < estadosDisponibles.length; i++) {
+                if (estadoActual.equalsIgnoreCase(estadosDisponibles[i])) {
+                    checked = i;
+                    break;
+                }
+            }
+        }
+        final int[] selected = {checked};
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.dialog_cambiar_estado_title)
+                .setSingleChoiceItems(estadosDisponibles, checked, (dialog, which) -> selected[0] = which)
+                .setNegativeButton(R.string.action_cancelar, null)
+                .setPositiveButton(R.string.action_guardar, (dialog, which) -> {
+                    citaViewModel.updateEstado(cita, estadosDisponibles[selected[0]]);
+                    android.widget.Toast.makeText(this, R.string.msg_estado_actualizado, android.widget.Toast.LENGTH_SHORT).show();
+                })
+                .show();
     }
 }

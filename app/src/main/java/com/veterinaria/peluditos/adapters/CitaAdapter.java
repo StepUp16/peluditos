@@ -1,11 +1,14 @@
 package com.veterinaria.peluditos.adapters;
 
+import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,13 +24,14 @@ public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder
 
     private final List<Cita> citas = new ArrayList<>();
     private final SimpleDateFormat horaFormato = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-    private OnCitaClickListener listener;
+    private OnCitaActionListener listener;
 
-    public interface OnCitaClickListener {
+    public interface OnCitaActionListener {
         void onCitaClick(Cita cita);
+        void onCambiarEstado(Cita cita);
     }
 
-    public void setOnCitaClickListener(OnCitaClickListener listener) {
+    public void setOnCitaActionListener(OnCitaActionListener listener) {
         this.listener = listener;
     }
 
@@ -60,15 +64,25 @@ public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder
     class CitaViewHolder extends RecyclerView.ViewHolder {
         private final TextView tvNombreMascotaCliente;
         private final TextView tvHoraCita;
+        private final TextView tvEstadoCita;
+        private final ImageButton btnEstadoMenu;
 
         CitaViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNombreMascotaCliente = itemView.findViewById(R.id.tvNombreMascotaCliente);
             tvHoraCita = itemView.findViewById(R.id.tvHoraCita);
+            tvEstadoCita = itemView.findViewById(R.id.tvEstadoCita);
+            btnEstadoMenu = itemView.findViewById(R.id.btnEstadoMenu);
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
                     listener.onCitaClick(citas.get(getBindingAdapterPosition()));
+                }
+            });
+
+            btnEstadoMenu.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onCambiarEstado(citas.get(getBindingAdapterPosition()));
                 }
             });
         }
@@ -86,6 +100,37 @@ public class CitaAdapter extends RecyclerView.Adapter<CitaAdapter.CitaViewHolder
                 tvHoraCita.setText(horaTexto);
             } else {
                 tvHoraCita.setText(horaFormato.format(cita.getFechaHoraTimestamp()));
+            }
+
+            String estado = cita.getEstado();
+            if (TextUtils.isEmpty(estado)) {
+                estado = itemView.getContext().getString(R.string.cita_estado_pendiente);
+            }
+            tvEstadoCita.setText(estado);
+            applyEstadoStyle(tvEstadoCita, estado);
+        }
+
+        private void applyEstadoStyle(TextView chip, String estado) {
+            Context ctx = chip.getContext();
+            chip.setBackgroundResource(R.drawable.bg_estado_chip);
+            chip.getBackground().setTint(getEstadoColor(ctx, estado));
+            chip.setTextColor(0xFFFFFFFF);
+        }
+
+        @ColorInt
+        private int getEstadoColor(Context ctx, String estado) {
+            if (estado == null) return ctx.getColor(R.color.estadoPendienteColor);
+            switch (estado.toLowerCase(Locale.getDefault())) {
+                case "confirmada":
+                    return ctx.getColor(R.color.estadoConfirmadaColor);
+                case "pospuesta":
+                    return ctx.getColor(R.color.estadoPospuestaColor);
+                case "cancelada":
+                    return ctx.getColor(R.color.estadoCanceladaColor);
+                case "completada":
+                    return ctx.getColor(R.color.estadoCompletadaColor);
+                default:
+                    return ctx.getColor(R.color.estadoPendienteColor);
             }
         }
     }

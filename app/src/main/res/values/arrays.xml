@@ -75,5 +75,12 @@
         <item>Mini Pig</item>
         <item>Otro</item>
     </string-array>
-</resources>
 
+    <string-array name="cita_estados_array">
+        <item>@string/cita_estado_pendiente</item>
+        <item>@string/cita_estado_confirmada</item>
+        <item>@string/cita_estado_pospuesta</item>
+        <item>@string/cita_estado_cancelada</item>
+        <item>@string/cita_estado_completada</item>
+    </string-array>
+</resources>

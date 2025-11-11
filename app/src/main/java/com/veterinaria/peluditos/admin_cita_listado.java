@@ -2,22 +2,22 @@ package com.veterinaria.peluditos;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import com.veterinaria.peluditos.adapters.CitaAdapter;
 import com.veterinaria.peluditos.data.Cita;
@@ -51,6 +51,8 @@ public class admin_cita_listado extends AppCompatActivity {
 
     private final SimpleDateFormat headerDateFormat =
             new SimpleDateFormat("EEEE, d 'de' MMMM", Locale.getDefault());
+    private final SimpleDateFormat fechaFormato = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+    private final SimpleDateFormat horaFormato = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -238,8 +240,13 @@ public class admin_cita_listado extends AppCompatActivity {
     }
 
     private void updateHeaderDate() {
-        if (tvHeader != null) {
+        if (tvHeader == null) {
+            return;
+        }
+        if (isCalendarMode) {
             tvHeader.setText(headerDateFormat.format(new Date(selectedDateMillis)));
+        } else {
+            tvHeader.setText(R.string.header_citas_general);
         }
     }
 
@@ -255,6 +262,9 @@ public class admin_cita_listado extends AppCompatActivity {
 
     private void openCitaDetail(Cita cita) {
         Intent intent = new Intent(this, admin_cita_nueva.class);
+        if (cita != null && !TextUtils.isEmpty(cita.getId())) {
+            intent.putExtra(admin_cita_nueva.EXTRA_CITA_ID, cita.getId());
+        }
         startActivity(intent);
     }
 
@@ -262,25 +272,41 @@ public class admin_cita_listado extends AppCompatActivity {
         if (cita == null) {
             return;
         }
-        int checked = 0;
-        String estadoActual = cita.getEstado();
-        if (estadoActual != null) {
-            for (int i = 0; i < estadosDisponibles.length; i++) {
-                if (estadoActual.equalsIgnoreCase(estadosDisponibles[i])) {
-                    checked = i;
-                    break;
+        FragmentManager fm = getSupportFragmentManager();
+        CitaEstadoDialogFragment dialog = CitaEstadoDialogFragment.newInstance(
+                cita.getId(),
+                cita.getEstado(),
+                cita.getFechaHoraTimestamp(),
+                cita.getNotaEstado()
+        );
+        dialog.setOnEstadoConfirmadoListener((citaId, nuevoEstado, nuevaFechaMillis, nota) -> {
+            Cita citaSeleccionada = buscarCitaPorId(citaId);
+            if (citaSeleccionada != null) {
+                citaSeleccionada.setEstado(nuevoEstado);
+                if (nuevoEstado.equalsIgnoreCase(getString(R.string.cita_estado_pospuesta)) && nuevaFechaMillis > 0) {
+                    citaSeleccionada.setFecha(fechaFormato.format(new Date(nuevaFechaMillis)));
+                    citaSeleccionada.setHora(horaFormato.format(new Date(nuevaFechaMillis)));
+                    citaSeleccionada.setFechaHoraTimestamp(nuevaFechaMillis);
                 }
+                if (!TextUtils.isEmpty(nota)) {
+                    citaSeleccionada.setNotaEstado(nota);
+                }
+                citaViewModel.update(citaSeleccionada);
+                Toast.makeText(this, R.string.msg_estado_actualizado, Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show(fm, "CitaEstadoDialog");
+    }
+
+    private Cita buscarCitaPorId(String id) {
+        if (TextUtils.isEmpty(id)) {
+            return null;
+        }
+        for (Cita cita : todasLasCitas) {
+            if (id.equals(cita.getId())) {
+                return cita;
             }
         }
-        final int[] selected = {checked};
-        new MaterialAlertDialogBuilder(this)
-                .setTitle(R.string.dialog_cambiar_estado_title)
-                .setSingleChoiceItems(estadosDisponibles, checked, (dialog, which) -> selected[0] = which)
-                .setNegativeButton(R.string.action_cancelar, null)
-                .setPositiveButton(R.string.action_guardar, (dialog, which) -> {
-                    citaViewModel.updateEstado(cita, estadosDisponibles[selected[0]]);
-                    android.widget.Toast.makeText(this, R.string.msg_estado_actualizado, android.widget.Toast.LENGTH_SHORT).show();
-                })
-                .show();
+        return null;
     }
 }

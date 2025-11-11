@@ -81,6 +81,7 @@
     <string name="error_raza">Seleccione una raza</string>
     <string name="error_paciente">Seleccione un paciente</string>
     <string name="error_cliente">Seleccione un cliente</string>
+    <string name="error_cita_no_encontrada">No pudimos cargar la cita seleccionada</string>
     <string name="error_fecha">Seleccione la fecha</string>
     <string name="error_hora">Seleccione la hora</string>
     <string name="error_edad">Ingrese la edad</string>
@@ -90,6 +91,8 @@
     <string name="error_sexo">Seleccione el sexo del paciente</string>
     <string name="error_motivo">Ingrese el motivo de la cita</string>
     <string name="error_estado_cita">Seleccione el estado de la cita</string>
+    <string name="error_fecha_posponer">Seleccione la nueva fecha y hora para reprogramar.</string>
+    <string name="error_nota_cancelacion">Ingrese una nota para la cancelación.</string>
     <string name="msg_seleccione_cliente">Seleccione un cliente</string>
     <string name="msg_paciente_guardado">Paciente guardado correctamente</string>
     <string name="empty_pacientes">Aún no hay pacientes registrados.</string>
@@ -106,10 +109,17 @@
     <string name="action_cancelar">Cancelar</string>
     <string name="action_eliminar">Eliminar</string>
     <string name="action_guardar">Guardar</string>
+    <string name="dialog_cambiar_estado_instruccion">Selecciona el nuevo estado de la cita. Si reprogramas, indica la nueva fecha y hora.</string>
+    <string name="label_reprogramar_fecha">Nueva fecha y hora</string>
+    <string name="btn_seleccionar_fecha">Seleccionar fecha y hora</string>
+    <string name="dialog_no_fecha_seleccionada">Aún no se ha seleccionado una fecha</string>
+    <string name="label_nota_estado">Nota adicional</string>
+    <string name="hint_nota_estado">Escribe una nota</string>
     <string name="msg_paciente_eliminado">Paciente eliminado</string>
     <string name="msg_paciente_eliminado_pendiente">Paciente eliminado. Se sincronizará cuando haya conexión.</string>
     <string name="msg_paciente_actualizado">Paciente actualizado correctamente</string>
     <string name="msg_cita_guardada">Cita guardada correctamente</string>
+    <string name="msg_cita_actualizada">Cita actualizada correctamente</string>
     <string name="msg_estado_actualizado">Estado actualizado</string>
     <string name="cita_estado_pendiente">Pendiente</string>
     <string name="cita_estado_confirmada">Confirmada</string>

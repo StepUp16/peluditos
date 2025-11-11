@@ -60,6 +60,9 @@ public class CitaRepository {
         if (TextUtils.isEmpty(cita.getEstado())) {
             cita.setEstado(ESTADO_DEFAULT);
         }
+        if (cita.getNotaEstado() == null) {
+            cita.setNotaEstado("");
+        }
         if (!isOnline || isSyncing.get()) {
             cita.setSincronizado(false);
         } else {
@@ -77,6 +80,9 @@ public class CitaRepository {
         cita.setTimestampModificacion(System.currentTimeMillis());
         if (TextUtils.isEmpty(cita.getEstado())) {
             cita.setEstado(ESTADO_DEFAULT);
+        }
+        if (cita.getNotaEstado() == null) {
+            cita.setNotaEstado("");
         }
         if (!isOnline || isSyncing.get()) {
             cita.setSincronizado(false);
@@ -193,6 +199,7 @@ public class CitaRepository {
         data.put("fechaHoraTimestamp", cita.getFechaHoraTimestamp());
         data.put("timestampModificacion", cita.getTimestampModificacion());
         data.put("estado", cita.getEstado());
+        data.put("notaEstado", cita.getNotaEstado());
 
         firestore.collection(COLLECTION)
                 .document(cita.getId())
@@ -250,6 +257,7 @@ public class CitaRepository {
         Long fechaHoraTimestamp = document.getLong("fechaHoraTimestamp");
         Long timestampModificacion = document.getLong("timestampModificacion");
         String estado = document.getString("estado");
+        String notaEstado = document.getString("notaEstado");
 
         Cita cita = new Cita(
                 id,
@@ -262,7 +270,8 @@ public class CitaRepository {
                 motivo != null ? motivo : "",
                 notas != null ? notas : "",
                 fechaHoraTimestamp != null ? fechaHoraTimestamp : System.currentTimeMillis(),
-                TextUtils.isEmpty(estado) ? ESTADO_DEFAULT : estado
+                TextUtils.isEmpty(estado) ? ESTADO_DEFAULT : estado,
+                notaEstado != null ? notaEstado : ""
         );
         if (timestampModificacion != null) {
             cita.setTimestampModificacion(timestampModificacion);

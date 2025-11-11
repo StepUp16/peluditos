@@ -59,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
             public void onSplashScreenExit(@NonNull SplashScreenViewProvider splashScreenView) {
 
                 final View iconView = splashScreenView.getIconView();
+                if (iconView == null) {
+                    splashScreenView.remove();
+                    return;
+                }
 
                 ObjectAnimator slideUp = ObjectAnimator.ofFloat(
                         iconView,

@@ -23,6 +23,7 @@ public class Cita {
     private long timestampModificacion;
     private String estado;
     private String notaEstado;
+    private boolean pendienteEliminacion;
 
     public Cita(@NonNull String id,
                 String pacienteId,
@@ -50,6 +51,7 @@ public class Cita {
         this.notaEstado = notaEstado;
         this.sincronizado = false;
         this.timestampModificacion = System.currentTimeMillis();
+        this.pendienteEliminacion = false;
     }
 
     @NonNull
@@ -163,5 +165,13 @@ public class Cita {
 
     public void setNotaEstado(String notaEstado) {
         this.notaEstado = notaEstado;
+    }
+
+    public boolean isPendienteEliminacion() {
+        return pendienteEliminacion;
+    }
+
+    public void setPendienteEliminacion(boolean pendienteEliminacion) {
+        this.pendienteEliminacion = pendienteEliminacion;
     }
 }

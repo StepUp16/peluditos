@@ -300,9 +300,9 @@ public class admin_cita_listado extends AppCompatActivity {
     }
 
     private void openCitaDetail(Cita cita) {
-        Intent intent = new Intent(this, admin_cita_nueva.class);
+        Intent intent = new Intent(this, admin_cita_editar.class);
         if (cita != null && !TextUtils.isEmpty(cita.getId())) {
-            intent.putExtra(admin_cita_nueva.EXTRA_CITA_ID, cita.getId());
+            intent.putExtra(admin_cita_editar.EXTRA_CITA_ID, cita.getId());
         }
         startActivity(intent);
     }

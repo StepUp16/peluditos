@@ -32,6 +32,7 @@ public class admin_cita_nueva extends AppCompatActivity {
 
     private Spinner spinnerPaciente;
     private Spinner spinnerCliente;
+    private Spinner spinnerEstado;
     private EditText etFecha;
     private EditText etHora;
     private EditText etMotivo;
@@ -63,6 +64,7 @@ public class admin_cita_nueva extends AppCompatActivity {
 
         initViews();
         setupSpinners();
+        setupEstadoSpinner();
         setupPickers();
 
         pacienteViewModel = new ViewModelProvider(this).get(AdminPacienteViewModel.class);
@@ -81,6 +83,7 @@ public class admin_cita_nueva extends AppCompatActivity {
     private void initViews() {
         spinnerPaciente = findViewById(R.id.spinnerPaciente);
         spinnerCliente = findViewById(R.id.spinnerCliente);
+        spinnerEstado = findViewById(R.id.spinnerEstado);
         etFecha = findViewById(R.id.etFecha);
         etHora = findViewById(R.id.etHora);
         etMotivo = findViewById(R.id.etMotivo);
@@ -127,6 +130,16 @@ public class admin_cita_nueva extends AppCompatActivity {
                 actualizarPacientesParaCliente(null);
             }
         });
+    }
+
+    private void setupEstadoSpinner() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.cita_estados_array,
+                android.R.layout.simple_spinner_dropdown_item
+        );
+        spinnerEstado.setAdapter(adapter);
+        spinnerEstado.setSelection(0);
     }
 
     private void setupPickers() {
@@ -216,8 +229,11 @@ public class admin_cita_nueva extends AppCompatActivity {
         String hora = etHora.getText().toString().trim();
         String motivo = etMotivo.getText().toString().trim();
         String notas = etNotas.getText().toString().trim();
+        String estado = spinnerEstado.getSelectedItem() != null
+                ? spinnerEstado.getSelectedItem().toString()
+                : getString(R.string.cita_estado_pendiente);
 
-        if (!validarCampos(pacienteSeleccionado, clienteSeleccionado, fecha, hora, motivo)) {
+        if (!validarCampos(pacienteSeleccionado, clienteSeleccionado, fecha, hora, motivo, estado)) {
             return;
         }
 
@@ -240,7 +256,8 @@ public class admin_cita_nueva extends AppCompatActivity {
                 hora,
                 motivo,
                 notas,
-                fechaHoraTimestamp
+                fechaHoraTimestamp,
+                estado
         );
 
         citaViewModel.insert(cita);
@@ -269,7 +286,8 @@ public class admin_cita_nueva extends AppCompatActivity {
                                   Usuario cliente,
                                   String fecha,
                                   String hora,
-                                  String motivo) {
+                                  String motivo,
+                                  String estado) {
         if (paciente == null) {
             Toast.makeText(this, R.string.error_paciente, Toast.LENGTH_SHORT).show();
             return false;
@@ -295,6 +313,11 @@ public class admin_cita_nueva extends AppCompatActivity {
         if (TextUtils.isEmpty(motivo)) {
             etMotivo.setError(getString(R.string.error_motivo));
             etMotivo.requestFocus();
+            return false;
+        }
+
+        if (TextUtils.isEmpty(estado) || estado.equals(getString(R.string.placeholder_select_estado))) {
+            Toast.makeText(this, R.string.error_estado_cita, Toast.LENGTH_SHORT).show();
             return false;
         }
 

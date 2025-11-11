@@ -58,6 +58,7 @@
     <string name="label_sexo">Sexo</string>
     <string name="label_cliente">Cliente</string>
     <string name="label_cliente_asociado">Cliente Asociado</string>
+    <string name="label_estado_cita">Estado de la Cita</string>
     <string name="btn_guardar_paciente">Guardar Paciente</string>
     <string name="btn_cancelar_paciente">Cancelar</string>
     <string name="btn_guardar_cambios_paciente">Guardar Cambios</string>
@@ -65,6 +66,7 @@
     <string name="btn_guardando">Guardando...</string>
     <string name="placeholder_select_paciente">Seleccionar Paciente</string>
     <string name="placeholder_select_cliente">Seleccionar Cliente</string>
+    <string name="placeholder_select_estado">Seleccionar Estado</string>
     <string name="placeholder_select_especie">Seleccionar Especie</string>
     <string name="placeholder_select_raza">Seleccionar Raza</string>
     <string name="placeholder_select_sexo">Seleccionar el Sexo</string>
@@ -87,6 +89,7 @@
     <string name="error_peso_valor">Ingrese un peso válido mayor a 0</string>
     <string name="error_sexo">Seleccione el sexo del paciente</string>
     <string name="error_motivo">Ingrese el motivo de la cita</string>
+    <string name="error_estado_cita">Seleccione el estado de la cita</string>
     <string name="msg_seleccione_cliente">Seleccione un cliente</string>
     <string name="msg_paciente_guardado">Paciente guardado correctamente</string>
     <string name="empty_pacientes">Aún no hay pacientes registrados.</string>
@@ -102,10 +105,18 @@
     <string name="dialog_delete_warning">Esta acción no se puede deshacer.</string>
     <string name="action_cancelar">Cancelar</string>
     <string name="action_eliminar">Eliminar</string>
+    <string name="action_guardar">Guardar</string>
     <string name="msg_paciente_eliminado">Paciente eliminado</string>
     <string name="msg_paciente_eliminado_pendiente">Paciente eliminado. Se sincronizará cuando haya conexión.</string>
     <string name="msg_paciente_actualizado">Paciente actualizado correctamente</string>
     <string name="msg_cita_guardada">Cita guardada correctamente</string>
+    <string name="msg_estado_actualizado">Estado actualizado</string>
+    <string name="cita_estado_pendiente">Pendiente</string>
+    <string name="cita_estado_confirmada">Confirmada</string>
+    <string name="cita_estado_pospuesta">Pospuesta</string>
+    <string name="cita_estado_cancelada">Cancelada</string>
+    <string name="cita_estado_completada">Completada</string>
+    <string name="dialog_cambiar_estado_title">Cambiar estado de la cita</string>
     <string name="header_citas_general">Todas las citas</string>
 
     <!-- Cadenas para admin_recuperar_contrasena.xml -->

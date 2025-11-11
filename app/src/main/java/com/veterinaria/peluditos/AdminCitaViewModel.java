@@ -38,6 +38,10 @@ public class AdminCitaViewModel extends AndroidViewModel {
         repository.update(cita);
     }
 
+    public void updateEstado(Cita cita, String estado) {
+        repository.updateEstado(cita, estado);
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();

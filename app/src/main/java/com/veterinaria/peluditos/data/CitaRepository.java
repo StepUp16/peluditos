@@ -2,10 +2,12 @@ package com.veterinaria.peluditos.data;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -24,6 +26,7 @@ public class CitaRepository {
 
     private static final String TAG = "CitaRepository";
     private static final String COLLECTION = "citas";
+    private static final String ESTADO_DEFAULT = "Pendiente";
 
     private final CitaDao citaDao;
     private final LiveData<List<Cita>> allCitas;
@@ -54,6 +57,9 @@ public class CitaRepository {
 
     public void insert(Cita cita) {
         cita.setTimestampModificacion(System.currentTimeMillis());
+        if (TextUtils.isEmpty(cita.getEstado())) {
+            cita.setEstado(ESTADO_DEFAULT);
+        }
         if (!isOnline || isSyncing.get()) {
             cita.setSincronizado(false);
         } else {
@@ -69,6 +75,9 @@ public class CitaRepository {
 
     public void update(Cita cita) {
         cita.setTimestampModificacion(System.currentTimeMillis());
+        if (TextUtils.isEmpty(cita.getEstado())) {
+            cita.setEstado(ESTADO_DEFAULT);
+        }
         if (!isOnline || isSyncing.get()) {
             cita.setSincronizado(false);
         } else {
@@ -165,6 +174,12 @@ public class CitaRepository {
         });
     }
 
+    public void updateEstado(Cita cita, String nuevoEstado) {
+        if (cita == null || TextUtils.isEmpty(nuevoEstado)) return;
+        cita.setEstado(nuevoEstado);
+        update(cita);
+    }
+
     private void sincronizarConFirestore(Cita cita, SyncCallback callback) {
         Map<String, Object> data = new HashMap<>();
         data.put("pacienteId", cita.getPacienteId());
@@ -177,6 +192,7 @@ public class CitaRepository {
         data.put("notas", cita.getNotas());
         data.put("fechaHoraTimestamp", cita.getFechaHoraTimestamp());
         data.put("timestampModificacion", cita.getTimestampModificacion());
+        data.put("estado", cita.getEstado());
 
         firestore.collection(COLLECTION)
                 .document(cita.getId())
@@ -233,6 +249,7 @@ public class CitaRepository {
         String notas = document.getString("notas");
         Long fechaHoraTimestamp = document.getLong("fechaHoraTimestamp");
         Long timestampModificacion = document.getLong("timestampModificacion");
+        String estado = document.getString("estado");
 
         Cita cita = new Cita(
                 id,
@@ -244,7 +261,8 @@ public class CitaRepository {
                 hora != null ? hora : "",
                 motivo != null ? motivo : "",
                 notas != null ? notas : "",
-                fechaHoraTimestamp != null ? fechaHoraTimestamp : System.currentTimeMillis()
+                fechaHoraTimestamp != null ? fechaHoraTimestamp : System.currentTimeMillis(),
+                TextUtils.isEmpty(estado) ? ESTADO_DEFAULT : estado
         );
         if (timestampModificacion != null) {
             cita.setTimestampModificacion(timestampModificacion);

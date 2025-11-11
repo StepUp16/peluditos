@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnCrearCita">
@@ -50,28 +50,27 @@
                 android:layout_marginBottom="24dp"/>
 
             <!-- Campo Paciente (Spinner) -->
+
+            <!-- Campo Cliente -->
             <Spinner
                 android:id="@+id/spinnerPaciente"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edittext_bg"
+                android:padding="16dp"
+                android:prompt="@string/hint_paciente"
+                android:spinnerMode="dropdown" />
+
+            <Spinner
+                android:id="@+id/spinnerCliente"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
                 android:padding="16dp"
                 android:layout_marginBottom="16dp"
                 android:spinnerMode="dropdown"
-                android:prompt="@string/hint_paciente" />
-
-            <!-- Campo Cliente -->
-            <EditText
-                android:id="@+id/etCliente"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/edittext_bg"
-                android:hint="@string/hint_cliente"
-                android:padding="16dp"
-                android:textColorHint="@color/textColorPrimary"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android:inputType="textPersonName"/>
+                android:prompt="@string/hint_cliente"/>
 
             <!-- Campo Fecha con icono de calendario -->
             <LinearLayout

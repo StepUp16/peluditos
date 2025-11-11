@@ -53,6 +53,15 @@
             android:text="@string/tab_lista" />
     </com.google.android.material.tabs.TabLayout>
 
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabLayout" />
+
     <TextView
         android:id="@+id/tvHeaderHoy"
         android:layout_width="wrap_content"
@@ -64,7 +73,8 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/calendarView"
+        app:layout_goneMarginTop="16dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCitas"
@@ -79,6 +89,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvHeaderHoy"
         tools:listitem="@layout/admin_cita_listado_item" />
+
+    <TextView
+        android:id="@+id/tvEmptyState"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/empty_citas"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/recyclerViewCitas"
+        app:layout_constraintBottom_toBottomOf="@id/recyclerViewCitas"
+        app:layout_constraintStart_toStartOf="@+id/recyclerViewCitas"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerViewCitas"
+        tools:visibility="visible" />
 
     <!-- Menú inferior fijo -->
     <LinearLayout

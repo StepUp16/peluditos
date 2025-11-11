@@ -63,6 +63,7 @@
     <string name="btn_guardar_cambios_paciente">Guardar Cambios</string>
 
     <string name="btn_guardando">Guardando...</string>
+    <string name="placeholder_select_paciente">Seleccionar Paciente</string>
     <string name="placeholder_select_cliente">Seleccionar Cliente</string>
     <string name="placeholder_select_especie">Seleccionar Especie</string>
     <string name="placeholder_select_raza">Seleccionar Raza</string>
@@ -76,17 +77,24 @@
     <string name="error_nombre_largo">El nombre debe tener al menos 2 caracteres</string>
     <string name="error_especie">Seleccione una especie</string>
     <string name="error_raza">Seleccione una raza</string>
+    <string name="error_paciente">Seleccione un paciente</string>
+    <string name="error_cliente">Seleccione un cliente</string>
+    <string name="error_fecha">Seleccione la fecha</string>
+    <string name="error_hora">Seleccione la hora</string>
     <string name="error_edad">Ingrese la edad</string>
     <string name="error_edad_valor">Ingrese una edad válida mayor a 0</string>
     <string name="error_peso">Ingrese el peso</string>
     <string name="error_peso_valor">Ingrese un peso válido mayor a 0</string>
     <string name="error_sexo">Seleccione el sexo del paciente</string>
+    <string name="error_motivo">Ingrese el motivo de la cita</string>
     <string name="msg_seleccione_cliente">Seleccione un cliente</string>
     <string name="msg_paciente_guardado">Paciente guardado correctamente</string>
     <string name="empty_pacientes">Aún no hay pacientes registrados.</string>
+    <string name="empty_citas">Aún no hay citas programadas.</string>
     <string name="paciente_sin_cliente">Sin asignar</string>
     <string name="paciente_item_detalle">%1$s • Cliente: %2$s • %3$s kg</string>
     <string name="paciente_header_edad_sexo">%1$d años • %2$s</string>
+    <string name="cita_item_titulo">%1$s • %2$s</string>
     <string name="desc_editar_paciente">Editar paciente</string>
     <string name="desc_eliminar_paciente">Eliminar paciente</string>
     <string name="confirm_eliminar_paciente_title">Eliminar paciente</string>
@@ -97,6 +105,8 @@
     <string name="msg_paciente_eliminado">Paciente eliminado</string>
     <string name="msg_paciente_eliminado_pendiente">Paciente eliminado. Se sincronizará cuando haya conexión.</string>
     <string name="msg_paciente_actualizado">Paciente actualizado correctamente</string>
+    <string name="msg_cita_guardada">Cita guardada correctamente</string>
+    <string name="header_citas_general">Todas las citas</string>
 
     <!-- Cadenas para admin_recuperar_contrasena.xml -->
     <string name="title_recuperar_contrasena">Recuperar Contraseña</string>

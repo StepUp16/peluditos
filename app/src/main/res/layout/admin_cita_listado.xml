@@ -76,6 +76,85 @@
         app:layout_constraintTop_toBottomOf="@+id/calendarView"
         app:layout_goneMarginTop="16dp" />
 
+    <HorizontalScrollView
+        android:id="@+id/estadoFilterContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeaderHoy">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupEstados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:chipSpacingHorizontal="8dp"
+            app:chipSpacingVertical="4dp"
+            app:singleLine="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipEstadoTodos"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_marginEnd="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:checked="true"
+                android:text="@string/cita_filter_todos" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipEstadoPendiente"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_marginEnd="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/cita_estado_pendiente" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipEstadoConfirmada"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_marginEnd="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/cita_estado_confirmada" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipEstadoPospuesta"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_marginEnd="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/cita_estado_pospuesta" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipEstadoCancelada"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_marginEnd="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/cita_estado_cancelada" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipEstadoCompletada"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkable="true"
+                android:text="@string/cita_estado_completada" />
+
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewCitas"
         android:layout_width="0dp"
@@ -87,7 +166,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvHeaderHoy"
+        app:layout_constraintTop_toBottomOf="@+id/estadoFilterContainer"
         tools:listitem="@layout/admin_cita_listado_item" />
 
     <TextView

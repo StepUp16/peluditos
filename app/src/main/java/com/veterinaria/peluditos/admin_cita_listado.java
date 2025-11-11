@@ -18,6 +18,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.tabs.TabLayout;
 import com.veterinaria.peluditos.adapters.CitaAdapter;
 import com.veterinaria.peluditos.data.Cita;
@@ -37,10 +39,12 @@ public class admin_cita_listado extends AppCompatActivity {
     private CalendarView calendarView;
     private TabLayout tabLayout;
     private AdminCitaViewModel citaViewModel;
+    private ChipGroup chipGroupEstados;
 
     private final List<Cita> todasLasCitas = new ArrayList<>();
     private boolean isCalendarMode = true;
     private long selectedDateMillis;
+    private String estadoFiltroActual;
 
     private LinearLayout iconHomeContainer;
     private LinearLayout iconCitasContainer;
@@ -76,6 +80,7 @@ public class admin_cita_listado extends AppCompatActivity {
         tvHeader = findViewById(R.id.tvHeaderHoy);
         calendarView = findViewById(R.id.calendarView);
         tabLayout = findViewById(R.id.tabLayout);
+        chipGroupEstados = findViewById(R.id.chipGroupEstados);
 
         if (calendarView != null) {
             calendarView.setDate(selectedDateMillis, false, true);
@@ -101,6 +106,8 @@ public class admin_cita_listado extends AppCompatActivity {
         if (iconCitas != null) {
             iconCitas.setColorFilter(ContextCompat.getColor(this, R.color.textColorPrimary));
         }
+
+        setupEstadoChips();
     }
 
     private void setupTabs() {
@@ -232,6 +239,18 @@ public class admin_cita_listado extends AppCompatActivity {
             resultado.addAll(todasLasCitas);
         }
 
+        if (!TextUtils.isEmpty(estadoFiltroActual)) {
+            List<Cita> filtradasPorEstado = new ArrayList<>();
+            for (Cita cita : resultado) {
+                String estado = cita.getEstado();
+                if (!TextUtils.isEmpty(estado) &&
+                        estado.equalsIgnoreCase(estadoFiltroActual)) {
+                    filtradasPorEstado.add(cita);
+                }
+            }
+            resultado = filtradasPorEstado;
+        }
+
         citaAdapter.setCitas(resultado);
         boolean isEmpty = resultado.isEmpty();
         if (tvEmptyState != null) {
@@ -239,6 +258,26 @@ public class admin_cita_listado extends AppCompatActivity {
         }
     }
 
+    private void setupEstadoChips() {
+        if (chipGroupEstados == null) {
+            return;
+        }
+        chipGroupEstados.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            if (checkedIds == null || checkedIds.isEmpty()) {
+                estadoFiltroActual = null;
+            } else {
+                int checkedId = checkedIds.get(0);
+                if (checkedId == R.id.chipEstadoTodos) {
+                    estadoFiltroActual = null;
+                } else {
+                    Chip chip = group.findViewById(checkedId);
+                    estadoFiltroActual = chip != null ? chip.getText().toString() : null;
+                }
+            }
+            applyCurrentFilter();
+        });
+        chipGroupEstados.check(R.id.chipEstadoTodos);
+    }
     private void updateHeaderDate() {
         if (tvHeader == null) {
             return;

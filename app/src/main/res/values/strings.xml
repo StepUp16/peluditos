@@ -121,6 +121,7 @@
     <string name="msg_cita_guardada">Cita guardada correctamente</string>
     <string name="msg_cita_actualizada">Cita actualizada correctamente</string>
     <string name="msg_estado_actualizado">Estado actualizado</string>
+    <string name="cita_filter_todos">Todos</string>
     <string name="cita_estado_pendiente">Pendiente</string>
     <string name="cita_estado_confirmada">Confirmada</string>
     <string name="cita_estado_pospuesta">Pospuesta</string>

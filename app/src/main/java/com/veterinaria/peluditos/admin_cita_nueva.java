@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,12 +24,15 @@ import com.veterinaria.peluditos.data.Usuario;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
 public class admin_cita_nueva extends AppCompatActivity {
+
+    public static final String EXTRA_CITA_ID = "extra_cita_id";
 
     private Spinner spinnerPaciente;
     private Spinner spinnerCliente;
@@ -38,6 +42,7 @@ public class admin_cita_nueva extends AppCompatActivity {
     private EditText etMotivo;
     private EditText etNotas;
     private Button btnCrearCita;
+    private TextView tvTitle;
 
     private final List<Paciente> pacientes = new ArrayList<>();
     private final List<Paciente> pacientesFiltrados = new ArrayList<>();
@@ -53,6 +58,12 @@ public class admin_cita_nueva extends AppCompatActivity {
     private boolean fechaAsignada = false;
     private boolean horaAsignada = false;
     private String clienteSeleccionadoId;
+    private boolean modoEdicion = false;
+    private Cita citaEnEdicion;
+    private String clienteIdPendiente;
+    private String pacienteIdPendiente;
+    private boolean clientePreseleccionado = false;
+    private boolean pacientePreseleccionado = false;
 
     private final SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
     private final SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm", Locale.getDefault());
@@ -73,6 +84,7 @@ public class admin_cita_nueva extends AppCompatActivity {
 
         observePacientes();
         observeClientes();
+        verificarModoEdicion();
 
         ImageButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finish());
@@ -89,6 +101,7 @@ public class admin_cita_nueva extends AppCompatActivity {
         etMotivo = findViewById(R.id.etMotivo);
         etNotas = findViewById(R.id.etNotasAdicionales);
         btnCrearCita = findViewById(R.id.btnCrearCita);
+        tvTitle = findViewById(R.id.tvTitle);
 
         etFecha.setInputType(InputType.TYPE_NULL);
         etHora.setInputType(InputType.TYPE_NULL);
@@ -133,10 +146,13 @@ public class admin_cita_nueva extends AppCompatActivity {
     }
 
     private void setupEstadoSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+        List<String> estados = new ArrayList<>();
+        estados.add(getString(R.string.placeholder_select_estado));
+        estados.addAll(Arrays.asList(getResources().getStringArray(R.array.cita_estados_array)));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
-                R.array.cita_estados_array,
-                android.R.layout.simple_spinner_dropdown_item
+                android.R.layout.simple_spinner_dropdown_item,
+                estados
         );
         spinnerEstado.setAdapter(adapter);
         spinnerEstado.setSelection(0);
@@ -152,6 +168,115 @@ public class admin_cita_nueva extends AppCompatActivity {
         etHora.setOnClickListener(horaClickListener);
         ImageView iconHora = findViewById(R.id.iconHora);
         iconHora.setOnClickListener(horaClickListener);
+    }
+
+    private void verificarModoEdicion() {
+        String citaId = getIntent() != null ? getIntent().getStringExtra(EXTRA_CITA_ID) : null;
+        if (!TextUtils.isEmpty(citaId)) {
+            modoEdicion = true;
+            if (tvTitle != null) {
+                tvTitle.setText(R.string.title_editar_cita);
+            }
+            btnCrearCita.setText(R.string.btn_guardar_cambios);
+            cargarCitaEnEdicion(citaId);
+        } else {
+            btnCrearCita.setText(R.string.btn_guardar_cita);
+        }
+    }
+
+    private void cargarCitaEnEdicion(String citaId) {
+        citaViewModel.getCita(citaId).observe(this, cita -> {
+            if (cita == null) {
+                Toast.makeText(this, R.string.error_cita_no_encontrada, Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+            aplicarDatosEdicion(cita);
+        });
+    }
+
+    private void aplicarDatosEdicion(Cita cita) {
+        citaEnEdicion = cita;
+        clienteSeleccionadoId = cita.getClienteId();
+        clienteIdPendiente = cita.getClienteId();
+        pacienteIdPendiente = cita.getPacienteId();
+
+        String fecha = cita.getFecha() != null ? cita.getFecha() : "";
+        String hora = cita.getHora() != null ? cita.getHora() : "";
+        String motivo = cita.getMotivo() != null ? cita.getMotivo() : "";
+        String notas = cita.getNotas() != null ? cita.getNotas() : "";
+
+        etFecha.setText(fecha);
+        etHora.setText(hora);
+        etMotivo.setText(motivo);
+        etNotas.setText(notas);
+
+        long timestamp = cita.getFechaHoraTimestamp();
+        if (timestamp > 0) {
+            fechaSeleccionada.setTimeInMillis(timestamp);
+            fechaAsignada = true;
+            horaAsignada = true;
+        } else {
+            fechaSeleccionada.setTimeInMillis(System.currentTimeMillis());
+            fechaAsignada = !TextUtils.isEmpty(fecha);
+            horaAsignada = !TextUtils.isEmpty(hora);
+        }
+
+        actualizarCamposFechaHora();
+        seleccionarEstadoEnSpinner(cita.getEstado());
+        seleccionarClientePendiente();
+        seleccionarPacientePendiente();
+    }
+
+    private void seleccionarEstadoEnSpinner(String estado) {
+        if (spinnerEstado.getAdapter() == null || TextUtils.isEmpty(estado)) {
+            return;
+        }
+        String[] estados = getResources().getStringArray(R.array.cita_estados_array);
+        for (int i = 0; i < estados.length; i++) {
+            if (estado.equalsIgnoreCase(estados[i])) {
+                spinnerEstado.setSelection(i + 1);
+                break;
+            }
+        }
+    }
+
+    private void seleccionarClientePendiente() {
+        if (!modoEdicion || clientePreseleccionado) {
+            return;
+        }
+        if (TextUtils.isEmpty(clienteIdPendiente) || clientes.isEmpty()) {
+            return;
+        }
+        for (int i = 0; i < clientes.size(); i++) {
+            Usuario usuario = clientes.get(i);
+            if (clienteIdPendiente != null && clienteIdPendiente.equals(usuario.getUid())) {
+                spinnerCliente.setSelection(i + 1);
+                clientePreseleccionado = true;
+                break;
+            }
+        }
+    }
+
+    private void seleccionarPacientePendiente() {
+        if (!modoEdicion || pacientePreseleccionado) {
+            return;
+        }
+        if (TextUtils.isEmpty(pacienteIdPendiente) || pacientesFiltrados.isEmpty()) {
+            return;
+        }
+        for (int i = 0; i < pacientesFiltrados.size(); i++) {
+            if (pacienteIdPendiente.equals(pacientesFiltrados.get(i).getId())) {
+                spinnerPaciente.setSelection(i + 1);
+                pacientePreseleccionado = true;
+                break;
+            }
+        }
+    }
+
+    private void restablecerEstadoBoton() {
+        btnCrearCita.setEnabled(true);
+        btnCrearCita.setText(modoEdicion ? R.string.btn_guardar_cambios : R.string.btn_guardar_cita);
     }
 
     private void mostrarDatePicker() {
@@ -219,6 +344,7 @@ public class admin_cita_nueva extends AppCompatActivity {
             clienteAdapter.clear();
             clienteAdapter.addAll(nombres);
             clienteAdapter.notifyDataSetChanged();
+            seleccionarClientePendiente();
         });
     }
 
@@ -244,25 +370,50 @@ public class admin_cita_nueva extends AppCompatActivity {
                 ? fechaSeleccionada.getTimeInMillis()
                 : System.currentTimeMillis();
 
-        Cita cita = new Cita(
-                UUID.randomUUID().toString(),
-                pacienteSeleccionado != null ? pacienteSeleccionado.getId() : "",
-                pacienteSeleccionado != null ? pacienteSeleccionado.getNombre() : "",
-                clienteSeleccionado != null ? clienteSeleccionado.getUid() : "",
-                clienteSeleccionado != null
-                        ? clienteSeleccionado.getNombre() + " " + clienteSeleccionado.getApellido()
-                        : "",
-                fecha,
-                hora,
-                motivo,
-                notas,
-                fechaHoraTimestamp,
-                estado
-        );
+        String pacienteNombre = pacienteSeleccionado != null ? pacienteSeleccionado.getNombre() : "";
+        String pacienteId = pacienteSeleccionado != null ? pacienteSeleccionado.getId() : "";
+        String clienteUid = clienteSeleccionado != null ? clienteSeleccionado.getUid() : "";
+        String clienteNombreCompleto = clienteSeleccionado != null
+                ? clienteSeleccionado.getNombre() + " " + clienteSeleccionado.getApellido()
+                : "";
 
-        citaViewModel.insert(cita);
+        if (modoEdicion) {
+            if (citaEnEdicion == null) {
+                Toast.makeText(this, R.string.error_cita_no_encontrada, Toast.LENGTH_SHORT).show();
+                restablecerEstadoBoton();
+                return;
+            }
+            citaEnEdicion.setPacienteId(pacienteId);
+            citaEnEdicion.setPacienteNombre(pacienteNombre);
+            citaEnEdicion.setClienteId(clienteUid);
+            citaEnEdicion.setClienteNombre(clienteNombreCompleto);
+            citaEnEdicion.setFecha(fecha);
+            citaEnEdicion.setHora(hora);
+            citaEnEdicion.setMotivo(motivo);
+            citaEnEdicion.setNotas(notas);
+            citaEnEdicion.setEstado(estado);
+            citaEnEdicion.setFechaHoraTimestamp(fechaHoraTimestamp);
+            citaViewModel.update(citaEnEdicion);
+            Toast.makeText(this, R.string.msg_cita_actualizada, Toast.LENGTH_SHORT).show();
+        } else {
+            Cita cita = new Cita(
+                    UUID.randomUUID().toString(),
+                    pacienteId,
+                    pacienteNombre,
+                    clienteUid,
+                    clienteNombreCompleto,
+                    fecha,
+                    hora,
+                    motivo,
+                    notas,
+                    fechaHoraTimestamp,
+                    estado,
+                    ""
+            );
+            citaViewModel.insert(cita);
+            Toast.makeText(this, R.string.msg_cita_guardada, Toast.LENGTH_SHORT).show();
+        }
 
-        Toast.makeText(this, R.string.msg_cita_guardada, Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -343,5 +494,6 @@ public class admin_cita_nueva extends AppCompatActivity {
         pacienteAdapter.clear();
         pacienteAdapter.addAll(nombres);
         pacienteAdapter.notifyDataSetChanged();
+        seleccionarPacientePendiente();
     }
 }

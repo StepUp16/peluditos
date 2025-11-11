@@ -29,7 +29,7 @@
         android:paddingEnd="12dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="Pendiente"
+        android:text="@string/cita_estado_pendiente"
         tools:text="Pendiente"
         android:textSize="12sp"
         android:textStyle="bold"

@@ -22,6 +22,7 @@ public class Cita {
     private boolean sincronizado;
     private long timestampModificacion;
     private String estado;
+    private String notaEstado;
 
     public Cita(@NonNull String id,
                 String pacienteId,
@@ -33,7 +34,8 @@ public class Cita {
                 String motivo,
                 String notas,
                 long fechaHoraTimestamp,
-                String estado) {
+                String estado,
+                String notaEstado) {
         this.id = id;
         this.pacienteId = pacienteId;
         this.pacienteNombre = pacienteNombre;
@@ -45,6 +47,7 @@ public class Cita {
         this.notas = notas;
         this.fechaHoraTimestamp = fechaHoraTimestamp;
         this.estado = estado;
+        this.notaEstado = notaEstado;
         this.sincronizado = false;
         this.timestampModificacion = System.currentTimeMillis();
     }
@@ -152,5 +155,13 @@ public class Cita {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getNotaEstado() {
+        return notaEstado;
+    }
+
+    public void setNotaEstado(String notaEstado) {
+        this.notaEstado = notaEstado;
     }
 }

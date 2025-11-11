@@ -6,6 +6,18 @@
     android:layout_height="match_parent">
 
     <!-- Botón de retroceso -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/btn_back_desc"
+        android:src="@drawable/ic_arrow_back"
+        app:tint="@color/textColorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- ScrollView para los campos -->
     <ScrollView
@@ -13,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnGuardarCambios">
@@ -53,6 +65,7 @@
                 android:background="@drawable/edittext_bg"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
+                android:prompt="@string/hint_paciente"
                 android:layout_marginBottom="16dp"/>
 
             <!-- Cliente -->
@@ -70,6 +83,25 @@
                 android:background="@drawable/edittext_bg"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
+                android:prompt="@string/hint_cliente"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- Estado -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_estado_cita"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+            <Spinner
+                android:id="@+id/spinnerEstado"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/edittext_bg"
+                android:padding="12dp"
+                android:spinnerMode="dropdown"
+                android:prompt="@string/placeholder_select_estado"
                 android:layout_marginBottom="16dp"/>
 
             <!-- Fecha -->
@@ -80,17 +112,35 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
-            <EditText
-                android:id="@+id/etFecha"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
-                android:hint="@string/hint_fecha"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android:inputType="date"/>
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/etFecha"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_bg"
+                    android:hint="@string/hint_fecha"
+                    android:paddingStart="16dp"
+                    android:textColorHint="@color/textColorPrimary"
+                    android:textSize="18sp"
+                    android:inputType="date" />
+
+                <ImageView
+                    android:id="@+id/iconFecha"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/hint_fecha"
+                    android:src="@drawable/icono_citas"
+                    app:tint="@color/textColorSecondary" />
+            </LinearLayout>
 
             <!-- Hora -->
             <TextView
@@ -100,17 +150,35 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
-            <EditText
-                android:id="@+id/etHora"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
-                android:hint="@string/hint_hora"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android:inputType="time"/>
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/etHora"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_bg"
+                    android:hint="@string/hint_hora"
+                    android:paddingStart="16dp"
+                    android:textColorHint="@color/textColorPrimary"
+                    android:textSize="18sp"
+                    android:inputType="time" />
+
+                <ImageView
+                    android:id="@+id/iconHora"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/hint_hora"
+                    android:src="@drawable/icono_alarm"
+                    app:tint="@color/textColorSecondary" />
+            </LinearLayout>
 
             <!-- Motivo -->
             <TextView
@@ -120,14 +188,17 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
-            <Spinner
-                android:id="@+id/spinnerMotivo"
+            <EditText
+                android:id="@+id/etMotivo"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/edittext_bg"
-                android:padding="12dp"
-                android:spinnerMode="dropdown"
-                android:layout_marginBottom="16dp"/>
+                android:hint="@string/hint_motivo"
+                android:padding="16dp"
+                android:textColorHint="@color/textColorPrimary"
+                android:textSize="16sp"
+                android:layout_marginBottom="16dp"
+                android:inputType="textCapSentences" />
 
             <!-- Notas -->
             <TextView
@@ -137,30 +208,25 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
-            <EditText
-                android:id="@+id/etNotas"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNotas"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="@drawable/edittext_bg"
-                android:hint="@string/hint_notas_adicionales"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:inputType="textMultiLine"
-                android:gravity="top|start"
-                android:maxLines="5"
-                android:layout_marginBottom="24dp"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
 
-            <ImageButton
-                android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/btn_back_desc"
-                android:src="@drawable/ic_arrow_back"
-                app:tint="@color/textColorPrimary" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNotas"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="top|start"
+                    android:hint="@string/hint_notas_adicionales"
+                    android:inputType="textMultiLine"
+                    android:maxLines="5"
+                    android:padding="16dp"
+                    android:textColorHint="@color/textColorPrimary"
+                    android:textSize="16sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
     </ScrollView>
@@ -211,6 +277,19 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:padding="8dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/textDeleteWarning"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/textDeleteWarning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_delete_warning"
+        android:textColor="@color/textColorSecondary"
+        android:textSize="13sp"
+        android:gravity="center"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomMenu"
         app:layout_constraintStart_toStartOf="parent"

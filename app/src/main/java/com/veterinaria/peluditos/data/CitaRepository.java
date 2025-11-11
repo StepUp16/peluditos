@@ -57,6 +57,7 @@ public class CitaRepository {
 
     public void insert(Cita cita) {
         cita.setTimestampModificacion(System.currentTimeMillis());
+        cita.setPendienteEliminacion(false);
         if (TextUtils.isEmpty(cita.getEstado())) {
             cita.setEstado(ESTADO_DEFAULT);
         }
@@ -78,6 +79,7 @@ public class CitaRepository {
 
     public void update(Cita cita) {
         cita.setTimestampModificacion(System.currentTimeMillis());
+        cita.setPendienteEliminacion(false);
         if (TextUtils.isEmpty(cita.getEstado())) {
             cita.setEstado(ESTADO_DEFAULT);
         }
@@ -163,19 +165,35 @@ public class CitaRepository {
             final int[] completados = {0};
 
             for (Cita cita : pendientes) {
-                sincronizarConFirestore(cita, success -> {
-                    if (success) {
-                        AppDatabase.databaseWriteExecutor.execute(() ->
-                                citaDao.actualizarSincronizacion(cita.getId(), true));
-                    }
-                    synchronized (completados) {
-                        completados[0]++;
-                        if (completados[0] >= total) {
-                            isSyncing.set(false);
-                            startFirestoreListener();
+                if (cita.isPendienteEliminacion()) {
+                    eliminarEnFirestore(cita, success -> {
+                        if (success) {
+                            AppDatabase.databaseWriteExecutor.execute(() ->
+                                    citaDao.deleteById(cita.getId()));
                         }
-                    }
-                });
+                        synchronized (completados) {
+                            completados[0]++;
+                            if (completados[0] >= total) {
+                                isSyncing.set(false);
+                                startFirestoreListener();
+                            }
+                        }
+                    });
+                } else {
+                    sincronizarConFirestore(cita, success -> {
+                        if (success) {
+                            AppDatabase.databaseWriteExecutor.execute(() ->
+                                    citaDao.actualizarSincronizacion(cita.getId(), true));
+                        }
+                        synchronized (completados) {
+                            completados[0]++;
+                            if (completados[0] >= total) {
+                                isSyncing.set(false);
+                                startFirestoreListener();
+                            }
+                        }
+                    });
+                }
             }
         });
     }
@@ -184,6 +202,28 @@ public class CitaRepository {
         if (cita == null || TextUtils.isEmpty(nuevoEstado)) return;
         cita.setEstado(nuevoEstado);
         update(cita);
+    }
+
+    public void delete(Cita cita) {
+        if (cita == null || TextUtils.isEmpty(cita.getId())) {
+            return;
+        }
+
+        cita.setPendienteEliminacion(true);
+        cita.setSincronizado(false);
+        cita.setTimestampModificacion(System.currentTimeMillis());
+        AppDatabase.databaseWriteExecutor.execute(() -> citaDao.insert(cita));
+
+        if (isOnline && !isSyncing.get()) {
+            eliminarEnFirestore(cita, success -> {
+                if (success) {
+                    AppDatabase.databaseWriteExecutor.execute(() ->
+                            citaDao.deleteById(cita.getId()));
+                }
+            });
+        } else {
+            Log.w(TAG, "Eliminación offline: se sincronizará cuando vuelva la conexión");
+        }
     }
 
     private void sincronizarConFirestore(Cita cita, SyncCallback callback) {
@@ -200,6 +240,7 @@ public class CitaRepository {
         data.put("timestampModificacion", cita.getTimestampModificacion());
         data.put("estado", cita.getEstado());
         data.put("notaEstado", cita.getNotaEstado());
+        data.put("pendienteEliminacion", cita.isPendienteEliminacion());
 
         firestore.collection(COLLECTION)
                 .document(cita.getId())
@@ -234,8 +275,13 @@ public class CitaRepository {
                         for (QueryDocumentSnapshot document : snapshots) {
                             try {
                                 Cita citaRemota = createCitaFromDocument(document);
-                                citaRemota.setSincronizado(true);
-                                citaDao.insert(citaRemota);
+                                if (citaRemota.isPendienteEliminacion()) {
+                                    citaDao.deleteById(citaRemota.getId());
+                                } else {
+                                    citaRemota.setSincronizado(true);
+                                    citaRemota.setPendienteEliminacion(false);
+                                    citaDao.insert(citaRemota);
+                                }
                             } catch (Exception e) {
                                 Log.e(TAG, "Error procesando cita remota", e);
                             }
@@ -258,6 +304,7 @@ public class CitaRepository {
         Long timestampModificacion = document.getLong("timestampModificacion");
         String estado = document.getString("estado");
         String notaEstado = document.getString("notaEstado");
+        Boolean pendienteEliminacion = document.getBoolean("pendienteEliminacion");
 
         Cita cita = new Cita(
                 id,
@@ -277,6 +324,7 @@ public class CitaRepository {
             cita.setTimestampModificacion(timestampModificacion);
         }
         cita.setSincronizado(true);
+        cita.setPendienteEliminacion(pendienteEliminacion != null && pendienteEliminacion);
         return cita;
     }
 
@@ -300,5 +348,19 @@ public class CitaRepository {
 
     private interface SyncCallback {
         void onComplete(boolean success);
+    }
+
+    private void eliminarEnFirestore(Cita cita, SyncCallback callback) {
+        firestore.collection(COLLECTION)
+                .document(cita.getId())
+                .delete()
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Cita eliminada en Firestore: " + cita.getId());
+                    callback.onComplete(true);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error eliminando cita en Firestore", e);
+                    callback.onComplete(false);
+                });
     }
 }

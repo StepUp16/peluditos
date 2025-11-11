@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Usuario.class, Paciente.class, Cita.class}, version = 7, exportSchema = false)
+@Database(entities = {Usuario.class, Paciente.class, Cita.class}, version = 8, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UsuarioDao usuarioDao();
     public abstract PacienteDao pacienteDao();

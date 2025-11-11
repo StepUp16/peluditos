@@ -126,10 +126,10 @@
                 android:id="@+id/etNombrePaciente"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
+                android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_nombre_paciente"
                 android:padding="16dp"
-                android:textColorHint="@color/menu_Cliente_Admin_inactivo"
+                android:textColorHint="#9EB8A8"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="textPersonName"
@@ -147,7 +147,7 @@
                 android:id="@+id/spinnerEspecie"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
+                android:background="@drawable/edittext_bg"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
                 android:layout_marginBottom="16dp"/>
@@ -164,7 +164,7 @@
                 android:id="@+id/spinnerRaza"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
+                android:background="@drawable/edittext_bg"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
                 android:layout_marginBottom="16dp"/>
@@ -173,18 +173,19 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:text="@string/label_edad"
-                android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginBottom="8dp"/>
+                android:textStyle="bold" />
+
             <EditText
                 android:id="@+id/etEdad"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
+                android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_edad"
                 android:padding="16dp"
-                android:textColorHint="@color/menu_Cliente_Admin_inactivo"
+                android:textColorHint="#9EB8A8"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="number"
@@ -202,10 +203,10 @@
                 android:id="@+id/etPeso"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
+                android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_peso"
                 android:padding="16dp"
-                android:textColorHint="@color/menu_Cliente_Admin_inactivo"
+                android:textColorHint="#9EB8A8"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="numberDecimal"
@@ -219,14 +220,15 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
+
             <Spinner
                 android:id="@+id/spinnerSexo"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/edittext_bg"
                 android:padding="12dp"
-                android:spinnerMode="dropdown"
-                android:layout_marginBottom="24dp"/>
+                android:spinnerMode="dropdown" />
 
             <!-- Cliente asociado-->
             <TextView
@@ -240,7 +242,7 @@
                 android:id="@+id/spinnerCliente"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
+                android:background="@drawable/edittext_bg"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
                 android:layout_marginBottom="24dp"/>
@@ -332,7 +334,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_mascotas"
-                app:tint="@color/textColorPrimary" />
+                app:tint="@color/menu_Cliente_Admin_activo" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -38,7 +38,7 @@ android {
 dependencies {
 
     // Firebase BOM para gestionar versiones
-    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
+    implementation(platform("com.google.firebase:firebase-bom:34.5.0"))
 
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -50,6 +50,7 @@ dependencies {
     // Firebase dependencies (versions managed by BOM)
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
+    implementation("com.google.firebase:firebase-storage")
     implementation(libs.play.services.maps)
 
     // Room
@@ -61,6 +62,9 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata:2.6.2")
     implementation("androidx.lifecycle:lifecycle-common-java8:2.6.2")
+
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

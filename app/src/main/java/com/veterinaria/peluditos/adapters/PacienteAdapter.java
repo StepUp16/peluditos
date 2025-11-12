@@ -1,5 +1,6 @@
 package com.veterinaria.peluditos.adapters;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.veterinaria.peluditos.R;
 import com.veterinaria.peluditos.data.Paciente;
@@ -90,8 +92,15 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.Pacien
             );
             tvClientInfo.setText(detalle);
 
-            // Avatar por defecto; en el futuro podríamos cargar foto real
-            ivAvatar.setImageResource(R.drawable.paciente);
+            if (!TextUtils.isEmpty(paciente.getFotoUrl())) {
+                Glide.with(itemView.getContext())
+                        .load(paciente.getFotoUrl())
+                        .placeholder(R.drawable.paciente)
+                        .error(R.drawable.paciente)
+                        .into(ivAvatar);
+            } else {
+                ivAvatar.setImageResource(R.drawable.paciente);
+            }
 
             btnEdit.setOnClickListener(v -> {
                 if (actionListener != null) {

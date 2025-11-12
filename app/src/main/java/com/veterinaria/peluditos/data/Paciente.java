@@ -18,6 +18,7 @@ public class Paciente {
     private String sexo;
     private String clienteId;
     private String clienteNombre;
+    private String fotoUrl;
     private boolean sincronizado;
     private boolean eliminado;
     private long timestampModificacion;
@@ -30,7 +31,8 @@ public class Paciente {
                     double peso,
                     String sexo,
                     String clienteId,
-                    String clienteNombre) {
+                    String clienteNombre,
+                    String fotoUrl) {
         this.id = id;
         this.nombre = nombre;
         this.especie = especie;
@@ -40,6 +42,7 @@ public class Paciente {
         this.sexo = sexo;
         this.clienteId = clienteId;
         this.clienteNombre = clienteNombre;
+        this.fotoUrl = fotoUrl;
         this.sincronizado = false;
         this.eliminado = false;
         this.timestampModificacion = System.currentTimeMillis();
@@ -116,6 +119,14 @@ public class Paciente {
 
     public void setClienteNombre(String clienteNombre) {
         this.clienteNombre = clienteNombre;
+    }
+
+    public String getFotoUrl() {
+        return fotoUrl;
+    }
+
+    public void setFotoUrl(String fotoUrl) {
+        this.fotoUrl = fotoUrl;
     }
 
     public boolean isSincronizado() {

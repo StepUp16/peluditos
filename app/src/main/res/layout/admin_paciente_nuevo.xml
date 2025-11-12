@@ -32,6 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:gravity="center_horizontal"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
             android:paddingTop="64dp"
@@ -48,6 +49,41 @@
                 android:textSize="22sp"
                 android:gravity="center"
                 android:layout_marginBottom="24dp"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivPatientPhoto"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/paciente"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CircleImageView"
+                    android:contentDescription="@string/content_desc_foto_paciente" />
+
+                <ImageButton
+                    android:id="@+id/btnChangePhoto"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="end|bottom"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/btn_edit_bg"
+                    android:contentDescription="@string/content_desc_cambiar_foto"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_camera"
+                    app:tint="@color/textColorPrimary" />
+
+                <ProgressBar
+                    android:id="@+id/photoProgress"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+            </FrameLayout>
 
             <!-- Nombre del Paciente -->
             <TextView

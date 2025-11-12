@@ -233,6 +233,7 @@ public class PacienteRepository {
         data.put("sexo", paciente.getSexo());
         data.put("clienteId", paciente.getClienteId());
         data.put("clienteNombre", paciente.getClienteNombre());
+        data.put("fotoUrl", paciente.getFotoUrl());
         data.put("timestampModificacion", paciente.getTimestampModificacion());
         data.put("eliminado", false);
 
@@ -319,6 +320,7 @@ public class PacienteRepository {
         String sexo = document.getString("sexo");
         String clienteId = document.getString("clienteId");
         String clienteNombre = document.getString("clienteNombre");
+        String fotoUrl = document.getString("fotoUrl");
         Boolean eliminado = document.getBoolean("eliminado");
 
         int edad = edadLong != null ? edadLong.intValue() : 0;
@@ -333,7 +335,8 @@ public class PacienteRepository {
                 peso,
                 sexo != null ? sexo : "",
                 clienteId != null ? clienteId : "",
-                clienteNombre != null ? clienteNombre : ""
+                clienteNombre != null ? clienteNombre : "",
+                fotoUrl
         );
         paciente.setSincronizado(true);
         if (timestamp != null) {

@@ -62,6 +62,12 @@
     <string name="btn_guardar_paciente">Guardar Paciente</string>
     <string name="btn_cancelar_paciente">Cancelar</string>
     <string name="btn_guardar_cambios_paciente">Guardar Cambios</string>
+    <string name="content_desc_foto_paciente">Foto del paciente</string>
+    <string name="content_desc_cambiar_foto">Cambiar foto del paciente</string>
+    <string name="msg_foto_subiendo">Subiendo foto...</string>
+    <string name="msg_foto_actualizada">La foto se actualiz\u00f3 correctamente</string>
+    <string name="error_subir_foto">No pudimos subir la foto. Int\u00e9ntalo nuevamente cuando tengas conexi\u00f3n.</string>
+    <string name="error_red_requerida">Necesitas conexi\u00f3n a internet para realizar esta acci\u00f3n.</string>
 
     <string name="btn_guardando">Guardando...</string>
     <string name="placeholder_select_paciente">Seleccionar Paciente</string>

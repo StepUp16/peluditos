@@ -1,5 +1,6 @@
 package com.veterinaria.peluditos;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,16 +9,23 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.veterinaria.peluditos.data.Paciente;
 import com.veterinaria.peluditos.data.Usuario;
+import com.veterinaria.peluditos.util.NetworkUtils;
+import com.veterinaria.peluditos.util.PacientePhotoManager;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -40,6 +48,9 @@ public class AdminPacienteEditarActivity extends AppCompatActivity {
     private TextView tvPacienteNombre;
     private TextView tvPacienteEspecieRaza;
     private TextView tvPacienteEdadSexo;
+    private ShapeableImageView ivPacienteFoto;
+    private ImageButton btnChangePhoto;
+    private ProgressBar photoProgress;
 
     private final List<Usuario> clientes = new ArrayList<>();
     private ArrayAdapter<String> clienteAdapter;
@@ -51,11 +62,25 @@ public class AdminPacienteEditarActivity extends AppCompatActivity {
     private String pacienteId;
     private String razaPendiente;
     private String clientePendienteId;
+    private String fotoUrlSeleccionada;
+    private Paciente pacienteActual;
+    private PacientePhotoManager photoManager;
+    private ActivityResultLauncher<String> photoPickerLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_paciente_editar);
+
+        photoManager = new PacientePhotoManager();
+        photoPickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                uri -> {
+                    if (uri != null) {
+                        subirFotoPaciente(uri);
+                    }
+                }
+        );
 
         pacienteId = getIntent().getStringExtra(EXTRA_PACIENTE_ID);
         if (TextUtils.isEmpty(pacienteId)) {
@@ -95,6 +120,13 @@ public class AdminPacienteEditarActivity extends AppCompatActivity {
         tvPacienteNombre = findViewById(R.id.tvPacienteNombre);
         tvPacienteEspecieRaza = findViewById(R.id.tvPacienteEspecieRaza);
         tvPacienteEdadSexo = findViewById(R.id.tvPacienteEdadSexo);
+        ivPacienteFoto = findViewById(R.id.ivPacienteFoto);
+        btnChangePhoto = findViewById(R.id.btnChangePhoto);
+        photoProgress = findViewById(R.id.photoProgress);
+
+        if (btnChangePhoto != null) {
+            btnChangePhoto.setOnClickListener(v -> seleccionarNuevaFoto());
+        }
     }
 
     private void initRazaLookup() {
@@ -204,6 +236,7 @@ public class AdminPacienteEditarActivity extends AppCompatActivity {
 
     private void observePaciente() {
         pacienteViewModel.getPaciente(pacienteId).observe(this, paciente -> {
+            pacienteActual = paciente;
             if (paciente != null) {
                 llenarFormulario(paciente);
             }
@@ -226,6 +259,8 @@ public class AdminPacienteEditarActivity extends AppCompatActivity {
 
         clientePendienteId = paciente.getClienteId();
         razaPendiente = paciente.getRaza();
+        fotoUrlSeleccionada = paciente.getFotoUrl();
+        actualizarFotoPaciente(fotoUrlSeleccionada);
 
         seleccionarValorSpinner(spinnerSexo, paciente.getSexo());
         seleccionarValorSpinner(spinnerEspecie, paciente.getEspecie());
@@ -282,7 +317,8 @@ public class AdminPacienteEditarActivity extends AppCompatActivity {
                 clienteSeleccionado != null ? clienteSeleccionado.getUid() : "",
                 clienteSeleccionado != null
                         ? clienteSeleccionado.getNombre() + " " + clienteSeleccionado.getApellido()
-                        : ""
+                        : "",
+                fotoUrlSeleccionada
         );
 
         pacienteViewModel.update(paciente);
@@ -400,5 +436,76 @@ public class AdminPacienteEditarActivity extends AppCompatActivity {
             return especie;
         }
         return especie + " - " + raza;
+    }
+
+    private void seleccionarNuevaFoto() {
+        if (!NetworkUtils.isOnline(this)) {
+            Toast.makeText(this, R.string.error_red_requerida, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (photoPickerLauncher != null) {
+            photoPickerLauncher.launch("image/*");
+        }
+    }
+
+    private void subirFotoPaciente(Uri uri) {
+        if (photoManager == null || TextUtils.isEmpty(pacienteId)) {
+            return;
+        }
+        mostrarCargaFoto(true);
+        Toast.makeText(this, R.string.msg_foto_subiendo, Toast.LENGTH_SHORT).show();
+        photoManager.uploadPhoto(getApplicationContext(), uri, pacienteId,
+                new PacientePhotoManager.UploadCallback() {
+                    @Override
+                    public void onSuccess(@NonNull String downloadUrl) {
+                        fotoUrlSeleccionada = downloadUrl;
+                        actualizarFotoPaciente(downloadUrl);
+                        mostrarCargaFoto(false);
+                        Toast.makeText(AdminPacienteEditarActivity.this,
+                                R.string.msg_foto_actualizada,
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Exception exception) {
+                        mostrarCargaFoto(false);
+                        Toast.makeText(AdminPacienteEditarActivity.this,
+                                R.string.error_subir_foto,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void mostrarCargaFoto(boolean mostrando) {
+        if (photoProgress != null) {
+            photoProgress.setVisibility(mostrando ? View.VISIBLE : View.GONE);
+        }
+        if (btnChangePhoto != null) {
+            btnChangePhoto.setEnabled(!mostrando);
+            btnChangePhoto.setAlpha(mostrando ? 0.4f : 1f);
+        }
+    }
+
+    private void actualizarFotoPaciente(String url) {
+        if (ivPacienteFoto == null) {
+            return;
+        }
+        if (TextUtils.isEmpty(url)) {
+            ivPacienteFoto.setImageResource(R.drawable.paciente);
+            return;
+        }
+        Glide.with(this)
+                .load(url)
+                .placeholder(R.drawable.paciente)
+                .error(R.drawable.paciente)
+                .into(ivPacienteFoto);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (photoManager != null) {
+            photoManager.dispose();
+        }
     }
 }

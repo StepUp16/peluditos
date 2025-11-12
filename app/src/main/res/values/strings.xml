@@ -90,6 +90,9 @@
     <string name="error_peso_valor">Ingrese un peso válido mayor a 0</string>
     <string name="error_sexo">Seleccione el sexo del paciente</string>
     <string name="error_motivo">Ingrese el motivo de la cita</string>
+    <string name="error_diagnostico">Ingrese el diagnóstico</string>
+    <string name="error_tratamiento">Ingrese el tratamiento</string>
+    <string name="error_medicacion">Ingrese la medicación</string>
     <string name="error_estado_cita">Seleccione el estado de la cita</string>
     <string name="error_fecha_posponer">Seleccione la nueva fecha y hora para reprogramar.</string>
     <string name="error_nota_cancelacion">Ingrese una nota para la cancelación.</string>
@@ -240,12 +243,24 @@
     <string name="hint_tratamiento">Tratamiento</string>
     <string name="hint_medicacion">Medicación</string>
     <string name="hint_notas_proximos_pasos">Notas adicionales / Próximos pasos</string>
+    <string name="hint_hora_consulta">Hora de la consulta</string>
+    <string name="label_fecha_consulta">Fecha de la consulta</string>
+    <string name="label_hora_consulta">Hora de la consulta</string>
+    <string name="label_motivo_consulta">Motivo de la consulta</string>
+    <string name="label_diagnostico">Diagnóstico</string>
+    <string name="label_tratamiento">Tratamiento</string>
+    <string name="label_medicacion">Medicación</string>
+    <string name="label_notas_proximos_pasos">Notas adicionales / Próximos pasos</string>
+    <string name="msg_historial_guardado">Historial guardado correctamente</string>
     <string name="btn_guardar_historial">Guardar Historial</string>
 
     <!-- Cadenas para admin_historial_medico.xml -->
     <string name="title_historial_medico">Historial Médico</string>
     <string name="section_historial">Historial</string>
     <string name="btn_nueva_entrada">Nueva entrada</string>
+    <string name="empty_historial">Todavía no hay historial registrado</string>
+    <string name="msg_feature_en_construccion">Estamos trabajando en esta sección</string>
+    <string name="historial_detalle_formato">%1$s • %2$s</string>
 
     <!-- Cadenas para prueba_firebase.xml -->
     <string name="title_prueba_firebase">Prueba de Conexión con Firebase</string>

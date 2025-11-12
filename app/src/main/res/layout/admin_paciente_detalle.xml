@@ -171,6 +171,18 @@
                     android:text="@string/tab_citas_pasadas" />
             </com.google.android.material.tabs.TabLayout>
 
+            <Button
+                android:id="@+id/btnAgregarHistorial"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/btn_green_bg"
+                android:text="@string/btn_nueva_entrada"
+                android:textColor="#081114"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:backgroundTint="@null"/>
+
             <!-- Contenedor para el historial (RecyclerView) -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewHistory"
@@ -179,6 +191,16 @@
                 android:layout_marginTop="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_historial_medico" />
+
+            <TextView
+                android:id="@+id/tvEmptyHistorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="@string/empty_historial"
+                android:textColor="@color/menu_Cliente_Admin_inactivo"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </ScrollView>

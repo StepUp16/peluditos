@@ -19,8 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.tabs.TabLayout;
 import com.veterinaria.peluditos.adapters.HistorialMedicoAdapter;
+import com.veterinaria.peluditos.adapters.PacienteCitaAdapter;
 import com.veterinaria.peluditos.data.HistorialMedico;
 import com.veterinaria.peluditos.data.Paciente;
+import com.veterinaria.peluditos.data.Usuario;
+import com.veterinaria.peluditos.data.Cita;
 
 import java.util.List;
 import java.util.Locale;
@@ -43,12 +46,17 @@ public class admin_paciente_detalle extends AppCompatActivity {
     private TabLayout tabLayout;
 
     private HistorialMedicoAdapter historialAdapter;
+    private PacienteCitaAdapter citaAdapter;
     private AdminPacienteViewModel pacienteViewModel;
     private AdminHistorialMedicoViewModel historialMedicoViewModel;
+    private AdminUsuarioViewModel usuarioViewModel;
+    private AdminCitaViewModel citaViewModel;
 
     private String pacienteId;
     private Paciente pacienteActual;
     private List<HistorialMedico> historialActual;
+    private List<Cita> citasFuturas;
+    private List<Cita> citasPasadas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +77,8 @@ public class admin_paciente_detalle extends AppCompatActivity {
 
         pacienteViewModel = new ViewModelProvider(this).get(AdminPacienteViewModel.class);
         historialMedicoViewModel = new ViewModelProvider(this).get(AdminHistorialMedicoViewModel.class);
+        usuarioViewModel = new ViewModelProvider(this).get(AdminUsuarioViewModel.class);
+        citaViewModel = new ViewModelProvider(this).get(AdminCitaViewModel.class);
 
         pacienteViewModel.getPaciente(pacienteId).observe(this, paciente -> {
             if (paciente == null) {
@@ -84,6 +94,27 @@ public class admin_paciente_detalle extends AppCompatActivity {
             historialActual = historiales;
             historialAdapter.setHistoriales(historiales);
             updateEmptyState();
+        });
+
+        citaViewModel.getAllCitas().observe(this, citas -> {
+            if (citas == null) {
+                citasFuturas = null;
+                citasPasadas = null;
+            } else {
+                long now = System.currentTimeMillis();
+                citasFuturas = new java.util.ArrayList<>();
+                citasPasadas = new java.util.ArrayList<>();
+                for (Cita cita : citas) {
+                    if (!TextUtils.equals(cita.getPacienteId(), pacienteId)) continue;
+                    long time = cita.getFechaHoraTimestamp();
+                    if (time >= now) {
+                        citasFuturas.add(cita);
+                    } else {
+                        citasPasadas.add(cita);
+                    }
+                }
+            }
+            updateCitaAdapter();
         });
     }
 
@@ -109,6 +140,7 @@ public class admin_paciente_detalle extends AppCompatActivity {
 
     private void setupRecyclerView() {
         historialAdapter = new HistorialMedicoAdapter();
+        citaAdapter = new PacienteCitaAdapter();
         recyclerViewHistory.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewHistory.setAdapter(historialAdapter);
     }
@@ -184,27 +216,51 @@ public class admin_paciente_detalle extends AppCompatActivity {
         tvClientName.setText(!TextUtils.isEmpty(paciente.getClienteNombre())
                 ? paciente.getClienteNombre()
                 : getString(R.string.paciente_sin_cliente));
-        tvClientPhone.setText(R.string.msg_seleccione_cliente);
+        cargarTelefonoCliente(paciente.getClienteId());
 
         ivPatientPhoto.setImageResource(R.drawable.paciente);
         ivClientPhoto.setImageResource(R.drawable.user_sofia);
+    }
+
+    private void cargarTelefonoCliente(String clienteId) {
+        if (TextUtils.isEmpty(clienteId)) {
+            tvClientPhone.setText(R.string.msg_seleccione_cliente);
+            return;
+        }
+        usuarioViewModel.getUsuario(clienteId).observe(this, usuario -> {
+            if (usuario != null && !TextUtils.isEmpty(usuario.getTelefono())) {
+                tvClientPhone.setText(getString(R.string.cliente_telefono_formato, usuario.getTelefono()));
+            } else {
+                tvClientPhone.setText(R.string.msg_seleccione_cliente);
+            }
+        });
     }
 
     private void manejarSeleccionTab(int position) {
         if (position == 0) {
             recyclerViewHistory.setVisibility(View.VISIBLE);
             btnAgregarHistorial.setVisibility(View.VISIBLE);
-            updateEmptyState();
+            recyclerViewHistory.setAdapter(historialAdapter);
         } else {
-            recyclerViewHistory.setVisibility(View.GONE);
+            recyclerViewHistory.setVisibility(View.VISIBLE);
             btnAgregarHistorial.setVisibility(View.GONE);
-            tvEmptyHistorial.setVisibility(View.VISIBLE);
-            tvEmptyHistorial.setText(R.string.msg_feature_en_construccion);
+            recyclerViewHistory.setAdapter(citaAdapter);
+            updateCitaAdapter();
         }
+        updateEmptyState();
     }
 
     private void updateEmptyState() {
         if (tabLayout.getSelectedTabPosition() != 0) {
+            boolean isEmpty;
+            if (tabLayout.getSelectedTabPosition() == 1) {
+                isEmpty = citasFuturas == null || citasFuturas.isEmpty();
+                tvEmptyHistorial.setText(R.string.empty_citas_futuras);
+            } else {
+                isEmpty = citasPasadas == null || citasPasadas.isEmpty();
+                tvEmptyHistorial.setText(R.string.empty_citas_pasadas);
+            }
+            tvEmptyHistorial.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
             return;
         }
         boolean isEmpty = historialActual == null || historialActual.isEmpty();
@@ -212,6 +268,20 @@ public class admin_paciente_detalle extends AppCompatActivity {
         if (isEmpty) {
             tvEmptyHistorial.setText(R.string.empty_historial);
         }
+    }
+
+    private void updateCitaAdapter() {
+        if (tabLayout == null || citaAdapter == null) {
+            return;
+        }
+        if (tabLayout.getSelectedTabPosition() == 1) {
+            citaAdapter.setCitas(citasFuturas);
+        } else if (tabLayout.getSelectedTabPosition() == 2) {
+            citaAdapter.setCitas(citasPasadas);
+        } else {
+            return;
+        }
+        updateEmptyState();
     }
 
     private void abrirEditarPaciente() {

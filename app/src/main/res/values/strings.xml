@@ -102,6 +102,7 @@
     <string name="empty_citas">Aún no hay citas programadas.</string>
     <string name="paciente_sin_cliente">Sin asignar</string>
     <string name="paciente_item_detalle">%1$s • Cliente: %2$s • %3$s kg</string>
+    <string name="cliente_telefono_formato">Teléfono: %1$s</string>
     <string name="paciente_header_edad_sexo">%1$d años • %2$s</string>
     <string name="cita_item_titulo">%1$s • %2$s</string>
     <string name="desc_editar_paciente">Editar paciente</string>
@@ -253,6 +254,8 @@
     <string name="label_notas_proximos_pasos">Notas adicionales / Próximos pasos</string>
     <string name="msg_historial_guardado">Historial guardado correctamente</string>
     <string name="btn_guardar_historial">Guardar Historial</string>
+    <string name="empty_citas_futuras">Aún no hay citas futuras para este paciente</string>
+    <string name="empty_citas_pasadas">Aún no hay citas pasadas para este paciente</string>
 
     <!-- Cadenas para admin_historial_medico.xml -->
     <string name="title_historial_medico">Historial Médico</string>

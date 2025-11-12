@@ -58,6 +58,13 @@ public class AdminPacienteListadoActivity extends AppCompatActivity {
             public void onDelete(Paciente paciente) {
                 mostrarDialogoEliminar(paciente);
             }
+
+            @Override
+            public void onView(Paciente paciente) {
+                Intent intent = new Intent(AdminPacienteListadoActivity.this, admin_paciente_detalle.class);
+                intent.putExtra(admin_paciente_detalle.EXTRA_PACIENTE_ID, paciente.getId());
+                startActivity(intent);
+            }
         });
 
         tvEmptyState = findViewById(R.id.tvEmptyState);

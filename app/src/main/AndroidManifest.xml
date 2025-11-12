@@ -92,6 +92,21 @@
             android:theme="@style/Theme.Peluditos" />
 
         <activity
+            android:name=".admin_historial_medico_nuevo"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
+        <activity
+            android:name=".admin_historial_medico"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
+        <activity
+            android:name=".admin_paciente_detalle"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
+        <activity
             android:name=".admin_cita_listado"
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />

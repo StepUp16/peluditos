@@ -48,84 +48,220 @@
             android:padding="24dp">
 
             <!-- Selector de Paciente -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_paciente"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
             <Spinner
-                android:id="@+id/spinnerPatient"
+                android:id="@+id/spinnerPaciente"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
-                android:hint="@string/hint_seleccionar_paciente"
                 android:padding="12dp"
+                android:prompt="@string/hint_seleccionar_paciente"
                 android:layout_marginBottom="16dp" />
 
             <!-- Fecha de la Consulta -->
-            <EditText
-                android:id="@+id/etFechaConsulta"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_fecha_consulta"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
-                android:hint="@string/hint_fecha_consulta"
-                android:inputType="date"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/etFechaConsulta"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_bg"
+                    android:hint="@string/hint_fecha_consulta"
+                    android:paddingStart="16dp"
+                    android:textColorHint="@color/textColorPrimary"
+                    android:textSize="18sp"
+                    android:inputType="date" />
+
+                <ImageView
+                    android:id="@+id/iconFecha"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/hint_fecha_consulta"
+                    android:src="@drawable/icono_citas"
+                    app:tint="@color/textColorSecondary" />
+            </LinearLayout>
+
+            <!-- Hora de la Consulta -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_hora_consulta"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="@drawable/edittext_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/etHoraConsulta"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/edittext_bg"
+                    android:hint="@string/hint_hora_consulta"
+                    android:paddingStart="16dp"
+                    android:textColorHint="@color/textColorPrimary"
+                    android:textSize="18sp"
+                    android:inputType="time" />
+
+                <ImageView
+                    android:id="@+id/iconHora"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="@string/hint_hora_consulta"
+                    android:src="@drawable/icono_alarm"
+                    app:tint="@color/textColorSecondary" />
+            </LinearLayout>
 
             <!-- Motivo de la Consulta -->
-            <EditText
-                android:id="@+id/etMotivoConsulta"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/edittext_bg"
-                android:hint="@string/hint_motivo_consulta"
-                android:inputType="textCapSentences"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/label_motivo_consulta"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMotivoConsulta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittext_bg"
+                    android:hint="@string/hint_motivo_consulta"
+                    android:inputType="textCapSentences"
+                    android:padding="16dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Diagnóstico -->
-            <EditText
-                android:id="@+id/etDiagnostico"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="@drawable/edittext_bg"
-                android:hint="@string/hint_diagnostico"
-                android:inputType="textMultiLine|textCapSentences"
-                android:gravity="top|start"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/label_diagnostico"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDiagnostico"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="top|start"
+                    android:hint="@string/hint_diagnostico"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:maxLines="5"
+                    android:padding="16dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Tratamiento -->
-            <EditText
-                android:id="@+id/etTratamiento"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="@drawable/edittext_bg"
-                android:hint="@string/hint_tratamiento"
-                android:inputType="textMultiLine|textCapSentences"
-                android:gravity="top|start"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/label_tratamiento"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTratamiento"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="top|start"
+                    android:hint="@string/hint_tratamiento"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:maxLines="5"
+                    android:padding="16dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Medicación -->
-            <EditText
-                android:id="@+id/etMedicacion"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="@drawable/edittext_bg"
-                android:hint="@string/hint_medicacion"
-                android:inputType="textMultiLine|textCapSentences"
-                android:gravity="top|start"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/label_medicacion"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMedicacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="top|start"
+                    android:hint="@string/hint_medicacion"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:maxLines="5"
+                    android:padding="16dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Notas adicionales / Próximos pasos -->
-            <EditText
-                android:id="@+id/etNotasAdicionales"
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="@drawable/edittext_bg"
-                android:hint="@string/hint_notas_proximos_pasos"
-                android:inputType="textMultiLine|textCapSentences"
-                android:gravity="top|start"
-                android:padding="16dp"
-                android:layout_marginBottom="16dp" />
+                android:layout_height="wrap_content"
+                android:text="@string/label_notas_proximos_pasos"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginBottom="8dp"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNotasAdicionales"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/edittext_bg"
+                    android:gravity="top|start"
+                    android:hint="@string/hint_notas_proximos_pasos"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:maxLines="5"
+                    android:padding="16dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
     </ScrollView>

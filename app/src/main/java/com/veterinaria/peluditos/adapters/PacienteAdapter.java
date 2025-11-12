@@ -25,6 +25,7 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.Pacien
     public interface OnPacienteActionListener {
         void onEdit(Paciente paciente);
         void onDelete(Paciente paciente);
+        void onView(Paciente paciente);
     }
 
     public void setOnPacienteActionListener(OnPacienteActionListener listener) {
@@ -101,6 +102,12 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.Pacien
             btnDelete.setOnClickListener(v -> {
                 if (actionListener != null) {
                     actionListener.onDelete(paciente);
+                }
+            });
+
+            itemView.setOnClickListener(v -> {
+                if (actionListener != null && getBindingAdapterPosition() != RecyclerView.NO_POSITION) {
+                    actionListener.onView(pacientes.get(getBindingAdapterPosition()));
                 }
             });
         }

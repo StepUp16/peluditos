@@ -14,6 +14,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.SetOptions;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -135,6 +137,7 @@ public class UsuarioRepository {
         usuarioMap.put("dui", usuario.getDui());
         usuarioMap.put("direccion", usuario.getDireccion());
         usuarioMap.put("rol", usuario.getRol());
+        usuarioMap.put("fotoUrl", usuario.getFotoUrl());
         usuarioMap.put("timestampModificacion", usuario.getTimestampModificacion());
 
         String documentId = usuario.getUid().startsWith("local_") ?
@@ -160,6 +163,7 @@ public class UsuarioRepository {
                                     usuarioExistente.setTelefono(usuario.getTelefono());
                                     usuarioExistente.setDireccion(usuario.getDireccion());
                                     usuarioExistente.setRol(usuario.getRol());
+                                    usuarioExistente.setFotoUrl(usuario.getFotoUrl());
                                     usuarioExistente.setTimestampModificacion(usuario.getTimestampModificacion());
                                     usuarioExistente.setSincronizado(true);
                                     usuarioDao.insert(usuarioExistente);
@@ -189,7 +193,7 @@ public class UsuarioRepository {
 
         Log.d(TAG, "Iniciando listener de Firestore");
         firestoreListener = firestore.collection("usuarios")
-                .whereEqualTo("rol", "cliente")
+                .whereIn("rol", Arrays.asList("cliente", "administrador", "veterinario"))
                 .addSnapshotListener((queryDocumentSnapshots, error) -> {
                     if (error != null) {
                         Log.e(TAG, "Error en el listener de Firestore", error);
@@ -251,8 +255,9 @@ public class UsuarioRepository {
         String dui = document.getString("dui");
         String direccion = document.getString("direccion");
         String rol = document.getString("rol");
+        String fotoUrl = document.getString("fotoUrl");
 
-        Usuario usuario = new Usuario(uid, nombre, apellido, email, telefono, dui, direccion, rol);
+        Usuario usuario = new Usuario(uid, nombre, apellido, email, telefono, dui, direccion, rol, fotoUrl);
         usuario.setSincronizado(true);
 
         // Obtener timestamp si existe
@@ -279,6 +284,7 @@ public class UsuarioRepository {
                         existente.setTelefono(usuario.getTelefono());
                         existente.setDireccion(usuario.getDireccion());
                         existente.setRol(usuario.getRol());
+                        existente.setFotoUrl(usuario.getFotoUrl());
                         existente.setSincronizado(false);
                         existente.setTimestampModificacion(System.currentTimeMillis());
                         usuarioDao.insert(existente);
@@ -348,6 +354,21 @@ public class UsuarioRepository {
 
     public LiveData<Usuario> getUsuarioByEmail(String email) {
         return usuarioDao.getUsuarioByEmail(email);
+    }
+
+    public LiveData<List<Usuario>> getUsuariosPorRoles(List<String> roles) {
+        List<String> normalized = new ArrayList<>();
+        if (roles != null) {
+            for (String rol : roles) {
+                if (rol != null && !rol.trim().isEmpty()) {
+                    normalized.add(rol.trim().toLowerCase());
+                }
+            }
+        }
+        if (normalized.isEmpty()) {
+            normalized.add("");
+        }
+        return usuarioDao.getUsuariosPorRoles(normalized);
     }
 
     public void cleanup() {

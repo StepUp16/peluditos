@@ -2,25 +2,35 @@ package com.veterinaria.peluditos;
 
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.veterinaria.peluditos.data.Usuario;
+import com.veterinaria.peluditos.util.NetworkUtils;
+import com.veterinaria.peluditos.util.PacientePhotoManager;
 
 public class AdminPerfil extends AppCompatActivity {
     private static final String TAG = "AdminPerfil";
@@ -32,12 +42,17 @@ public class AdminPerfil extends AppCompatActivity {
     private ImageButton btnBack;
     private LinearLayout llManageRoles, llAccessStats;
     private LinearLayout iconHome, iconCitas, iconPacientes, iconClientes, iconPerfil;
+    private ShapeableImageView ivUserProfile;
+    private ImageButton btnChangePhoto;
+    private ProgressBar photoProgress;
 
     // Firebase y otros componentes
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private AdminUsuarioViewModel viewModel;
     private SessionManager sessionManager;
+    private ActivityResultLauncher<String> photoPickerLauncher;
+    private PacientePhotoManager photoManager;
 
     // Datos del usuario actual
     private Usuario currentUser;
@@ -46,6 +61,16 @@ public class AdminPerfil extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_perfil);
+
+        photoManager = new PacientePhotoManager("usuarios");
+        photoPickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                uri -> {
+                    if (uri != null) {
+                        subirFotoPerfil(uri);
+                    }
+                }
+        );
 
         // Inicializar componentes
         initComponents();
@@ -68,6 +93,9 @@ public class AdminPerfil extends AppCompatActivity {
         tvUserName = findViewById(R.id.tvUserName);
         tvUserEmail = findViewById(R.id.tvUserEmail);
         tvUserRole = findViewById(R.id.tvUserRole);
+        ivUserProfile = findViewById(R.id.ivUserProfile);
+        btnChangePhoto = findViewById(R.id.btnChangePhoto);
+        photoProgress = findViewById(R.id.photoProgress);
 
         // Botones principales
         btnViewUsers = findViewById(R.id.btnViewUsers);
@@ -95,12 +123,14 @@ public class AdminPerfil extends AppCompatActivity {
         // Botón de regreso
         btnBack.setOnClickListener(v -> finish());
 
+        if (btnChangePhoto != null) {
+            btnChangePhoto.setOnClickListener(v -> seleccionarNuevaFoto());
+        }
+
         // Botón ver usuarios
         btnViewUsers.setOnClickListener(v -> {
-            // Comentamos temporalmente hasta que exista la clase AdminUsuarios
-            // Intent intent = new Intent(AdminPerfil.this, AdminUsuarios.class);
-            // startActivity(intent);
-            Toast.makeText(this, "Función de ver usuarios en desarrollo", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, AdminUsuarioListadoActivity.class);
+            startActivity(intent);
         });
 
         // Botón editar perfil
@@ -276,7 +306,8 @@ public class AdminPerfil extends AppCompatActivity {
                     document.getString("telefono"),
                     document.getString("dui"),
                     document.getString("direccion"),
-                    document.getString("rol")
+                    document.getString("rol"),
+                    document.getString("fotoUrl")
             );
         } catch (Exception e) {
             Log.e(TAG, "Error al crear Usuario desde documento: " + e.getMessage());
@@ -297,6 +328,7 @@ public class AdminPerfil extends AppCompatActivity {
                     rol = rol.substring(0, 1).toUpperCase() + rol.substring(1).toLowerCase();
                 }
                 tvUserRole.setText(rol);
+                loadUserPhoto(usuario.getFotoUrl());
 
                 Log.d(TAG, "UI actualizada con datos del usuario: " + nombreCompleto);
             });
@@ -335,6 +367,82 @@ public class AdminPerfil extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_EDITAR_PERFIL && resultCode == RESULT_OK) {
             loadUserData();
+        }
+    }
+
+    private void seleccionarNuevaFoto() {
+        if (currentUser == null || currentUser.getUid() == null || currentUser.getUid().isEmpty()) {
+            Toast.makeText(this, R.string.error_usuario_no_cargado, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!NetworkUtils.isOnline(this)) {
+            Toast.makeText(this, R.string.error_red_requerida, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (photoPickerLauncher != null) {
+            photoPickerLauncher.launch("image/*");
+        }
+    }
+
+    private void subirFotoPerfil(Uri uri) {
+        if (photoManager == null || currentUser == null || currentUser.getUid() == null) {
+            return;
+        }
+        mostrarCargaFoto(true);
+        Toast.makeText(this, R.string.msg_foto_subiendo, Toast.LENGTH_SHORT).show();
+        photoManager.uploadPhoto(getApplicationContext(), uri, currentUser.getUid(),
+                new PacientePhotoManager.UploadCallback() {
+                    @Override
+                    public void onSuccess(@NonNull String downloadUrl) {
+                        currentUser.setFotoUrl(downloadUrl);
+                        viewModel.update(currentUser);
+                        loadUserPhoto(downloadUrl);
+                        mostrarCargaFoto(false);
+                        Toast.makeText(AdminPerfil.this,
+                                R.string.msg_foto_actualizada,
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Exception exception) {
+                        mostrarCargaFoto(false);
+                        Toast.makeText(AdminPerfil.this,
+                                R.string.error_subir_foto,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void mostrarCargaFoto(boolean mostrando) {
+        if (photoProgress != null) {
+            photoProgress.setVisibility(mostrando ? View.VISIBLE : View.GONE);
+        }
+        if (btnChangePhoto != null) {
+            btnChangePhoto.setEnabled(!mostrando);
+            btnChangePhoto.setAlpha(mostrando ? 0.4f : 1f);
+        }
+    }
+
+    private void loadUserPhoto(String fotoUrl) {
+        if (ivUserProfile == null) {
+            return;
+        }
+        if (TextUtils.isEmpty(fotoUrl)) {
+            ivUserProfile.setImageResource(R.drawable.user_sofia);
+            return;
+        }
+        Glide.with(this)
+                .load(fotoUrl)
+                .placeholder(R.drawable.user_sofia)
+                .error(R.drawable.user_sofia)
+                .into(ivUserProfile);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (photoManager != null) {
+            photoManager.dispose();
         }
     }
 }

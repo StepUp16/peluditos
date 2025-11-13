@@ -101,7 +101,7 @@ public class AdminUsuarioNuevo extends AppCompatActivity {
         // Crear objeto Usuario
         Usuario nuevoUsuario = new Usuario(
                 localUid, nombre, apellido, email,
-                telefono, dui, direccion, rol
+                telefono, dui, direccion, rol, null
         );
 
         // Guardar solo en Room
@@ -234,7 +234,7 @@ public class AdminUsuarioNuevo extends AppCompatActivity {
                                             // Crear objeto Usuario con el DUI como ID
                                             Usuario nuevoUsuario = new Usuario(
                                                     docId, nombre, apellido, email,
-                                                    telefono, dui, direccion, rol
+                                                    telefono, dui, direccion, rol, null
                                             );
 
                                             // Guardar en Firestore primero

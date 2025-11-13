@@ -12,7 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Usuario.class, Paciente.class, Cita.class, HistorialMedico.class}, version = 10, exportSchema = false)
+@Database(entities = {Usuario.class, Paciente.class, Cita.class, HistorialMedico.class}, version = 11, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UsuarioDao usuarioDao();
     public abstract PacienteDao pacienteDao();
@@ -30,7 +30,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             AppDatabase.class, "peluditos_database")
-                            .addMigrations(MIGRATION_9_10)
+                            .addMigrations(MIGRATION_9_10, MIGRATION_10_11)
                             .fallbackToDestructiveMigration()
                             .build();
                 }
@@ -43,6 +43,13 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE pacientes ADD COLUMN fotoUrl TEXT");
+        }
+    };
+
+    private static final Migration MIGRATION_10_11 = new Migration(10, 11) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE usuarios ADD COLUMN fotoUrl TEXT");
         }
     };
 }

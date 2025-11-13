@@ -72,6 +72,11 @@
             android:theme="@style/Theme.Peluditos" />
 
         <activity
+            android:name=".AdminUsuarioListadoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
+        <activity
             android:name=".AdminPerfil"
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />

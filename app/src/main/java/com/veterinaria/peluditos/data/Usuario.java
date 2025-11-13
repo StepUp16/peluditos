@@ -16,11 +16,12 @@ public class Usuario {
     private String dui;
     private String direccion;
     private String rol;
+    private String fotoUrl;
     private boolean sincronizado = true;
     private long timestampModificacion = System.currentTimeMillis();
 
     public Usuario(@NonNull String uid, String nombre, String apellido, String email,
-                  String telefono, String dui, String direccion, String rol) {
+                  String telefono, String dui, String direccion, String rol, String fotoUrl) {
         this.uid = uid;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -29,6 +30,7 @@ public class Usuario {
         this.dui = dui;
         this.direccion = direccion;
         this.rol = rol;
+        this.fotoUrl = fotoUrl;
         this.sincronizado = true;
         this.timestampModificacion = System.currentTimeMillis();
     }
@@ -57,6 +59,9 @@ public class Usuario {
 
     public String getRol() { return rol; }
     public void setRol(String rol) { this.rol = rol; }
+
+    public String getFotoUrl() { return fotoUrl; }
+    public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
 
     public boolean isSincronizado() { return sincronizado; }
     public void setSincronizado(boolean sincronizado) { this.sincronizado = sincronizado; }

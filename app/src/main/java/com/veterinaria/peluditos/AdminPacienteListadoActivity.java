@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class AdminPacienteListadoActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(AdminPacienteViewModel.class);
         setupRecyclerView();
         setupAddPacienteButton();
+        setupBottomMenu();
         observePacientes();
     }
 
@@ -134,5 +136,65 @@ public class AdminPacienteListadoActivity extends AppCompatActivity {
         }
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private void setupBottomMenu() {
+        ImageView iconHome = findViewById(R.id.iconHome);
+        ImageView iconClientes = findViewById(R.id.iconClientes);
+        ImageView iconPacientes = findViewById(R.id.iconPacientes);
+        ImageView iconCitas = findViewById(R.id.iconCitas);
+        ImageView iconPerfil = findViewById(R.id.iconPerfil);
+
+        if (iconHome != null && iconHome.getParent() instanceof View) {
+            View homeView = (View) iconHome.getParent();
+            homeView.setOnClickListener(v -> {
+                Intent intent = new Intent(this, admin_home.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityWithAnimation(intent);
+                finish();
+            });
+        }
+
+        if (iconClientes != null && iconClientes.getParent() instanceof View) {
+            View clientesView = (View) iconClientes.getParent();
+            clientesView.setOnClickListener(v -> {
+                Intent intent = new Intent(this, AdminUsuarioClienteListadoActivity.class);
+                startActivityWithAnimation(intent);
+                finish();
+            });
+        }
+
+        if (iconPacientes != null && iconPacientes.getParent() instanceof View) {
+            // Estamos en Pacientes; podríamos refrescar si se desea
+        }
+
+        if (iconCitas != null && iconCitas.getParent() instanceof View) {
+            View citasView = (View) iconCitas.getParent();
+            citasView.setOnClickListener(v -> {
+                Intent intent = new Intent(this, admin_cita_listado.class);
+                startActivityWithAnimation(intent);
+                finish();
+            });
+        }
+
+        if (iconPerfil != null && iconPerfil.getParent() instanceof View) {
+            View perfilView = (View) iconPerfil.getParent();
+            perfilView.setOnClickListener(v -> {
+                Intent intent = new Intent(this, AdminPerfil.class);
+                startActivityWithAnimation(intent);
+                finish();
+            });
+        }
+    }
+
+    private void startActivityWithAnimation(Intent intent) {
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

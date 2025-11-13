@@ -325,6 +325,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <!-- Botón Home -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/iconHome"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icono_home"
+                app:tint="@color/menu_Cliente_Admin_inactivo" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_home"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:fontFamily="@font/spline_sans" />
+        </LinearLayout>
+
         <!-- Botón Clientes -->
         <LinearLayout
             android:layout_width="0dp"

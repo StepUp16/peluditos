@@ -49,15 +49,40 @@
             android:gravity="center_horizontal">
 
             <!-- Sección de Perfil -->
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivUserProfile"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="16dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/user_sofia"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CircleImageView"
-                android:contentDescription="Avatar del usuario" />
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivUserProfile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/user_sofia"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CircleImageView"
+                    android:contentDescription="@string/content_desc_foto_usuario" />
+
+                <ImageButton
+                    android:id="@+id/btnChangePhoto"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="end|bottom"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/btn_edit_bg"
+                    android:contentDescription="@string/content_desc_cambiar_foto"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_camera"
+                    app:tint="@color/textColorPrimary" />
+
+                <ProgressBar
+                    android:id="@+id/photoProgress"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/tvUserName"

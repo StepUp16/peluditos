@@ -53,6 +53,10 @@ public class AdminUsuarioViewModel extends AndroidViewModel {
         return usuarioRepository.getUsuarioByEmail(email);
     }
 
+    public LiveData<List<Usuario>> getUsuariosPorRoles(List<String> roles) {
+        return usuarioRepository.getUsuariosPorRoles(roles);
+    }
+
     public Usuario getUsuarioDirecto(String uid) {
         return usuarioDao.getUsuarioSincrono(uid);
     }

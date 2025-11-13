@@ -172,7 +172,8 @@ public class AdminUsuarioEditar extends AppCompatActivity {
                     document.getString("telefono"),
                     document.getString("dui"),
                     document.getString("direccion"),
-                    document.getString("rol")
+                    document.getString("rol"),
+                    document.getString("fotoUrl")
             );
         } catch (Exception e) {
             Log.e(TAG, "Error al crear Usuario desde documento: " + e.getMessage());
@@ -224,7 +225,8 @@ public class AdminUsuarioEditar extends AppCompatActivity {
         // Crear usuario actualizado
         Usuario usuarioActualizado = new Usuario(
                 usuarioId, nombre, apellido, email,
-                telefono, dui, direccion, rol
+                telefono, dui, direccion, rol,
+                usuarioOriginal != null ? usuarioOriginal.getFotoUrl() : null
         );
 
         // Deshabilitar botón mientras se guarda

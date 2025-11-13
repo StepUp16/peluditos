@@ -63,11 +63,13 @@
     <string name="btn_cancelar_paciente">Cancelar</string>
     <string name="btn_guardar_cambios_paciente">Guardar Cambios</string>
     <string name="content_desc_foto_paciente">Foto del paciente</string>
-    <string name="content_desc_cambiar_foto">Cambiar foto del paciente</string>
+    <string name="content_desc_cambiar_foto">Cambiar foto</string>
+    <string name="content_desc_foto_usuario">Foto del usuario</string>
     <string name="msg_foto_subiendo">Subiendo foto...</string>
     <string name="msg_foto_actualizada">La foto se actualiz\u00f3 correctamente</string>
     <string name="error_subir_foto">No pudimos subir la foto. Int\u00e9ntalo nuevamente cuando tengas conexi\u00f3n.</string>
     <string name="error_red_requerida">Necesitas conexi\u00f3n a internet para realizar esta acci\u00f3n.</string>
+    <string name="error_usuario_no_cargado">No pudimos cargar la informaci\u00f3n del usuario.</string>
 
     <string name="btn_guardando">Guardando...</string>
     <string name="placeholder_select_paciente">Seleccionar Paciente</string>
@@ -213,7 +215,12 @@
     <string name="title_editar_usuario">Editar Usuario</string>
 
     <!-- Cadenas para admin_usuario_listado.xml -->
-    <string name="title_administradores">Administradores</string>
+    <string name="title_administradores">Administradores y Veterinarios</string>
+    <string name="empty_admin_users">A\u00fan no has registrado administradores ni veterinarios.</string>
+    <string name="confirm_eliminar_usuario_title">Eliminar usuario</string>
+    <string name="confirm_eliminar_usuario_message">Se eliminar\u00e1 la cuenta de %1$s.</string>
+    <string name="error_eliminar_usuario">No pudimos eliminar al usuario. Int\u00e9ntalo nuevamente.</string>
+    <string name="hint_buscar_usuario">Buscar por nombre, correo o rol</string>
     <string name="add_usuario_description">Agregar nuevo usuario</string>
 
     <!-- Cadenas para admin_perfil.xml -->

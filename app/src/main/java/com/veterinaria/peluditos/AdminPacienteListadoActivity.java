@@ -109,6 +109,7 @@ public class AdminPacienteListadoActivity extends AppCompatActivity {
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.getWindow().setDimAmount(0.90f);
         }
 
         btnCancel.setOnClickListener(v -> dialog.dismiss());

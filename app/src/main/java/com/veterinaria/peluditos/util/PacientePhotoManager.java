@@ -30,6 +30,15 @@ public class PacientePhotoManager {
     private final FirebaseStorage storage = FirebaseStorage.getInstance();
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private final String folder;
+
+    public PacientePhotoManager() {
+        this("pacientes");
+    }
+
+    public PacientePhotoManager(String folder) {
+        this.folder = TextUtils.isEmpty(folder) ? "pacientes" : folder;
+    }
 
     public interface UploadCallback {
         void onSuccess(@NonNull String downloadUrl);
@@ -39,9 +48,9 @@ public class PacientePhotoManager {
 
     public void uploadPhoto(Context context,
                             Uri imageUri,
-                            String pacienteId,
+                            String entityId,
                             UploadCallback callback) {
-        if (context == null || imageUri == null || TextUtils.isEmpty(pacienteId)) {
+        if (context == null || imageUri == null || TextUtils.isEmpty(entityId)) {
             if (callback != null) {
                 callback.onError(new IllegalArgumentException("Datos insuficientes para cargar la foto"));
             }
@@ -55,8 +64,8 @@ public class PacientePhotoManager {
                 }
 
                 StorageReference reference = storage.getReference()
-                        .child("pacientes")
-                        .child(pacienteId + ".jpg");
+                        .child(folder)
+                        .child(entityId + ".jpg");
 
                 UploadTask uploadTask = reference.putBytes(imageData);
                 Task<Uri> urlTask = uploadTask.continueWithTask(task -> {
@@ -82,7 +91,7 @@ public class PacientePhotoManager {
                             });
                         });
             } catch (Exception e) {
-                Log.e(TAG, "Error al subir foto del paciente", e);
+                Log.e(TAG, "Error al subir foto", e);
                 if (callback != null) {
                     mainHandler.post(() -> callback.onError(e));
                 }

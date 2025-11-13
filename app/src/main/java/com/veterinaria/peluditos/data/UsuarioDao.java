@@ -35,6 +35,9 @@ public interface UsuarioDao {
     @Query("SELECT * FROM usuarios WHERE sincronizado = 0 ORDER BY timestampModificacion DESC")
     List<Usuario> getUsuariosLocales();
 
+    @Query("SELECT * FROM usuarios WHERE LOWER(rol) IN (:roles)")
+    LiveData<List<Usuario>> getUsuariosPorRoles(List<String> roles);
+
     // Actualizar estado de sincronización
     @Query("UPDATE usuarios SET sincronizado = :sincronizado WHERE uid = :uid")
     void actualizarSincronizacion(String uid, boolean sincronizado);

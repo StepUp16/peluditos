@@ -167,35 +167,40 @@ public class AdminPerfil extends AppCompatActivity {
     private void setupBottomMenuListeners() {
         if (iconHome != null) {
             iconHome.setOnClickListener(v -> {
-                Intent intent = new Intent(AdminPerfil.this, admin_home.class);
-                startActivity(intent);
+                Intent intent = new Intent(this, admin_home.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityWithAnimation(intent);
+                finish();
             });
         }
 
         if (iconCitas != null) {
             iconCitas.setOnClickListener(v -> {
-                // Navegar a citas
-                Toast.makeText(this, "Navegando a Citas", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, admin_cita_listado.class);
+                startActivityWithAnimation(intent);
+                finish();
             });
         }
 
         if (iconPacientes != null) {
             iconPacientes.setOnClickListener(v -> {
-                // Navegar a pacientes
-                Toast.makeText(this, "Navegando a Pacientes", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, AdminPacienteListadoActivity.class);
+                startActivityWithAnimation(intent);
+                finish();
             });
         }
 
         if (iconClientes != null) {
             iconClientes.setOnClickListener(v -> {
-                // Navegar a clientes
-                Toast.makeText(this, "Navegando a Clientes", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, AdminUsuarioClienteListadoActivity.class);
+                startActivityWithAnimation(intent);
+                finish();
             });
         }
 
         if (iconPerfil != null) {
             iconPerfil.setOnClickListener(v -> {
-                // Ya estamos en perfil, no hacer nada o refrescar
+                // ya estamos en perfil; refrescar datos
                 loadUserData();
             });
         }
@@ -438,11 +443,22 @@ public class AdminPerfil extends AppCompatActivity {
                 .into(ivUserProfile);
     }
 
+    private void startActivityWithAnimation(Intent intent) {
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (photoManager != null) {
             photoManager.dispose();
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

@@ -179,21 +179,22 @@ public class admin_cita_listado extends AppCompatActivity {
         if (iconHomeContainer != null) {
             iconHomeContainer.setOnClickListener(v -> {
                 Intent intent = new Intent(this, admin_home.class);
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityWithAnimation(intent);
                 finish();
             });
         }
 
         if (iconCitasContainer != null) {
             iconCitasContainer.setOnClickListener(v -> {
-                // ya estamos aquí
+                // ya estamos en Citas; opcionalmente podríamos refrescar o hacer scroll
             });
         }
 
         if (iconPacientesContainer != null) {
             iconPacientesContainer.setOnClickListener(v -> {
                 Intent intent = new Intent(this, AdminPacienteListadoActivity.class);
-                startActivity(intent);
+                startActivityWithAnimation(intent);
                 finish();
             });
         }
@@ -201,7 +202,7 @@ public class admin_cita_listado extends AppCompatActivity {
         if (iconClientesContainer != null) {
             iconClientesContainer.setOnClickListener(v -> {
                 Intent intent = new Intent(this, AdminUsuarioClienteListadoActivity.class);
-                startActivity(intent);
+                startActivityWithAnimation(intent);
                 finish();
             });
         }
@@ -209,9 +210,21 @@ public class admin_cita_listado extends AppCompatActivity {
         if (iconPerfilContainer != null) {
             iconPerfilContainer.setOnClickListener(v -> {
                 Intent intent = new Intent(this, AdminPerfil.class);
-                startActivity(intent);
+                startActivityWithAnimation(intent);
+                finish();
             });
         }
+    }
+
+    private void startActivityWithAnimation(Intent intent) {
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     private void observeCitas() {

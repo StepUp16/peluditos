@@ -2,6 +2,7 @@ package com.veterinaria.peluditos;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
@@ -68,6 +69,7 @@ public class admin_cita_nueva extends AppCompatActivity {
         setupSpinners();
         setupEstadoSpinner();
         setupPickers();
+        setupBottomMenu();
 
         pacienteViewModel = new ViewModelProvider(this).get(AdminPacienteViewModel.class);
         usuarioViewModel = new ViewModelProvider(this).get(AdminUsuarioViewModel.class);
@@ -151,12 +153,82 @@ public class admin_cita_nueva extends AppCompatActivity {
         View.OnClickListener fechaClickListener = v -> mostrarDatePicker();
         etFecha.setOnClickListener(fechaClickListener);
         ImageView iconFecha = findViewById(R.id.iconFecha);
-        iconFecha.setOnClickListener(fechaClickListener);
+        if (iconFecha != null) {
+            iconFecha.setOnClickListener(fechaClickListener);
+        }
 
         View.OnClickListener horaClickListener = v -> mostrarTimePicker();
         etHora.setOnClickListener(horaClickListener);
         ImageView iconHora = findViewById(R.id.iconHora);
-        iconHora.setOnClickListener(horaClickListener);
+        if (iconHora != null) {
+            iconHora.setOnClickListener(horaClickListener);
+        }
+    }
+
+    private void setupBottomMenu() {
+        ImageView iconHome = findViewById(R.id.iconHome);
+        ImageView iconCitas = findViewById(R.id.iconCitas);
+        ImageView iconPacientes = findViewById(R.id.iconPacientes);
+        ImageView iconClientes = findViewById(R.id.iconClientes);
+        ImageView iconPerfil = findViewById(R.id.iconPerfil);
+
+        if (iconHome != null && iconHome.getParent() instanceof View) {
+            View homeView = (View) iconHome.getParent();
+            homeView.setOnClickListener(v -> {
+                Intent intent = new Intent(this, admin_home.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityWithAnimation(intent);
+                finish();
+            });
+        }
+
+        if (iconCitas != null && iconCitas.getParent() instanceof View) {
+            View citasView = (View) iconCitas.getParent();
+            citasView.setOnClickListener(v -> {
+                Intent intent = new Intent(this, admin_cita_listado.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityWithAnimation(intent);
+                finish();
+            });
+        }
+
+        if (iconPacientes != null && iconPacientes.getParent() instanceof View) {
+            View pacientesView = (View) iconPacientes.getParent();
+            pacientesView.setOnClickListener(v -> {
+                Intent intent = new Intent(this, AdminPacienteListadoActivity.class);
+                startActivityWithAnimation(intent);
+                finish();
+            });
+        }
+
+        if (iconClientes != null && iconClientes.getParent() instanceof View) {
+            View clientesView = (View) iconClientes.getParent();
+            clientesView.setOnClickListener(v -> {
+                Intent intent = new Intent(this, AdminUsuarioClienteListadoActivity.class);
+                startActivityWithAnimation(intent);
+                finish();
+            });
+        }
+
+        if (iconPerfil != null && iconPerfil.getParent() instanceof View) {
+            View perfilView = (View) iconPerfil.getParent();
+            perfilView.setOnClickListener(v -> {
+                Intent intent = new Intent(this, AdminPerfil.class);
+                startActivityWithAnimation(intent);
+                finish();
+            });
+        }
+    }
+
+    private void startActivityWithAnimation(Intent intent) {
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     private void mostrarDatePicker() {

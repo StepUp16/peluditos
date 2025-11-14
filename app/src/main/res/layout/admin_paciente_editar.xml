@@ -224,18 +224,19 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:layout_marginBottom="8dp"/>
+
             <EditText
                 android:id="@+id/etPeso"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="57dp"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="none"
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_peso"
+                android:inputType="numberDecimal"
                 android:padding="16dp"
                 android:textColorHint="#9EB8A8"
-                android:textSize="18sp"
-                android:layout_marginBottom="16dp"
-                android:inputType="numberDecimal"
-                android:autofillHints="none"/>
+                android:textSize="18sp" />
 
             <!-- Sexo -->
             <TextView
@@ -376,10 +377,11 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/iconPacientes"
                 android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:src="@drawable/icono_mascotas"
                 app:tint="@color/menu_Cliente_Admin_activo" />
             <TextView

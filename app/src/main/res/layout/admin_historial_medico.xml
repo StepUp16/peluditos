@@ -158,7 +158,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_mascotas"
-                app:tint="@color/menu_Cliente_Admin_inactivo"/>
+                app:tint="@color/menu_Cliente_Admin_activo"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

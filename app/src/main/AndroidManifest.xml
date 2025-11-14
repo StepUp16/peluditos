@@ -57,6 +57,16 @@
             android:theme="@style/Theme.Peluditos" />
 
         <activity
+            android:name=".NuevoPacienteClienteActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
+        <activity
+            android:name=".NuevaCitaClienteActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
+        <activity
             android:name=".AdminUsuarioNuevo"
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />

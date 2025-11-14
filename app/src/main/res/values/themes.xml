@@ -20,4 +20,12 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="Widget.Peluditos.ClientToolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:background">@color/navigationBarBackground</item>
+        <item name="android:elevation">0dp</item>
+        <item name="titleTextColor">@color/textColorPrimary</item>
+        <item name="subtitleTextColor">@color/textColorSecondary</item>
+        <item name="android:titleTextStyle">@style/TextAppearance.Material3.TitleLarge</item>
+    </style>
 </resources>

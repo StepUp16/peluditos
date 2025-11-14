@@ -218,7 +218,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_home"
-                app:tint="@color/textColorPrimary"/>
+                app:tint="@color/menu_Cliente_Admin_inactivo"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -238,7 +238,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_citas"
-                app:tint="#638773"
+                app:tint="@color/menu_Cliente_Admin_activo"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -259,7 +259,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_mascotas"
-                app:tint="#638773"/>
+                app:tint="@color/menu_Cliente_Admin_inactivo"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -279,7 +279,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_clientes"
-                app:tint="#638773"/>
+                app:tint="@color/menu_Cliente_Admin_inactivo"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -299,7 +299,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/icono_perfil"
-                app:tint="#638773"/>
+                app:tint="@color/menu_Cliente_Admin_inactivo"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

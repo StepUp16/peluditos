@@ -78,6 +78,27 @@
     <string name="placeholder_select_especie">Seleccionar Especie</string>
     <string name="placeholder_select_raza">Seleccionar Raza</string>
     <string name="placeholder_select_sexo">Seleccionar el Sexo</string>
+
+    <!-- Vistas específicas del cliente -->
+    <string name="text_saludo_generico">Hola,</string>
+    <string name="text_saludo_cliente">Hola, %1$s</string>
+    <string name="text_client_home_intro">Bienvenid@ de nuevo a nuestra comunidad de amantes de las mascotas. Estamos aquí para cuidar de tus compañeros peludos.</string>
+    <string name="text_recordatorio_vacunacion">Recordatorio de vacunación</string>
+    <string name="descripcion_nuevo_paciente_cliente">Completa los datos de tu mascota para que podamos brindarte experiencias personalizadas.</string>
+    <string name="text_cliente_actual">Registrado como: %1$s</string>
+    <string name="text_cliente_sin_nombre">Cliente sin nombre</string>
+    <string name="text_cliente_no_disponible">Inicia sesión para asociar tus mascotas</string>
+    <string name="title_nueva_cita_cliente">Nueva Cita</string>
+    <string name="text_cliente_cita_intro">Selecciona la mascota, fecha y hora para solicitar tu próxima cita. Confirmaremos los detalles muy pronto.</string>
+    <string name="cd_seleccionar_fecha">Seleccionar fecha de la cita</string>
+    <string name="cd_seleccionar_hora">Seleccionar hora de la cita</string>
+    <string name="error_campo_obligatorio">Este campo es obligatorio</string>
+    <string name="error_valor_no_valido">Ingresa un valor válido</string>
+    <string name="error_sexo_obligatorio">Selecciona el sexo de tu mascota</string>
+    <string name="error_user_no_auth">Necesitas iniciar sesión para registrar un paciente</string>
+    <string name="msg_paciente_guardado_cliente">%1$s ahora forma parte de tu familia peludita</string>
+    <string name="toast_cliente_bienvenida">¡Bienvenido, cliente!</string>
+    <string name="toast_funcion_no_disponible">Esta sección estará disponible muy pronto.</string>
     <string name="especie_perro">Perro</string>
     <string name="especie_gato">Gato</string>
     <string name="especie_ave">Ave</string>
@@ -87,6 +108,7 @@
     <string name="error_nombre_largo">El nombre debe tener al menos 2 caracteres</string>
     <string name="error_especie">Seleccione una especie</string>
     <string name="error_raza">Seleccione una raza</string>
+    <string name="error_cliente_sin_mascotas">Registra al menos una mascota para solicitar una cita.</string>
     <string name="error_paciente">Seleccione un paciente</string>
     <string name="error_cliente">Seleccione un cliente</string>
     <string name="error_cita_no_encontrada">No pudimos cargar la cita seleccionada</string>
@@ -221,6 +243,9 @@
     <string name="confirm_eliminar_usuario_message">Se eliminar\u00e1 la cuenta de %1$s.</string>
     <string name="error_eliminar_usuario">No pudimos eliminar al usuario. Int\u00e9ntalo nuevamente.</string>
     <string name="hint_buscar_usuario">Buscar por nombre, correo o rol</string>
+    <string name="menu_notificaciones">Notificaciones</string>
+    <string name="btn_agregar_mascota">Agregar mascota</string>
+    <string name="btn_solicitar_cita">Solicitar cita</string>
     <string name="add_usuario_description">Agregar nuevo usuario</string>
 
     <!-- Cadenas para admin_perfil.xml -->

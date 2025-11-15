@@ -98,7 +98,7 @@ public class ClienteMainActivity extends AppCompatActivity {
                 abrirListadoPacientes();
                 return true;
             } else if (itemId == R.id.nav_citas) {
-                abrirNuevaCita();
+                abrirListadoCitas();
                 return true;
             } else if (itemId == R.id.nav_perfil) {
                 abrirPerfil();
@@ -117,6 +117,12 @@ public class ClienteMainActivity extends AppCompatActivity {
 
     private void abrirListadoPacientes() {
         Intent intent = new Intent(this, ListadoPacientesClienteActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    private void abrirListadoCitas() {
+        Intent intent = new Intent(this, ClienteCitaListadoActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

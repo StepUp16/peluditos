@@ -67,6 +67,11 @@
             android:theme="@style/Theme.Peluditos" />
 
         <activity
+            android:name=".ClienteCitaListadoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Peluditos" />
+
+        <activity
             android:name=".ListadoPacientesClienteActivity"
             android:exported="false"
             android:theme="@style/Theme.Peluditos" />

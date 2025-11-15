@@ -229,7 +229,9 @@
                 android:backgroundTint="#ED6E12"
                 android:textColor="@color/textColorPrimary"
                 android:text="@string/btn_agregar_mascota"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:background="@drawable/btn_cliente"
+                app:backgroundTint="@null"/>
 
             <Button
                 android:id="@+id/btnSolicitarCita"
@@ -239,7 +241,9 @@
                 android:backgroundTint="#ED6E12"
                 android:textColor="@color/textColorPrimary"
                 android:text="@string/btn_solicitar_cita"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:background="@drawable/btn_cliente"
+                app:backgroundTint="@null"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

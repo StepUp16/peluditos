@@ -58,7 +58,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSplashScreenExit(@NonNull SplashScreenViewProvider splashScreenView) {
 
-                final View iconView = splashScreenView.getIconView();
+                final View iconView;
+                try {
+                    iconView = splashScreenView.getIconView();
+                } catch (NullPointerException e) {
+                    splashScreenView.remove();
+                    return;
+                }
                 if (iconView == null) {
                     splashScreenView.remove();
                     return;

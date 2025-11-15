@@ -135,7 +135,7 @@ public class ListadoPacientesClienteActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_mascotas) {
                 return true;
             } else if (itemId == R.id.nav_citas) {
-                startActivity(new Intent(this, NuevaCitaClienteActivity.class));
+                startActivity(new Intent(this, ClienteCitaListadoActivity.class));
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 finish();
                 return true;

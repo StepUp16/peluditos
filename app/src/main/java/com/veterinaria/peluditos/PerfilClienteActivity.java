@@ -288,7 +288,7 @@ public class PerfilClienteActivity extends AppCompatActivity {
                 finish();
                 return true;
             } else if (itemId == R.id.nav_citas) {
-                startActivity(new Intent(this, NuevaCitaClienteActivity.class));
+                startActivity(new Intent(this, ClienteCitaListadoActivity.class));
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 finish();
                 return true;

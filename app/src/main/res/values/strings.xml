@@ -109,6 +109,12 @@
     <string name="title_mis_mascotas">Mis Mascotas</string>
     <string name="text_cliente_pacientes_vacio">Aún no tienes mascotas registradas. Agrega la primera para que podamos cuidarla.</string>
     <string name="text_cliente_mascotas_perfil_vacio">Todavía no has registrado mascotas.</string>
+    <string name="text_cliente_mascota_sin_nombre">Mascota sin nombre</string>
+    <string name="title_cliente_citas">Mis Citas</string>
+    <string name="text_cliente_citas_vacio">No tienes citas registradas todavía. Solicita la primera para que podamos agendarla.</string>
+    <string name="content_desc_add_cita_cliente">Agregar nueva cita</string>
+    <string name="cita_cliente_fecha_hora">%1$s • %2$s</string>
+    <string name="cita_cliente_sin_motivo">Sin motivo especificado</string>
     <string name="title_dialog_change_password">Cambiar contraseña</string>
     <string name="hint_current_password">Contraseña actual</string>
     <string name="hint_new_password">Nueva contraseña</string>

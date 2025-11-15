@@ -4,499 +4,342 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface">
+    tools:context=".DetallePacienteClienteActivity">
 
-    <!-- Barra superior -->
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Regresar"
-        android:src="@drawable/ic_arrow_back"
-        app:layout_constraintStart_toStartOf="parent"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/Widget.Peluditos.ClientToolbar"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/textColorPrimary" />
-
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Detalles del paciente"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="@color/textColorPrimary"
-        android:fontFamily="@font/spline_sans"
-        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/btnBack" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:navigationIcon="@drawable/icono_cierre"
+        app:navigationContentDescription="@string/btn_back_desc"
+        app:title="@string/title_detalle_paciente_cliente" />
 
-    <!-- Contenido principal con Scroll -->
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContent"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
-        app:layout_constraintBottom_toTopOf="@+id/bottomMenu"
+        android:fillViewport="true"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/btnMenuCliente"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="24dp"
-            android:gravity="center_horizontal">
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="24dp"
+            android:paddingBottom="96dp">
 
-            <!-- Imagen del paciente -->
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/ivPacienteProfile"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="16dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/paciente"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CircleImageView"
-                android:contentDescription="Foto del paciente" />
-
-            <!-- Nombre del paciente -->
-            <TextView
-                android:id="@+id/tvPacienteName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Buddy"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/textColorPrimary"
-                android:fontFamily="@font/spline_sans" />
-
-            <!-- Tipo/Raza del paciente -->
-            <TextView
-                android:id="@+id/tvPacienteRaza"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Perro: Golden Retriever"
-                android:textColor="@color/textColorSecondary"
-                android:textSize="16sp"
-                android:fontFamily="@font/spline_sans" />
-
-            <!-- Edad y Sexo -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvPacienteAge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5 años"
-                    android:textColor="@color/textColorSecondary"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/spline_sans" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Sexo: "
-                    android:textColor="@color/textColorSecondary"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/spline_sans" />
-
-                <TextView
-                    android:id="@+id/tvPacienteSex"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Macho"
-                    android:textColor="@color/textColorSecondary"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/spline_sans" />
-
-            </LinearLayout>
-
-            <!-- Botón Editar -->
-            <Button
-                android:id="@+id/btnEditar"
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/ivPacientePhoto"
+                            android:layout_width="120dp"
+                            android:layout_height="120dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/paciente"
+                            android:contentDescription="@string/content_desc_foto_paciente"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CircleImageView" />
+
+                        <ImageButton
+                            android:id="@+id/btnCambiarFoto"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|bottom"
+                            android:layout_margin="6dp"
+                            android:background="@drawable/btn_edit_bg"
+                            android:contentDescription="@string/btn_cambiar_foto_paciente"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_camera"
+                            app:tint="@color/textColorPrimary" />
+
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/photoProgress"
+                            style="@style/Widget.MaterialComponents.CircularProgressIndicator.Small"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center"
+                            android:visibility="gone" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvPacienteName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:fontFamily="@font/spline_sans"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        tools:text="Buddy" />
+
+                    <TextView
+                        android:id="@+id/tvPacienteEspecie"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/spline_sans"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="16sp"
+                        android:gravity="center"
+                        tools:text="Perro - Golden Retriever" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupStats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="4dp"
+                        android:layout_gravity="center_horizontal"
+                        app:singleLine="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipEdad"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="false"
+                            android:clickable="false"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:textColor="@color/textColorPrimary"
+                            tools:text="5 años" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipPeso"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="false"
+                            android:clickable="false"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:textColor="@color/textColorPrimary"
+                            tools:text="12.5 kg" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chipSexo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checkable="false"
+                            android:clickable="false"
+                            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                            android:textColor="@color/textColorPrimary"
+                            tools:text="Hembra" />
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:padding="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/spline_sans"
+                        android:text="@string/label_propietario_cliente"
+                        android:textColor="@color/textColorPrimary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/ivOwnerPhoto"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/icono_perfil"
+                            android:contentDescription="@string/content_desc_foto_usuario"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CircleImageView" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvOwnerName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/spline_sans"
+                                android:textColor="@color/textColorPrimary"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                tools:text="Sofía Rodríguez" />
+
+                            <TextView
+                                android:id="@+id/tvOwnerPhone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="@font/spline_sans"
+                                android:textColor="@color/textColorSecondary"
+                                android:textSize="14sp"
+                                tools:text="Teléfono: +503 5555-1234" />
+
+                            <TextView
+                                android:id="@+id/tvOwnerEmail"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:fontFamily="@font/spline_sans"
+                                android:textColor="@color/textColorSecondary"
+                                android:textSize="14sp"
+                                tools:text="Correo: cliente@peluditos.com" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:padding="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:id="@+id/tvUltimaActualizacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/spline_sans"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="14sp"
+                    tools:text="Actualizado el 12 de noviembre, 10:35 AM" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <Button
+                android:id="@+id/btnVerHistorial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:background="@drawable/btn_cliente"
-                android:text="Editar"
-                android:textColor="#081114"
+                android:text="@string/btn_ver_historial_cliente"
+                android:textAllCaps="false"
+                android:textColor="#171412"
+                android:textSize="16sp"
+                android:fontFamily="@font/spline_sans"
+                app:backgroundTint="@null" />
+
+            <Button
+                android:id="@+id/btnProgramarCita"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/btn_cliente"
+                android:text="@string/btn_programar_cita_cliente"
+                android:textAllCaps="false"
+                android:textColor="#171412"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/spline_sans"
                 app:backgroundTint="@null" />
 
-            <!-- Información del Cliente -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="Información del Cliente"
+                android:fontFamily="@font/spline_sans"
+                android:text="@string/section_historial"
                 android:textColor="@color/textColorPrimary"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/spline_sans" />
+                android:textStyle="bold" />
 
-            <!-- Cliente Info -->
-            <LinearLayout
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:tabIndicatorColor="@color/menu_Cliente_activo"
+                app:tabSelectedTextColor="@color/textColorPrimary"
+                app:tabTextColor="@color/textColorSecondary">
+
+                <com.google.android.material.tabs.TabItem
+                    android:text="@string/tab_historial_medico" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:text="@string/tab_citas_futuras" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:text="@string/tab_citas_pasadas" />
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerHistorial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:visibility="gone"
+                tools:listitem="@layout/item_historial_medico_timeline" />
 
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/ivClienteProfile"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/cliente_sofia"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CircleImageView"
-                    android:contentDescription="Foto del cliente" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="16dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvClienteName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sofía Rodríguez"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/textColorPrimary"
-                        android:fontFamily="@font/spline_sans" />
-
-                    <TextView
-                        android:id="@+id/tvClientePhone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="+502 5555-1234"
-                        android:textColor="@color/textColorSecondary"
-                        android:textSize="14sp"
-                        android:fontFamily="@font/spline_sans" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Botones de navegación -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/btnHistorialMedico"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Historial Médico"
-                    android:textAlignment="center"
-                    android:textColor="@color/textColorPrimary"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/spline_sans"
-                    android:padding="12dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-                <TextView
-                    android:id="@+id/btnCitasFuturas"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Citas Futuras"
-                    android:textAlignment="center"
-                    android:textColor="@color/textColorSecondary"
-                    android:fontFamily="@font/spline_sans"
-                    android:padding="12dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-                <TextView
-                    android:id="@+id/btnCitasPasadas"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Citas Pasadas"
-                    android:textAlignment="center"
-                    android:textColor="@color/textColorSecondary"
-                    android:fontFamily="@font/spline_sans"
-                    android:padding="12dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-            </LinearLayout>
-
-            <!-- Contenido del historial (por defecto) -->
-            <LinearLayout
-                android:id="@+id/historialContent"
+            <TextView
+                android:id="@+id/tvEmptyList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:orientation="vertical">
-
-                <!-- Historial 1 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/icono_citas"
-                        app:tint="@color/textColorPrimary" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="16dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="15 de Octubre, 2024"
-                            android:textSize="14sp"
-                            android:textColor="@color/textColorPrimary"
-                            android:fontFamily="@font/spline_sans" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Vacunación"
-                            android:textSize="16sp"
-                            android:textColor="@color/textColorSecondary"
-                            android:fontFamily="@font/spline_sans" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- Historial 2 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/icono_citas"
-                        app:tint="@color/textColorPrimary" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="16dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="5 de Septiembre, 2024"
-                            android:textSize="14sp"
-                            android:textColor="@color/textColorPrimary"
-                            android:fontFamily="@font/spline_sans" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Consulta General"
-                            android:textSize="16sp"
-                            android:textColor="@color/textColorSecondary"
-                            android:fontFamily="@font/spline_sans" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- Historial 3 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/icono_citas"
-                        app:tint="@color/textColorPrimary" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="16dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="22 de Agosto, 2024"
-                            android:textSize="14sp"
-                            android:textColor="@color/textColorPrimary"
-                            android:fontFamily="@font/spline_sans" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            android:text="Desparasitación"
-                            android:textSize="16sp"
-                            android:textColor="@color/textColorSecondary"
-                            android:fontFamily="@font/spline_sans" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </LinearLayout>
+                android:gravity="center"
+                android:padding="16dp"
+                android:fontFamily="@font/spline_sans"
+                android:text="@string/empty_historial"
+                android:textColor="@color/textColorSecondary"
+                android:textSize="14sp" />
 
         </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-    </ScrollView>
-
-    <!-- Menú inferior fijo -->
-    <LinearLayout
-        android:id="@+id/bottomMenu"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btnMenuCliente"
         android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:background="@color/navigationBarBackground"
-        android:gravity="center"
-        android:orientation="horizontal"
+        app:itemIconSize="24dp"
+        app:itemIconTint="@color/selector_menu_cliente"
+        app:itemTextColor="@color/selector_menu_cliente"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <!-- Botón Home -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/iconHome"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_home"
-                app:tint="@color/menu_Cliente_inactivo"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Home"
-                android:textSize="12sp"
-                android:textColor="@color/menu_Cliente_inactivo"
-                android:fontFamily="@font/spline_sans" />
-        </LinearLayout>
-
-        <!-- Botón Citas -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/iconCitas"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_citas"
-                app:tint="@color/menu_Cliente_inactivo" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Citas"
-                android:textSize="12sp"
-                android:textColor="@color/menu_Cliente_inactivo"
-                android:fontFamily="@font/spline_sans" />
-        </LinearLayout>
-
-        <!-- Botón Pacientes (activo) -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/iconPacientes"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_mascotas"
-                app:tint="@color/menu_Cliente_activo" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Pacientes"
-                android:textSize="12sp"
-                android:textColor="@color/menu_Cliente_activo"
-                android:fontFamily="@font/spline_sans" />
-        </LinearLayout>
-
-        <!-- Botón Perfil -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/iconPerfil"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_perfil"
-                app:tint="@color/menu_Cliente_inactivo" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Perfil"
-                android:textSize="12sp"
-                android:textColor="@color/menu_Cliente_inactivo"
-                android:fontFamily="@font/spline_sans" />
-        </LinearLayout>
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_cliente" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

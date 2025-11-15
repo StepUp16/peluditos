@@ -95,13 +95,13 @@ public class ClienteMainActivity extends AppCompatActivity {
             if (itemId == R.id.nav_home) {
                 return true;
             } else if (itemId == R.id.nav_mascotas) {
-                abrirNuevoPaciente();
+                abrirListadoPacientes();
                 return true;
             } else if (itemId == R.id.nav_citas) {
                 abrirNuevaCita();
                 return true;
             } else if (itemId == R.id.nav_perfil) {
-                Toast.makeText(this, R.string.toast_funcion_no_disponible, Toast.LENGTH_SHORT).show();
+                abrirPerfil();
                 return true;
             }
             return false;
@@ -115,8 +115,20 @@ public class ClienteMainActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
+    private void abrirListadoPacientes() {
+        Intent intent = new Intent(this, ListadoPacientesClienteActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
     private void abrirNuevaCita() {
         Intent intent = new Intent(this, NuevaCitaClienteActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    private void abrirPerfil() {
+        Intent intent = new Intent(this, PerfilClienteActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
@@ -152,7 +164,7 @@ public class ClienteMainActivity extends AppCompatActivity {
             finish();
             return true;
         } else if (itemId == R.id.perfil) {
-            Toast.makeText(this, R.string.toast_funcion_no_disponible, Toast.LENGTH_SHORT).show();
+            abrirPerfil();
             return true;
         }
 

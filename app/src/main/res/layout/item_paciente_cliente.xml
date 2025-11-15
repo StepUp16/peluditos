@@ -12,7 +12,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/paciente"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.App.CircleImageView"
-        android:contentDescription="Avatar del Paciente"
+        android:contentDescription="@string/cd_avatar_paciente"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
@@ -33,7 +33,7 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
-        android:id="@+id/tvClientPhone"
+        android:id="@+id/tvPacienteDetalle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

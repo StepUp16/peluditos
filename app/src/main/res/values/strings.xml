@@ -219,6 +219,16 @@
     <string name="title_recuperar_contrasena">Recuperar Contraseña</string>
     <!-- Reutiliza label_correo/hint_correo existentes para el campo -->
     <string name="desc_recuperar_contrasena">Se enviará un correo electrónico con instrucciones para restablecer tu contraseña.</string>
+    <string name="msg_reset_email_enviado">Te enviamos un correo para restablecer tu contraseña.</string>
+    <string name="error_recuperar_correo_invalid">Ingresa un correo válido.</string>
+    <string name="error_usuario_no_encontrado">No encontramos una cuenta asociada a este correo.</string>
+    <string name="error_operacion">Ocurrió un problema. Inténtalo nuevamente más tarde.</string>
+    <string name="text_envio_confirmacion_correo_placeholder">Enviamos las instrucciones a tu correo.</string>
+    <string name="btn_abrir_correo">Abrir aplicación de correo</string>
+    <string name="btn_volver_login">Volver al inicio de sesión</string>
+    <string name="text_envio_confirmacion_correo">Enviamos las instrucciones a %1$s</string>
+    <string name="chooser_correo">Selecciona la aplicación de correo</string>
+    <string name="error_no_email_app">No encontramos una aplicación de correo.</string>
     <string name="btn_enviar_recuperacion">Enviar Enlace de Recuperación</string>
 
     <!-- Cadenas para admin_confirmacion_envio_contrasena.xml -->

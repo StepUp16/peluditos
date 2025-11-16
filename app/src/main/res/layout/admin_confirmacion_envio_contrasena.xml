@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Botón de retroceso en la esquina superior izquierda -->
     <ImageButton
         android:id="@+id/btnBack"
         android:layout_width="40dp"
@@ -36,7 +35,6 @@
             android:paddingTop="64dp"
             android:paddingBottom="96dp">
 
-            <!-- Título centrado pequeño (arriba) -->
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="match_parent"
@@ -45,21 +43,19 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:gravity="center"
-                android:layout_marginBottom="24dp" />
+                android:layout_marginBottom="16dp" />
 
-            <!-- Encabezado grande -->
             <TextView
                 android:id="@+id/tvHeading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/heading_envio_exitoso"
                 android:textStyle="bold"
-                android:textSize="34sp"
+                android:textSize="30sp"
                 android:gravity="center"
                 android:lineSpacingExtra="4dp"
-                android:layout_marginBottom="24dp" />
+                android:layout_marginBottom="16dp" />
 
-            <!-- Descripción centrada -->
             <TextView
                 android:id="@+id/tvDescripcion"
                 android:layout_width="match_parent"
@@ -68,45 +64,36 @@
                 android:textSize="16sp"
                 android:gravity="center"
                 android:lineSpacingExtra="6dp"
-                android:layout_marginBottom="32dp" />
+                android:layout_marginBottom="12dp" />
 
-            <!-- Campo PIN -->
-            <EditText
-                android:id="@+id/etPin"
+            <TextView
+                android:id="@+id/tvCorreoDestino"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/edittext_cliente"
-                android:hint="@string/hint_pin"
-                android:padding="16dp"
-                android:textColorHint="#6B8E7A"
-                android:textSize="18sp"
-                android:inputType="number"
-                android:maxLength="6"
-                android:layout_marginBottom="24dp" />
-
-            <!-- Botones -->
-            <Button
-                android:id="@+id/btnVerificarPin"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/btn_green_bg"
-                android:text="@string/btn_verificar_pin"
-                android:textColor="#081114"
-                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textColorPrimary"
                 android:textStyle="bold"
-                android:layout_marginBottom="12dp"
-                app:backgroundTint="@null" />
+                android:gravity="center"
+                android:textSize="16sp"
+                android:layout_marginBottom="24dp"
+                android:text="@string/text_envio_confirmacion_correo_placeholder" />
 
-            <Button
-                android:id="@+id/btnReenviarPin"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAbrirCorreo"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:background="@drawable/btn_green_bg"
-                android:text="@string/btn_reenviar_pin"
-                android:textColor="#081114"
-                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_abrir_correo"
+                android:textAllCaps="false"
                 android:textStyle="bold"
-                app:backgroundTint="@null" />
+                android:layout_marginBottom="12dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVolverLogin"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_volver_login"
+                android:textAllCaps="false" />
 
         </LinearLayout>
     </ScrollView>

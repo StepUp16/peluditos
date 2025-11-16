@@ -121,6 +121,8 @@
     <string name="text_cliente_home_motivo_paciente">%1$s para %2$s</string>
     <string name="text_cliente_alertas_vacio">No tienes alertas recientes.</string>
     <string name="btn_ver_alertas_recientes">Ver todas las alertas</string>
+    <string name="text_admin_home_citas_vacio">No hay citas próximas.</string>
+    <string name="text_admin_home_notificaciones_vacio">Sin notificaciones recientes.</string>
     <string name="title_dialog_change_password">Cambiar contraseña</string>
     <string name="hint_current_password">Contraseña actual</string>
     <string name="hint_new_password">Nueva contraseña</string>

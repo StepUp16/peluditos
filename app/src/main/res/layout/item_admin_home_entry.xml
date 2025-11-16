@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_item_bg"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:layout_marginBottom="8dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/imgEntryIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="@null"
+        android:tint="@color/textColorPrimary"
+        android:src="@drawable/icono_citas" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvEntryTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="16sp"
+            android:text="Paciente / Cliente" />
+
+        <TextView
+            android:id="@+id/tvEntrySubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="14sp"
+            android:layout_marginTop="2dp"
+            android:text="Fecha - Hora" />
+
+        <TextView
+            android:id="@+id/tvEntryExtra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="13sp"
+            android:layout_marginTop="2dp"
+            android:text="Estado / Nota" />
+    </LinearLayout>
+
+</LinearLayout>

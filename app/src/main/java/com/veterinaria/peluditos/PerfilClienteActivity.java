@@ -15,12 +15,14 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
@@ -32,13 +34,18 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.veterinaria.peluditos.adapters.PacienteClienteAdapter;
+import com.veterinaria.peluditos.data.Cita;
 import com.veterinaria.peluditos.data.Paciente;
 import com.veterinaria.peluditos.data.Usuario;
 import com.veterinaria.peluditos.util.NetworkUtils;
 import com.veterinaria.peluditos.util.PacientePhotoManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PerfilClienteActivity extends AppCompatActivity {
 
@@ -49,6 +56,9 @@ public class PerfilClienteActivity extends AppCompatActivity {
     private TextView tvUserEmail;
     private TextView tvUserPhone;
     private TextView tvMascotasEmpty;
+    private LinearLayout llCitasContainer;
+    private TextView tvCitasEmpty;
+    private MaterialButton btnVerCitas;
     private RecyclerView recyclerViewMascotas;
     private LinearLayout llChangePassword;
     private LinearLayout llNotifications;
@@ -58,14 +68,18 @@ public class PerfilClienteActivity extends AppCompatActivity {
     private SessionManager sessionManager;
     private AdminUsuarioViewModel usuarioViewModel;
     private AdminPacienteViewModel pacienteViewModel;
+    private AdminCitaViewModel citaViewModel;
     private PacientePhotoManager photoManager;
     private PacienteClienteAdapter mascotasAdapter;
     private ActivityResultLauncher<String> photoPickerLauncher;
 
     private final List<Paciente> cachePacientes = new ArrayList<>();
+    private final List<Cita> cacheCitas = new ArrayList<>();
     private Usuario usuarioActual;
     private String clienteId;
     private boolean ignoreMenuSelection = true;
+    private final SimpleDateFormat fechaResumenFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+    private final SimpleDateFormat horaResumenFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +90,7 @@ public class PerfilClienteActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
         usuarioViewModel = new ViewModelProvider(this).get(AdminUsuarioViewModel.class);
         pacienteViewModel = new ViewModelProvider(this).get(AdminPacienteViewModel.class);
+        citaViewModel = new ViewModelProvider(this).get(AdminCitaViewModel.class);
         photoManager = new PacientePhotoManager("usuarios");
 
         photoPickerLauncher = registerForActivityResult(
@@ -93,6 +108,7 @@ public class PerfilClienteActivity extends AppCompatActivity {
 
         cargarDatosUsuario();
         observarPacientes();
+        observarCitas();
     }
 
     private void initViews() {
@@ -104,16 +120,26 @@ public class PerfilClienteActivity extends AppCompatActivity {
         tvUserEmail = findViewById(R.id.tvUserEmail);
         tvUserPhone = findViewById(R.id.tvUserPhone);
         tvMascotasEmpty = findViewById(R.id.tvMascotasEmpty);
+        llCitasContainer = findViewById(R.id.llCitasContainer);
+        tvCitasEmpty = findViewById(R.id.tvCitasEmpty);
+        btnVerCitas = findViewById(R.id.btnVerCitas);
         recyclerViewMascotas = findViewById(R.id.recyclerViewMascotas);
         llChangePassword = findViewById(R.id.llChangePassword);
-        llNotifications = findViewById(R.id.llNotifications);
+        //llNotifications = findViewById(R.id.llNotifications);
         btnLogout = findViewById(R.id.btnLogout);
 
         btnBack.setOnClickListener(v -> finish());
         btnCambiarFoto.setOnClickListener(v -> seleccionarNuevaFoto());
-        llChangePassword.setOnClickListener(v -> mostrarDialogoCambiarContrasena());
-        llNotifications.setOnClickListener(v ->
-                Toast.makeText(this, R.string.msg_feature_en_construccion, Toast.LENGTH_SHORT).show());
+        if (btnVerCitas != null) {
+            btnVerCitas.setOnClickListener(v -> abrirListadoCitas());
+        }
+        if (llChangePassword != null) {
+            llChangePassword.setOnClickListener(v -> mostrarDialogoCambiarContrasena());
+        }
+        if (llNotifications != null) {
+            llNotifications.setOnClickListener(v ->
+                    Toast.makeText(this, R.string.msg_feature_en_construccion, Toast.LENGTH_SHORT).show());
+        }
         btnLogout.setOnClickListener(v -> cerrarSesion());
     }
 
@@ -311,6 +337,7 @@ public class PerfilClienteActivity extends AppCompatActivity {
 
         clienteId = currentUser.getUid();
         String email = currentUser.getEmail();
+        actualizarCitasResumen();
 
         if (!TextUtils.isEmpty(email)) {
             usuarioViewModel.getUsuarioByEmail(email).observe(this, usuario -> {
@@ -319,6 +346,7 @@ public class PerfilClienteActivity extends AppCompatActivity {
                     clienteId = usuario.getUid();
                     mostrarUsuario(usuario);
                     aplicarFiltroMascotas();
+                    actualizarCitasResumen();
                 }
             });
         } else {
@@ -327,6 +355,7 @@ public class PerfilClienteActivity extends AppCompatActivity {
                     usuarioActual = usuario;
                     mostrarUsuario(usuario);
                     aplicarFiltroMascotas();
+                    actualizarCitasResumen();
                 }
             });
         }
@@ -367,6 +396,19 @@ public class PerfilClienteActivity extends AppCompatActivity {
         });
     }
 
+    private void observarCitas() {
+        if (citaViewModel == null) {
+            return;
+        }
+        citaViewModel.getAllCitas().observe(this, citas -> {
+            cacheCitas.clear();
+            if (citas != null) {
+                cacheCitas.addAll(citas);
+            }
+            actualizarCitasResumen();
+        });
+    }
+
     private void aplicarFiltroMascotas() {
         if (mascotasAdapter == null) {
             return;
@@ -390,6 +432,150 @@ public class PerfilClienteActivity extends AppCompatActivity {
         if (recyclerViewMascotas != null) {
             recyclerViewMascotas.setVisibility(vacio ? View.GONE : View.VISIBLE);
         }
+    }
+
+    private void actualizarCitasResumen() {
+        if (llCitasContainer == null) {
+            return;
+        }
+
+        llCitasContainer.removeAllViews();
+
+        List<Cita> delCliente = new ArrayList<>();
+        if (!TextUtils.isEmpty(clienteId)) {
+            for (Cita cita : cacheCitas) {
+                if (clienteId.equals(cita.getClienteId())) {
+                    delCliente.add(cita);
+                }
+            }
+        }
+
+        if (delCliente.isEmpty()) {
+            toggleCitasEmptyState(true);
+            return;
+        }
+
+        Collections.sort(delCliente, (c1, c2) ->
+                Long.compare(c1.getFechaHoraTimestamp(), c2.getFechaHoraTimestamp()));
+
+        long ahora = System.currentTimeMillis();
+        List<Cita> proximas = new ArrayList<>();
+        for (Cita cita : delCliente) {
+            long timestamp = cita.getFechaHoraTimestamp();
+            if (timestamp == 0 || timestamp >= ahora) {
+                proximas.add(cita);
+            }
+        }
+
+        List<Cita> fuente = proximas.isEmpty() ? delCliente : proximas;
+        int limite = Math.min(2, fuente.size());
+        for (int i = 0; i < limite; i++) {
+            View itemView = getLayoutInflater().inflate(R.layout.item_cita_cliente, llCitasContainer, false);
+            bindResumenCita(itemView, fuente.get(i));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            if (i > 0) {
+                int spacing = (int) (getResources().getDisplayMetrics().density * 12);
+                params.topMargin = spacing;
+            }
+            llCitasContainer.addView(itemView, params);
+        }
+        toggleCitasEmptyState(false);
+    }
+
+    private void bindResumenCita(View view, Cita cita) {
+        if (view == null || cita == null) {
+            return;
+        }
+        TextView tvPaciente = view.findViewById(R.id.tvPacienteNombre);
+        TextView tvFechaHora = view.findViewById(R.id.tvFechaHora);
+        TextView tvMotivo = view.findViewById(R.id.tvMotivo);
+        TextView tvEstado = view.findViewById(R.id.tvEstadoCita);
+
+        String nombreMascota = !TextUtils.isEmpty(cita.getPacienteNombre())
+                ? cita.getPacienteNombre()
+                : getString(R.string.text_cliente_mascota_sin_nombre);
+        tvPaciente.setText(nombreMascota);
+
+        String fechaTexto = cita.getFecha();
+        String horaTexto = cita.getHora();
+        if (TextUtils.isEmpty(fechaTexto) || TextUtils.isEmpty(horaTexto)) {
+            long timestamp = cita.getFechaHoraTimestamp();
+            if (timestamp > 0) {
+                Date date = new Date(timestamp);
+                if (TextUtils.isEmpty(fechaTexto)) {
+                    fechaTexto = fechaResumenFormat.format(date);
+                }
+                if (TextUtils.isEmpty(horaTexto)) {
+                    horaTexto = horaResumenFormat.format(date);
+                }
+            }
+        }
+        if (TextUtils.isEmpty(fechaTexto)) {
+            fechaTexto = "--";
+        }
+        if (TextUtils.isEmpty(horaTexto)) {
+            horaTexto = "--";
+        }
+        tvFechaHora.setText(getString(R.string.cita_cliente_fecha_hora, fechaTexto, horaTexto));
+
+        String motivo = TextUtils.isEmpty(cita.getMotivo())
+                ? getString(R.string.cita_cliente_sin_motivo)
+                : cita.getMotivo();
+        tvMotivo.setText(motivo);
+
+        String estado = !TextUtils.isEmpty(cita.getEstado())
+                ? cita.getEstado()
+                : getString(R.string.cita_estado_pendiente);
+        tvEstado.setText(estado);
+        aplicarEstiloEstado(tvEstado, estado);
+    }
+
+    private void toggleCitasEmptyState(boolean mostrarVacio) {
+        if (tvCitasEmpty != null) {
+            tvCitasEmpty.setVisibility(mostrarVacio ? View.VISIBLE : View.GONE);
+        }
+        if (llCitasContainer != null) {
+            llCitasContainer.setVisibility(mostrarVacio ? View.GONE : View.VISIBLE);
+        }
+        if (btnVerCitas != null) {
+            btnVerCitas.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void aplicarEstiloEstado(TextView chip, String estado) {
+        if (chip == null) {
+            return;
+        }
+        chip.setBackgroundResource(R.drawable.bg_estado_chip);
+        chip.getBackground().setTint(obtenerColorEstado(estado));
+        chip.setTextColor(ContextCompat.getColor(this, android.R.color.white));
+    }
+
+    private int obtenerColorEstado(String estado) {
+        if (estado == null) {
+            return ContextCompat.getColor(this, R.color.estadoPendienteColor);
+        }
+        switch (estado.toLowerCase(Locale.getDefault())) {
+            case "confirmada":
+                return ContextCompat.getColor(this, R.color.estadoConfirmadaColor);
+            case "pospuesta":
+                return ContextCompat.getColor(this, R.color.estadoPospuestaColor);
+            case "cancelada":
+                return ContextCompat.getColor(this, R.color.estadoCanceladaColor);
+            case "completada":
+                return ContextCompat.getColor(this, R.color.estadoCompletadaColor);
+            default:
+                return ContextCompat.getColor(this, R.color.estadoPendienteColor);
+        }
+    }
+
+    private void abrirListadoCitas() {
+        Intent intent = new Intent(this, ClienteCitaListadoActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     private void seleccionarNuevaFoto() {

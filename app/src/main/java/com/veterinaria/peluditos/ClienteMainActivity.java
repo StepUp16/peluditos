@@ -14,19 +14,49 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.veterinaria.peluditos.adapters.AlertaClienteAdapter;
+import com.veterinaria.peluditos.data.Cita;
 import com.veterinaria.peluditos.data.Usuario;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class ClienteMainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private SessionManager sessionManager;
     private AdminUsuarioViewModel usuarioViewModel;
+    private AdminCitaViewModel citaViewModel;
     private ShapeableImageView imgAvatarCliente;
+    private MaterialCardView cardProximaCita;
+    private TextView txtFechaCita;
+    private TextView txtMotivoCita;
+    private TextView txtNombreDoctor;
+    private TextView tvProximasVacio;
+    private RecyclerView rvAlertas;
+    private TextView tvAlertasVacio;
+    private MaterialButton btnVerAlertas;
+    private AlertaClienteAdapter alertaAdapter;
+    private final List<Cita> cacheCitas = new ArrayList<>();
+    private String clienteId;
+    private final SimpleDateFormat fechaDisplayFormat =
+            new SimpleDateFormat("EEEE d 'de' MMMM", Locale.getDefault());
+    private final SimpleDateFormat horaDisplayFormat =
+            new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +69,13 @@ public class ClienteMainActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
         mAuth = FirebaseAuth.getInstance();
         usuarioViewModel = new ViewModelProvider(this).get(AdminUsuarioViewModel.class);
+        citaViewModel = new ViewModelProvider(this).get(AdminCitaViewModel.class);
         imgAvatarCliente = findViewById(R.id.imgAvatarCliente);
 
         Toast.makeText(this, R.string.toast_cliente_bienvenida, Toast.LENGTH_LONG).show();
         configurarSaludo();
         configurarAccionesPrincipales();
+        configurarResumenCitas();
         configurarMenuInferior();
     }
 
@@ -53,12 +85,15 @@ public class ClienteMainActivity extends AppCompatActivity {
         if (currentUser == null) {
             txtMensaje.setText(R.string.text_saludo_generico);
             actualizarAvatar(null);
+            mostrarEstadoProximas(false);
             return;
         }
 
+        clienteId = currentUser.getUid();
         String nombreFallback = obtenerNombreDesdeFirebase(currentUser);
         txtMensaje.setText(getString(R.string.text_saludo_cliente, nombreFallback));
         actualizarAvatar(currentUser.getPhotoUrl() != null ? currentUser.getPhotoUrl().toString() : null);
+        actualizarTarjetaProximaCita();
 
         String email = currentUser.getEmail();
         if (!TextUtils.isEmpty(email)) {
@@ -67,6 +102,8 @@ public class ClienteMainActivity extends AppCompatActivity {
                     txtMensaje.setText(getString(R.string.text_saludo_cliente,
                             construirNombreCompleto(usuario)));
                     actualizarAvatar(usuario.getFotoUrl());
+                    clienteId = usuario.getUid();
+                    actualizarTarjetaProximaCita();
                 }
             });
         } else {
@@ -75,6 +112,8 @@ public class ClienteMainActivity extends AppCompatActivity {
                     txtMensaje.setText(getString(R.string.text_saludo_cliente,
                             construirNombreCompleto(usuario)));
                     actualizarAvatar(usuario.getFotoUrl());
+                    clienteId = usuario.getUid();
+                    actualizarTarjetaProximaCita();
                 }
             });
         }
@@ -86,6 +125,41 @@ public class ClienteMainActivity extends AppCompatActivity {
 
         btnAgregarMascota.setOnClickListener(v -> abrirNuevoPaciente());
         btnSolicitarCita.setOnClickListener(v -> abrirNuevaCita());
+    }
+
+    private void configurarResumenCitas() {
+        cardProximaCita = findViewById(R.id.cardProximaCita);
+        txtFechaCita = findViewById(R.id.txtFechaCita);
+        txtMotivoCita = findViewById(R.id.txtMotivoCita);
+        txtNombreDoctor = findViewById(R.id.txtNombreDoctor);
+        tvProximasVacio = findViewById(R.id.tvProximasVacio);
+        rvAlertas = findViewById(R.id.rvAlertas);
+        tvAlertasVacio = findViewById(R.id.tvAlertasVacio);
+        btnVerAlertas = findViewById(R.id.btnVerAlertas);
+
+        if (cardProximaCita != null) {
+            cardProximaCita.setOnClickListener(v -> abrirListadoCitas());
+        }
+        if (btnVerAlertas != null) {
+            btnVerAlertas.setOnClickListener(v -> abrirListadoCitas());
+        }
+
+        if (rvAlertas != null) {
+            rvAlertas.setLayoutManager(new LinearLayoutManager(this));
+            alertaAdapter = new AlertaClienteAdapter();
+            rvAlertas.setAdapter(alertaAdapter);
+        }
+
+        if (citaViewModel != null) {
+            citaViewModel.getAllCitas().observe(this, citas -> {
+                cacheCitas.clear();
+                if (citas != null) {
+                    cacheCitas.addAll(citas);
+                }
+                actualizarTarjetaProximaCita();
+                actualizarAlertasRecientes();
+            });
+        }
     }
 
     private void configurarMenuInferior() {
@@ -175,6 +249,186 @@ public class ClienteMainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void actualizarTarjetaProximaCita() {
+        if (cardProximaCita == null) {
+            return;
+        }
+        if (TextUtils.isEmpty(clienteId)) {
+            mostrarEstadoProximas(false);
+            actualizarAlertasRecientes();
+            return;
+        }
+
+        Cita proxima = obtenerProximaCita();
+        if (proxima == null) {
+            mostrarEstadoProximas(false);
+            actualizarAlertasRecientes();
+            return;
+        }
+
+        mostrarEstadoProximas(true);
+        long timestamp = proxima.getFechaHoraTimestamp();
+        String fechaTexto = proxima.getFecha();
+        String horaTexto = proxima.getHora();
+        if (timestamp > 0) {
+            Date date = new Date(timestamp);
+            fechaTexto = fechaDisplayFormat.format(date);
+            horaTexto = horaDisplayFormat.format(date);
+        }
+        if (TextUtils.isEmpty(fechaTexto)) {
+            fechaTexto = "--";
+        }
+        if (horaTexto == null) {
+            horaTexto = "";
+        }
+        if (txtFechaCita != null) {
+            if (TextUtils.isEmpty(horaTexto)) {
+                txtFechaCita.setText(fechaTexto);
+            } else {
+                txtFechaCita.setText(getString(R.string.cita_cliente_fecha_hora, fechaTexto, horaTexto));
+            }
+        }
+
+        if (txtMotivoCita != null) {
+            String motivo = TextUtils.isEmpty(proxima.getMotivo())
+                    ? getString(R.string.cita_cliente_sin_motivo)
+                    : proxima.getMotivo();
+            String paciente = proxima.getPacienteNombre();
+            if (!TextUtils.isEmpty(paciente)) {
+                motivo = getString(R.string.text_cliente_home_motivo_paciente, motivo, paciente);
+            }
+            txtMotivoCita.setText(motivo);
+        }
+
+        if (txtNombreDoctor != null) {
+            String estado = TextUtils.isEmpty(proxima.getEstado())
+                    ? getString(R.string.cita_estado_pendiente)
+                    : proxima.getEstado();
+            txtNombreDoctor.setText(getString(R.string.text_cliente_home_estado, estado));
+        }
+    }
+
+    private void actualizarAlertasRecientes() {
+        if (alertaAdapter == null) {
+            mostrarEstadoAlertas(false);
+            return;
+        }
+        if (TextUtils.isEmpty(clienteId)) {
+            alertaAdapter.setAlertas(new ArrayList<>());
+            mostrarEstadoAlertas(false);
+            return;
+        }
+
+        List<Cita> propias = new ArrayList<>();
+        for (Cita cita : cacheCitas) {
+            if (clienteId.equals(cita.getClienteId())) {
+                propias.add(cita);
+            }
+        }
+        if (propias.isEmpty()) {
+            alertaAdapter.setAlertas(new ArrayList<>());
+            mostrarEstadoAlertas(false);
+            return;
+        }
+        Collections.sort(propias, (c1, c2) ->
+                Long.compare(c2.getTimestampModificacion(), c1.getTimestampModificacion()));
+
+        List<AlertaClienteAdapter.AlertaItem> items = new ArrayList<>();
+        for (int i = 0; i < propias.size() && items.size() < 3; i++) {
+            Cita cita = propias.get(i);
+            String estado = TextUtils.isEmpty(cita.getEstado())
+                    ? getString(R.string.cita_estado_pendiente)
+                    : cita.getEstado();
+            String paciente = !TextUtils.isEmpty(cita.getPacienteNombre())
+                    ? cita.getPacienteNombre()
+                    : getString(R.string.text_cliente_mascota_sin_nombre);
+            String titulo = getString(R.string.text_cliente_home_estado, estado) + " - " + paciente;
+            String motivo = TextUtils.isEmpty(cita.getMotivo())
+                    ? getString(R.string.cita_cliente_sin_motivo)
+                    : cita.getMotivo();
+            String descripcion = getString(R.string.text_cliente_home_motivo_paciente, motivo, paciente);
+            long ts = cita.getTimestampModificacion();
+            if (ts <= 0) {
+                ts = cita.getFechaHoraTimestamp();
+            }
+            items.add(new AlertaClienteAdapter.AlertaItem(
+                    titulo,
+                    descripcion,
+                    ts,
+                    obtenerIconoAlerta(estado)
+            ));
+        }
+        alertaAdapter.setAlertas(items);
+        mostrarEstadoAlertas(!items.isEmpty());
+    }
+
+    private Cita obtenerProximaCita() {
+        if (cacheCitas.isEmpty() || TextUtils.isEmpty(clienteId)) {
+            return null;
+        }
+        List<Cita> propias = new ArrayList<>();
+        for (Cita cita : cacheCitas) {
+            if (clienteId.equals(cita.getClienteId())) {
+                propias.add(cita);
+            }
+        }
+        if (propias.isEmpty()) {
+            return null;
+        }
+
+        long ahora = System.currentTimeMillis();
+        Cita candidata = null;
+        for (Cita cita : propias) {
+            long ts = cita.getFechaHoraTimestamp();
+            if (ts <= 0) {
+                continue;
+            }
+            if (ts >= ahora && (candidata == null || ts < candidata.getFechaHoraTimestamp())) {
+                candidata = cita;
+            }
+        }
+        if (candidata == null) {
+            Collections.sort(propias, (c1, c2) ->
+                    Long.compare(c1.getFechaHoraTimestamp(), c2.getFechaHoraTimestamp()));
+            candidata = propias.get(0);
+        }
+        return candidata;
+    }
+
+    private void mostrarEstadoProximas(boolean hayCita) {
+        if (cardProximaCita != null) {
+            cardProximaCita.setVisibility(hayCita ? View.VISIBLE : View.GONE);
+        }
+        if (tvProximasVacio != null) {
+            tvProximasVacio.setVisibility(hayCita ? View.GONE : View.VISIBLE);
+        }
+    }
+
+    private void mostrarEstadoAlertas(boolean hayAlertas) {
+        if (rvAlertas != null) {
+            rvAlertas.setVisibility(hayAlertas ? View.VISIBLE : View.GONE);
+        }
+        if (tvAlertasVacio != null) {
+            tvAlertasVacio.setVisibility(hayAlertas ? View.GONE : View.VISIBLE);
+        }
+    }
+
+    private int obtenerIconoAlerta(String estado) {
+        if (estado == null) {
+            return R.drawable.icono_alarm;
+        }
+        switch (estado.toLowerCase(Locale.getDefault())) {
+            case "confirmada":
+            case "completada":
+                return R.drawable.icono_citas;
+            case "pospuesta":
+            case "cancelada":
+                return R.drawable.icono_notificacion;
+            default:
+                return R.drawable.icono_alarm;
+        }
     }
 
     private void actualizarAvatar(String fotoUrl) {

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/imgIconoAlerta"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@string/section_notificaciones"
+        android:padding="8dp"
+        android:src="@drawable/icono_alarm"
+        android:tint="@color/textColorPrimary" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTituloAlerta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/epilogue_bold"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="Estado de Luna actualizado" />
+
+        <TextView
+            android:id="@+id/tvDescripcionAlerta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/epilogue"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="13sp"
+            tools:text="Cita confirmada para 25 de julio, 10:00 AM" />
+
+        <TextView
+            android:id="@+id/tvFechaAlerta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/epilogue"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="12sp"
+            tools:text="Hace 2 horas" />
+    </LinearLayout>
+
+</LinearLayout>

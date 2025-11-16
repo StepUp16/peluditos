@@ -155,92 +155,45 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="Mis Citas"
+                android:text="@string/title_cliente_citas"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/spline_sans" />
 
-            <!-- Cita 1 -->
             <LinearLayout
+                android:id="@+id/llCitasContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
+                android:orientation="vertical"
+                android:dividerPadding="8dp" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/icono_citas"
-                    app:tint="@color/menu_Cliente_inactivo" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="16dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/spline_sans"
-                        android:text="Consulta General"
-                        android:textColor="@color/textColorPrimary"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="15 de Octubre, 2024 - 10:00 AM"
-                        android:textSize="14sp"
-                        android:textColor="@color/textColorSecondary"
-                        android:fontFamily="@font/spline_sans" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Cita 2 -->
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvCitasEmpty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:orientation="horizontal"
-                android:padding="16dp"
-                android:gravity="center_vertical">
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/text_cliente_citas_vacio"
+                android:textColor="@color/textColorSecondary"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:fontFamily="@font/spline_sans" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/icono_citas"
-                    app:tint="@color/menu_Cliente_inactivo" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="16dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Vacunación"
-                        android:textColor="@color/textColorPrimary"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/spline_sans" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="22 de Octubre, 2024 - 2:00 PM"
-                        android:textSize="14sp"
-                        android:textColor="@color/textColorSecondary"
-                        android:fontFamily="@font/spline_sans" />
-                </LinearLayout>
-            </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVerCitas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="@string/btn_ver_citas_cliente"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:fontFamily="@font/spline_sans"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
             <!-- Sección Configuración -->
             <TextView
@@ -283,7 +236,7 @@
                     android:src="@drawable/ic_arrow_forward"
                     app:tint="@color/textColorPrimary" />
             </LinearLayout>
-
+<!--
             <LinearLayout
                 android:id="@+id/llNotifications"
                 android:layout_width="match_parent"
@@ -314,6 +267,7 @@
                     android:src="@drawable/ic_arrow_forward"
                     app:tint="@color/textColorPrimary" />
             </LinearLayout>
+-->
 
             <!-- Botón Cerrar Sesión -->
             <Button

@@ -1,5 +1,6 @@
 package com.veterinaria.peluditos.adapters;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.veterinaria.peluditos.R;
 import com.veterinaria.peluditos.data.Usuario;
@@ -78,11 +80,26 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
         }
 
         public void bind(Usuario usuario, OnDeleteClickListener deleteListener, OnEditClickListener editListener) {
-            String nombreCompleto = usuario.getNombre() + " " + usuario.getApellido();
+            String nombre = usuario.getNombre() != null ? usuario.getNombre().trim() : "";
+            String apellido = usuario.getApellido() != null ? usuario.getApellido().trim() : "";
+            String nombreCompleto = (nombre + " " + apellido).trim();
+            if (TextUtils.isEmpty(nombreCompleto)) {
+                nombreCompleto = itemView.getContext().getString(R.string.text_cliente_sin_nombre);
+            }
             tvUserName.setText(nombreCompleto);
             tvUserRole.setText(usuario.getRol());
-            // Por ahora usamos un avatar por defecto
-            ivUserAvatar.setImageResource(R.drawable.user_javier);
+
+            String fotoUrl = usuario.getFotoUrl();
+            if (!TextUtils.isEmpty(fotoUrl)) {
+                Glide.with(itemView.getContext())
+                        .load(fotoUrl)
+                        .placeholder(R.drawable.icono_perfil)
+                        .error(R.drawable.icono_perfil)
+                        .centerCrop()
+                        .into(ivUserAvatar);
+            } else {
+                ivUserAvatar.setImageResource(R.drawable.icono_perfil);
+            }
 
             // Configurar el botón de eliminar
             btnDelete.setOnClickListener(v -> {

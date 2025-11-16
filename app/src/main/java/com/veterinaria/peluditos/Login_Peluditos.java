@@ -31,6 +31,7 @@ public class Login_Peluditos extends AppCompatActivity {
     private Button btnIniciarSesion;
     private Chip chipRecordarme;
     private TextView txtRegistrarme;
+    private TextView txtOlvidarContraseña;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -57,6 +58,7 @@ public class Login_Peluditos extends AppCompatActivity {
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion);
         chipRecordarme = findViewById(R.id.chipRecordarme);
         txtRegistrarme = findViewById(R.id.txtRegistrarme);
+        txtOlvidarContraseña = findViewById(R.id.txtOlvidarContraseña);
 
         // 4. Verificar si ya hay una sesión activa
         verificarSesionActiva();
@@ -89,6 +91,13 @@ public class Login_Peluditos extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        if (txtOlvidarContraseña != null) {
+            txtOlvidarContraseña.setOnClickListener(v -> {
+                Intent intent = new Intent(Login_Peluditos.this, AdminRecuperarContrasenaActivity.class);
+                startActivity(intent);
+            });
+        }
     }
 
     private void verificarSesionActiva() {

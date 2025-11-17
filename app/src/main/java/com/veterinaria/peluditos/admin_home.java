@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.widget.ImageView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.veterinaria.peluditos.data.Cita;
 
@@ -69,23 +70,52 @@ public class admin_home extends AppCompatActivity {
         initViews();
         setupListeners();
         setupDashboardSections();
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottomMenu);
+        bottomNav.setSelectedItemId(R.id.iconHome);
+
+
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId(); // Obtiene el ID del ítem presionado
+
+            if (itemId == R.id.iconHome) {
+                // Ya estás en Home, no hacer nada.
+                return true; // true = la selección fue manejada
+            }
+            else if (itemId == R.id.iconCitas) {
+                Intent intent = new Intent(admin_home.this, admin_cita_listado.class);
+                startActivity(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconPacientes) {
+                Intent intent = new Intent(admin_home.this, AdminPacienteListadoActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconClientes) {
+                Intent intent = new Intent(admin_home.this, AdminUsuarioClienteListadoActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconPerfil) {
+                Intent intent = new Intent(admin_home.this, AdminPerfil.class);
+                startActivity(intent);
+                return true;
+            }
+
+            return false; // false = la selección no fue manejada
+        });
     }
 
     private void initViews() {
-        // Botones principales
+        // Botones principales (esto está bien)
         btnVerClientes = findViewById(R.id.btnVerClientes);
         btnVerPacientes = findViewById(R.id.btnVerPacientes);
         btnCrearCita = findViewById(R.id.btnCrearCita);
 
+        // Layouts dinámicos (esto está bien)
         layoutCitas = findViewById(R.id.layoutCitas);
         layoutNotificaciones = findViewById(R.id.layoutNotificaciones);
-
-        // Menú inferior - obtener los LinearLayouts padre de cada icono
-        iconHome = (LinearLayout) findViewById(R.id.iconHome).getParent();
-        iconCitas = (LinearLayout) findViewById(R.id.iconCitas).getParent();
-        iconPacientes = (LinearLayout) findViewById(R.id.iconPacientes).getParent();
-        iconClientes = (LinearLayout) findViewById(R.id.iconClientes).getParent();
-        iconPerfil = (LinearLayout) findViewById(R.id.iconPerfil).getParent();
     }
 
     private void setupListeners() {
@@ -106,7 +136,7 @@ public class admin_home extends AppCompatActivity {
         });
 
         // Configurar listeners del menú inferior
-        setupBottomMenuListeners();
+        //setupBottomMenuListeners();
     }
 
     private void setupDashboardSections() {
@@ -117,7 +147,7 @@ public class admin_home extends AppCompatActivity {
         });
     }
 
-    private void setupBottomMenuListeners() {
+    /*private void setupBottomMenuListeners() {
         iconHome.setOnClickListener(v -> {
             // Ya estamos en Home, no hacer nada o refrescar
         });
@@ -141,7 +171,7 @@ public class admin_home extends AppCompatActivity {
             Intent intent = new Intent(admin_home.this, AdminPerfil.class);
             startActivity(intent);
         });
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

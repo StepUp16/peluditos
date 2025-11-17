@@ -12,6 +12,10 @@
     <color name="menu_Cliente_Admin_inactivo">#9EB8A8</color>
     <color name="backgroundMain">#121714</color>
     <color name="cardBackground">#29382E</color>
+    <color name="border_button">#9CA3AF</color>
+    <color name="mi_verde_primario">#27E46A</color>
+    <color name="mi_gris_neutral_para_iconos">#757575</color>
+
 
     <!-- Color para splash screen en modo noche -->
     <color name="splash_background">#121714</color>

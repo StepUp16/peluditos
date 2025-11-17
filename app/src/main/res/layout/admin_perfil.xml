@@ -201,118 +201,22 @@
     </ScrollView>
 
     <!-- Menú inferior fijo -->
-    <LinearLayout
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomMenu"
         android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:background="@color/navigationBarBackground"
-        android:gravity="center"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
 
-        <!-- Botón Home -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconHome"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_home"
-                app:tint="@color/menu_Cliente_Admin_inactivo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_home"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Citas -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconCitas"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_citas"
-                app:tint="@color/menu_Cliente_Admin_inactivo"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_citas"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Pacientes -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconPacientes"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_mascotas"
-                app:tint="@color/menu_Cliente_Admin_inactivo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_pacientes"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Clientes -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconClientes"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_clientes"
-                app:tint="@color/menu_Cliente_Admin_inactivo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_clientes"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Perfil -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconPerfil"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_perfil"
-                app:tint="@color/menu_Cliente_Admin_activo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_perfil"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-    </LinearLayout>
+        app:menu="@menu/menu_admin"
+
+        app:itemIconTint="@color/selector_menu_admin"
+        app:itemTextColor="@color/selector_menu_admin"
+
+        app:labelVisibilityMode="labeled" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

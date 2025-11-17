@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -41,7 +42,6 @@ public class AdminPerfil extends AppCompatActivity {
     private Button btnViewUsers, btnEditarPerfil;
     private ImageButton btnBack;
     private LinearLayout llManageRoles, llAccessStats;
-    private LinearLayout iconHome, iconCitas, iconPacientes, iconClientes, iconPerfil;
     private ShapeableImageView ivUserProfile;
     private ImageButton btnChangePhoto;
     private ProgressBar photoProgress;
@@ -105,18 +105,6 @@ public class AdminPerfil extends AppCompatActivity {
         // Opciones del menú
         llManageRoles = findViewById(R.id.llManageRoles);
         llAccessStats = findViewById(R.id.llAccessStats);
-
-        // Menú inferior
-        iconHome = findViewById(R.id.iconHome).getParent() instanceof LinearLayout ?
-                (LinearLayout) findViewById(R.id.iconHome).getParent() : null;
-        iconCitas = findViewById(R.id.iconCitas).getParent() instanceof LinearLayout ?
-                (LinearLayout) findViewById(R.id.iconCitas).getParent() : null;
-        iconPacientes = findViewById(R.id.iconPacientes).getParent() instanceof LinearLayout ?
-                (LinearLayout) findViewById(R.id.iconPacientes).getParent() : null;
-        iconClientes = findViewById(R.id.iconClientes).getParent() instanceof LinearLayout ?
-                (LinearLayout) findViewById(R.id.iconClientes).getParent() : null;
-        iconPerfil = findViewById(R.id.iconPerfil).getParent() instanceof LinearLayout ?
-                (LinearLayout) findViewById(R.id.iconPerfil).getParent() : null;
     }
 
     private void setupListeners() {
@@ -165,45 +153,39 @@ public class AdminPerfil extends AppCompatActivity {
     }
 
     private void setupBottomMenuListeners() {
-        if (iconHome != null) {
-            iconHome.setOnClickListener(v -> {
+        BottomNavigationView bottomNav = findViewById(R.id.bottomMenu);
+        bottomNav.setSelectedItemId(R.id.iconPerfil);
+
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.iconPerfil) {
+                return true;
+            }
+            else if (itemId == R.id.iconHome) {
                 Intent intent = new Intent(this, admin_home.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivityWithAnimation(intent);
-                finish();
-            });
-        }
-
-        if (iconCitas != null) {
-            iconCitas.setOnClickListener(v -> {
+                startActivity(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconCitas) {
                 Intent intent = new Intent(this, admin_cita_listado.class);
-                startActivityWithAnimation(intent);
-                finish();
-            });
-        }
-
-        if (iconPacientes != null) {
-            iconPacientes.setOnClickListener(v -> {
+                startActivity(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconPacientes) {
                 Intent intent = new Intent(this, AdminPacienteListadoActivity.class);
-                startActivityWithAnimation(intent);
-                finish();
-            });
-        }
-
-        if (iconClientes != null) {
-            iconClientes.setOnClickListener(v -> {
+                startActivity(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconClientes) {
                 Intent intent = new Intent(this, AdminUsuarioClienteListadoActivity.class);
-                startActivityWithAnimation(intent);
-                finish();
-            });
-        }
+                startActivity(intent);
+                return true;
+            }
 
-        if (iconPerfil != null) {
-            iconPerfil.setOnClickListener(v -> {
-                // ya estamos en perfil; refrescar datos
-                loadUserData();
-            });
-        }
+            return false;
+        });
     }
 
     private void loadUserData() {

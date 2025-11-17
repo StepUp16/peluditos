@@ -6,18 +6,16 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.tabs.TabLayout;
@@ -46,11 +44,6 @@ public class admin_cita_listado extends AppCompatActivity {
     private long selectedDateMillis;
     private String estadoFiltroActual;
 
-    private LinearLayout iconHomeContainer;
-    private LinearLayout iconCitasContainer;
-    private LinearLayout iconPacientesContainer;
-    private LinearLayout iconClientesContainer;
-    private LinearLayout iconPerfilContainer;
     private String[] estadosDisponibles;
 
     private final SimpleDateFormat headerDateFormat =
@@ -70,9 +63,43 @@ public class admin_cita_listado extends AppCompatActivity {
         initViews();
         setupRecyclerView();
         setupAddCitaButton();
-        setupBottomMenu();
+        //setupBottomMenu();
         setupTabs();
         observeCitas();
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottomMenu);
+        bottomNav.setSelectedItemId(R.id.iconCitas); // Establece el ítem seleccionado inicialmente
+
+
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId(); // Obtiene el ID del ítem presionado
+
+            if (itemId == R.id.iconCitas) {
+                return true;
+            }
+            else if (itemId == R.id.iconHome) {
+                Intent intent = new Intent(admin_cita_listado.this, admin_home.class);
+                startActivity(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconPacientes) {
+                Intent intent = new Intent(admin_cita_listado.this, AdminPacienteListadoActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconClientes) {
+                Intent intent = new Intent(admin_cita_listado.this, AdminUsuarioClienteListadoActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconPerfil) {
+                Intent intent = new Intent(admin_cita_listado.this, AdminPerfil.class);
+                startActivity(intent);
+                return true;
+            }
+
+            return false; // false = la selección no fue manejada
+        });
     }
 
     private void initViews() {
@@ -96,16 +123,6 @@ public class admin_cita_listado extends AppCompatActivity {
 
         updateHeaderDate();
 
-        iconHomeContainer = (LinearLayout) findViewById(R.id.iconHome).getParent();
-        iconCitasContainer = (LinearLayout) findViewById(R.id.iconCitas).getParent();
-        iconPacientesContainer = (LinearLayout) findViewById(R.id.iconPacientes).getParent();
-        iconClientesContainer = (LinearLayout) findViewById(R.id.iconClientes).getParent();
-        iconPerfilContainer = (LinearLayout) findViewById(R.id.iconPerfil).getParent();
-
-        ImageView iconCitas = findViewById(R.id.iconCitas);
-        if (iconCitas != null) {
-            iconCitas.setColorFilter(ContextCompat.getColor(this, R.color.textColorPrimary));
-        }
 
         setupEstadoChips();
     }
@@ -175,7 +192,7 @@ public class admin_cita_listado extends AppCompatActivity {
         }
     }
 
-    private void setupBottomMenu() {
+   /* private void setupBottomMenu() {
         if (iconHomeContainer != null) {
             iconHomeContainer.setOnClickListener(v -> {
                 Intent intent = new Intent(this, admin_home.class);
@@ -214,7 +231,7 @@ public class admin_cita_listado extends AppCompatActivity {
                 finish();
             });
         }
-    }
+    }*/
 
     private void startActivityWithAnimation(Intent intent) {
         startActivity(intent);

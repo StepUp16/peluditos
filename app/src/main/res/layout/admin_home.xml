@@ -115,13 +115,11 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Sección Acceso Rápido -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                >
+                android:paddingHorizontal="16dp">
 
                 <TextView
                     android:id="@+id/tvAccesoRapido"
@@ -131,172 +129,78 @@
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:layout_marginTop="24dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"/>
+                    android:layout_marginBottom="16dp"/>
 
-                <LinearLayout
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCrearCita"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp">
-                    <Button
-                        android:id="@+id/btnCrearCita"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/btn_green_bg"
-                        app:backgroundTint="@null"
-                        android:text="@string/btn_crear_cita"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:layout_marginEnd="8dp"/>
-                    <Button
-                        android:id="@+id/btnVerPacientes"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/btn_green_dark_bg"
-                        app:backgroundTint="@null"
-                        android:text="@string/btn_ver_pacientes"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
-                        android:layout_marginStart="8dp"/>
-                </LinearLayout>
-                <Button
-                    android:id="@+id/btnVerClientes"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@drawable/btn_border_button"
-                    app:backgroundTint="@null"
-                    android:text="@string/btn_ver_clientes"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/spline_sans_medium"
+                    android:minHeight="48dp"
+                    android:paddingVertical="12dp"
+                    android:text="@string/btn_crear_cita"
+                    android:textAlignment="center"
                     android:textColor="@color/textColorPrimary"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"/>
+                    app:backgroundTint="@color/mi_verde_primario"
+                    app:cornerRadius="12dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnVerPacientes"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/spline_sans_medium"
+                    android:minHeight="48dp"
+                    android:paddingVertical="12dp"
+                    android:text="@string/btn_ver_pacientes"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="@color/border_button"
+                    app:strokeWidth="3dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnVerClientes"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/spline_sans_medium"
+                    android:minHeight="48dp"
+                    android:paddingVertical="12dp"
+                    android:text="@string/btn_ver_clientes"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="@color/border_button"
+                    app:strokeWidth="3dp" />
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <!-- Menú inferior fijo -->
-    <LinearLayout
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomMenu"
         android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:orientation="horizontal"
-        android:background="@color/navigationBarBackground"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
 
-        <!-- Botón Home -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconHome"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_home"
-                app:tint="@color/menu_Cliente_Admin_activo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_home"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Citas -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconCitas"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_citas"
-                app:tint="@color/menu_Cliente_Admin_inactivo"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_citas"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Pacientes -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconPacientes"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_mascotas"
-                app:tint="@color/menu_Cliente_Admin_inactivo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_pacientes"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Clientes -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconClientes"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_clientes"
-                app:tint="@color/menu_Cliente_Admin_inactivo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_clientes"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Perfil -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconPerfil"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_perfil"
-                app:tint="@color/menu_Cliente_Admin_inactivo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_perfil"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-    </LinearLayout>
+        app:menu="@menu/menu_admin"
+
+        app:itemIconTint="@color/selector_menu_admin"
+        app:itemTextColor="@color/selector_menu_admin"
+
+        app:labelVisibilityMode="labeled"
+
+        android:background="@color/navigationBarBackground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

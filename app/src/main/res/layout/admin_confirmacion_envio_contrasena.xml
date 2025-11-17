@@ -40,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_restablecer_contrasena"
+                android:textColor="@color/textColorPrimary"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:gravity="center"
@@ -50,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/heading_envio_exitoso"
+                android:textColor="@color/textColorPrimary"
                 android:textStyle="bold"
                 android:textSize="30sp"
                 android:gravity="center"
@@ -61,6 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/desc_envio_exitoso"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="16sp"
                 android:gravity="center"
                 android:lineSpacingExtra="6dp"
@@ -82,7 +85,11 @@
                 style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/spline_sans_bold"
                 android:text="@string/btn_abrir_correo"
+                app:backgroundTint="@null"
+                android:background="@drawable/btn_green_bg"
+                android:textColor="@color/black"
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 android:layout_marginBottom="12dp" />
@@ -93,6 +100,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_volver_login"
+                android:fontFamily="@font/epilogue_bold"
+                app:backgroundTint="@null"
+                android:background="@drawable/btn_border_button"
                 android:textAllCaps="false" />
 
         </LinearLayout>

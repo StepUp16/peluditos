@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="alejandro.vargas@vet.com"
-                android:textColor="#6B8E7A"
+                android:textColor="@color/menu_Cliente_Admin_inactivo"
                 android:textSize="16sp" />
 
             <TextView
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Administrador"
-                android:textColor="#6B8E7A"
+                android:textColor="@color/menu_Cliente_Admin_inactivo"
                 android:textSize="16sp" />
 
             <!-- Sección de Configuración -->
@@ -172,6 +172,7 @@
             </LinearLayout>
 
             <!-- Botones de Acción -->
+
             <Button
                 android:id="@+id/btnViewUsers"
                 android:layout_width="match_parent"

@@ -9,7 +9,7 @@
     <color name="textColorSecondary">#8A7361</color>
     <color name="textColorAdminPrimary">#171412</color>
     <color name="textColorAdminSecondary">#9EB8A8</color>
-    <color name="navigationBarBackground">#FFFFFF</color>
+    <color name="navigationBarBackground">#00FFFFFF</color>
     <color name="navigationBarBackgrounAdmin">#FFFFFF</color>
     <color name="entradaTextoAdmin">#F0F5F2</color>
     <color name="entradaTextoCliente">#F5F2F0</color>

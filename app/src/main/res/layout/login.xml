@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
+    android:background="@color/fondos_celular"
     android:paddingStart="24dp"
     android:paddingEnd="24dp">
 
@@ -39,6 +39,8 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <!-- Campo de texto para el correo -->
+
+    <!-- Título para la contraseña -->
     <EditText
         android:id="@+id/edtEmail"
         android:layout_width="0dp"
@@ -51,14 +53,14 @@
         android:inputType="textEmailAddress"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:textColorHint="#9EB8A8"
+        android:textColorHint="@color/texto_oculto"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtContraseña"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCorreo"
-        app:layout_constraintBottom_toTopOf="@+id/txtContraseña" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCorreo" />
 
-    <!-- Título para la contraseña -->
     <TextView
         android:id="@+id/txtContraseña"
         android:layout_width="0dp"
@@ -97,7 +99,7 @@
             android:inputType="textPassword"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textColorHint="#9EB8A8"/>
+            android:textColorHint="@color/texto_oculto"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

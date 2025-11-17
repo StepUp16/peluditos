@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="textColorSecondary">#9EB8A8</color>
     <color name="entradaTextoAdmin">#29382E</color>
@@ -15,6 +15,10 @@
     <color name="border_button">#9CA3AF</color>
     <color name="mi_verde_primario">#27E46A</color>
     <color name="mi_gris_neutral_para_iconos">#757575</color>
+    <color name="borde_texto">#27E46A</color>
+    <color name="texto_oculto">#BDBDBD</color>
+    <color name="fondos_texto">#3A4B42</color>
+    <color name="fondos_celular">#121212</color>
 
 
     <!-- Color para splash screen en modo noche -->

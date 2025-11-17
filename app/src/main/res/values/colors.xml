@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <color name="black">#171412</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FFFFFF</color>
     <color name="design_default_color_on_secondary">#F5F5F5</color>
     <color name="menu_Cliente_activo">#171412</color>
     <color name="menu_Cliente_inactivo">#8A7361</color>
@@ -20,6 +20,10 @@
     <color name="border_button">#6B7280</color>
     <color name="mi_verde_primario">#27E46A</color>
     <color name="mi_gris_neutral_para_iconos">#757575</color>
+    <color name="borde_texto">#BDBDBD</color>
+    <color name="texto_oculto">#3A4B42</color>
+    <color name="fondos_texto">#F5F5F5</color>
+    <color name="fondos_celular">#FFFFFF</color>
 
     <!-- Color para splash screen que coincide con el tema principal -->
     <color name="splash_background">#F3F8F5</color>

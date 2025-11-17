@@ -5,6 +5,7 @@
     android:id="@+id/imgBienvenida"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondos_celular"
     tools:context=".MainActivity">
 
     <ImageView
@@ -37,17 +38,19 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnIniciar"
-        style="@style/Widget.Material3.Button"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="40dp"
-        android:backgroundTint="#4CAF50"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/mi_verde_primario"
         android:fontFamily="@font/spline_sans_bold"
+        android:minHeight="48dp"
+        android:paddingVertical="12dp"
+        android:textAlignment="center"
         android:text="@string/action_iniciar"
-        android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="18sp"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

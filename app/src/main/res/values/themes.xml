@@ -8,6 +8,7 @@
         <item name="colorSecondaryContainer">@android:color/transparent</item>
         <item name="android:navigationBarColor">@color/navigationBarBackground</item>
         <item name="colorPrimary">@color/textColorPrimary</item>
+        <item name="android:statusBarColor">@color/fondos_celular</item>
         <!-- Configuración del Splash Screen usando biblioteca de compatibilidad -->
         <item name="windowSplashScreenBackground">@color/splash_background</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_foreground</item>

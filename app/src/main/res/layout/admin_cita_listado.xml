@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondos_celular"
     >
 
     <!-- Barra superior -->
@@ -33,12 +34,16 @@
         app:tint="@color/textColorPrimary" />
 
     <!-- Pestañas -->
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        style="@style/CustomTabStyle"
+        android:background="@drawable/fondo_calendario"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
@@ -57,6 +62,8 @@
         android:id="@+id/calendarView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:theme="@style/CustomCalendar"
+        android:dateTextAppearance="@style/CalendarDateText"
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,6 +113,8 @@
                 android:layout_height="wrap_content"
                 android:checkable="true"
                 android:checked="true"
+                app:chipBackgroundColor="@color/mi_verde_primario"
+                android:textColor="@color/textColorPrimary"
                 android:text="@string/cita_filter_todos" />
 
             <com.google.android.material.chip.Chip
@@ -115,6 +124,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
+                app:chipBackgroundColor="@color/estadoPendienteColor"
+                android:textColor="@color/textColorPrimary"
                 android:text="@string/cita_estado_pendiente" />
 
             <com.google.android.material.chip.Chip
@@ -123,6 +134,8 @@
                 android:layout_marginEnd="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:chipBackgroundColor="@color/mi_verde_primario"
+                android:textColor="@color/textColorPrimary"
                 android:checkable="true"
                 android:text="@string/cita_estado_confirmada" />
 
@@ -133,6 +146,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
+                app:chipBackgroundColor="@color/estadoPospuestaColor"
+                android:textColor="@color/textColorPrimary"
                 android:text="@string/cita_estado_pospuesta" />
 
             <com.google.android.material.chip.Chip
@@ -142,6 +157,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
+                app:chipBackgroundColor="@color/estadoCanceladaColor"
+                android:textColor="@color/textColorPrimary"
                 android:text="@string/cita_estado_cancelada" />
 
             <com.google.android.material.chip.Chip
@@ -150,7 +167,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="@string/cita_estado_completada" />
+                android:text="@string/cita_estado_completada"
+                app:chipBackgroundColor="@color/estadoCompletadaColor"
+                android:textColor="@android:color/white" />
 
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
@@ -175,7 +194,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/empty_citas"
-        android:textColor="@color/textColorSecondary"
+        android:textColor="@color/texto_oculto"
         android:textSize="16sp"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="@id/recyclerViewCitas"

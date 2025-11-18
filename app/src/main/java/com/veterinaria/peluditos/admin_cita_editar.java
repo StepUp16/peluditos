@@ -26,6 +26,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.veterinaria.peluditos.data.Cita;
@@ -195,63 +196,48 @@ public class admin_cita_editar extends AppCompatActivity {
     }
 
     private void setupBottomMenu() {
-        ImageView iconHome = findViewById(R.id.iconHome);
-        ImageView iconCitas = findViewById(R.id.iconCitas);
-        ImageView iconPacientes = findViewById(R.id.iconPacientes);
-        ImageView iconClientes = findViewById(R.id.iconClientes);
-        ImageView iconPerfil = findViewById(R.id.iconPerfil);
+        BottomNavigationView bottomNav = findViewById(R.id.bottomMenu);
+        bottomNav.setSelectedItemId(R.id.iconCitas);
 
-        if (iconHome != null && iconHome.getParent() instanceof View) {
-            View homeView = (View) iconHome.getParent();
-            homeView.setOnClickListener(v -> {
-                Intent intent = new Intent(this, admin_home.class);
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.iconHome) {
+                Intent intent = new Intent(admin_cita_editar.this, admin_home.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivityWithAnimation(intent);
+                startActivity(intent);
                 finish();
-            });
-        }
-
-        if (iconCitas != null && iconCitas.getParent() instanceof View) {
-            View citasView = (View) iconCitas.getParent();
-            citasView.setOnClickListener(v -> {
-                Intent intent = new Intent(this, admin_cita_listado.class);
+                return true;
+            }
+            else if (itemId == R.id.iconCitas) {
+                // Ya estás en la sección de Citas, regresar al listado
+                Intent intent = new Intent(admin_cita_editar.this, admin_cita_listado.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivityWithAnimation(intent);
+                startActivity(intent);
                 finish();
-            });
-        }
-
-        if (iconPacientes != null && iconPacientes.getParent() instanceof View) {
-            View pacientesView = (View) iconPacientes.getParent();
-            pacientesView.setOnClickListener(v -> {
-                Intent intent = new Intent(this, AdminPacienteListadoActivity.class);
-                startActivityWithAnimation(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconPacientes) {
+                Intent intent = new Intent(admin_cita_editar.this, AdminPacienteListadoActivity.class);
+                startActivity(intent);
                 finish();
-            });
-        }
-
-        if (iconClientes != null && iconClientes.getParent() instanceof View) {
-            View clientesView = (View) iconClientes.getParent();
-            clientesView.setOnClickListener(v -> {
-                Intent intent = new Intent(this, AdminUsuarioClienteListadoActivity.class);
-                startActivityWithAnimation(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconClientes) {
+                Intent intent = new Intent(admin_cita_editar.this, AdminUsuarioClienteListadoActivity.class);
+                startActivity(intent);
                 finish();
-            });
-        }
-
-        if (iconPerfil != null && iconPerfil.getParent() instanceof View) {
-            View perfilView = (View) iconPerfil.getParent();
-            perfilView.setOnClickListener(v -> {
-                Intent intent = new Intent(this, AdminPerfil.class);
-                startActivityWithAnimation(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconPerfil) {
+                Intent intent = new Intent(admin_cita_editar.this, AdminPerfil.class);
+                startActivity(intent);
                 finish();
-            });
-        }
-    }
+                return true;
+            }
 
-    private void startActivityWithAnimation(Intent intent) {
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            return false;
+        });
     }
 
     @Override

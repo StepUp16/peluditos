@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/fondos_celular">
 
     <!-- Botón de retroceso -->
     <ImageButton
@@ -125,12 +126,16 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/edittext_bg"
+                    android:background="@android:color/transparent"
                     android:hint="@string/hint_fecha"
                     android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:textColorHint="@color/textColorPrimary"
                     android:textSize="18sp"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:clickable="true" />
 
                 <ImageView
                     android:id="@+id/iconFecha"
@@ -139,7 +144,7 @@
                     android:layout_marginEnd="16dp"
                     android:contentDescription="@string/hint_fecha"
                     android:src="@drawable/icono_citas"
-                    app:tint="@color/textColorSecondary" />
+                    app:tint="@color/texto_oculto" />
             </LinearLayout>
 
             <!-- Hora -->
@@ -163,12 +168,16 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/edittext_bg"
+                    android:background="@android:color/transparent"
                     android:hint="@string/hint_hora"
                     android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     android:textColorHint="@color/textColorPrimary"
                     android:textSize="18sp"
-                    android:inputType="time" />
+                    android:inputType="time"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:clickable="true" />
 
                 <ImageView
                     android:id="@+id/iconHora"
@@ -177,7 +186,7 @@
                     android:layout_marginEnd="16dp"
                     android:contentDescription="@string/hint_hora"
                     android:src="@drawable/icono_alarm"
-                    app:tint="@color/textColorSecondary" />
+                    app:tint="@color/texto_oculto" />
             </LinearLayout>
 
             <!-- Motivo -->
@@ -232,37 +241,45 @@
     </ScrollView>
 
     <!-- Botón Guardar Cambios -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGuardarCambios"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="@drawable/btn_green_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/btn_guardar_cambios"
-        android:textColor="#081114"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
+        android:fontFamily="@font/spline_sans_medium"
+        android:minHeight="48dp"
+        android:paddingVertical="12dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
+        android:textAlignment="center"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="16sp"
+        app:backgroundTint="@color/mi_verde_primario"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toTopOf="@+id/btnCancelar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Botón Cancelar -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancelar"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="@drawable/btn_green_bg"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/spline_sans_medium"
+        android:minHeight="48dp"
+        android:paddingVertical="12dp"
         android:text="@string/btn_cancelar"
-        android:textColor="#081114"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:cornerRadius="12dp"
+        app:strokeColor="@color/border_button"
+        app:strokeWidth="3dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/btnEliminarCita"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -287,7 +304,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dialog_delete_warning"
-        android:textColor="@color/textColorSecondary"
+        android:textColor="@color/texto_oculto"
         android:textSize="13sp"
         android:gravity="center"
         android:layout_marginBottom="16dp"
@@ -295,119 +312,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Menú inferior fijo -->
-    <LinearLayout
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomMenu"
         android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:orientation="horizontal"
-        android:background="@color/navigationBarBackground"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
 
-        <!-- Botón Home -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconHome"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_home"
-                app:tint="@color/menu_Cliente_Admin_inactivo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_home"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Citas -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconCitas"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_citas"
-                app:tint="@color/menu_Cliente_Admin_activo"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_citas"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Pacientes -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconPacientes"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_mascotas"
-                app:tint="@color/menu_Cliente_Admin_inactivo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_pacientes"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Clientes -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconClientes"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_clientes"
-                app:tint="@color/menu_Cliente_Admin_inactivo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_clientes"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-        <!-- Botón Perfil -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iconPerfil"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_perfil"
-                app:tint="@color/menu_Cliente_Admin_inactivo"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_perfil"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-    </LinearLayout>
+        app:menu="@menu/menu_admin"
+
+        app:itemIconTint="@color/selector_menu_admin"
+        app:itemTextColor="@color/selector_menu_admin"
+
+        app:labelVisibilityMode="labeled"
+
+        android:background="@color/navigationBarBackground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

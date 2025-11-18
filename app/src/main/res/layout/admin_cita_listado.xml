@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondos_celular"
     >
 
     <!-- Barra superior -->
@@ -33,12 +34,15 @@
         app:tint="@color/textColorPrimary" />
 
     <!-- Pestañas -->
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@drawable/edittext_bg"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle">
 
@@ -150,7 +154,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="@string/cita_estado_completada" />
+                android:text="@string/cita_estado_completada"
+                app:chipBackgroundColor="@color/estadoCompletadaColor"
+                android:textColor="@android:color/white" />
 
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>

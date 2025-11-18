@@ -85,6 +85,7 @@
             app:chipSpacingHorizontal="8dp"
             app:chipSpacingVertical="4dp"
             app:singleLine="true"
+            app:singleBackgroundSelection="true"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
@@ -95,7 +96,9 @@
                 android:layout_marginEnd="4dp"
                 android:checkable="true"
                 android:checked="true"
-                android:text="@string/cita_filter_todos" />
+                android:text="@string/cita_filter_todos"
+                app:chipBackgroundColor="@color/mi_verde_primario"
+                android:textColor="@android:color/white"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipEstadoPendiente"
@@ -103,7 +106,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="@string/cita_estado_pendiente" />
+                android:text="@string/cita_estado_pendiente"
+                app:chipBackgroundColor="@color/estadoPendienteColor"
+                android:textColor="@android:color/white"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipEstadoConfirmada"
@@ -111,7 +116,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="@string/cita_estado_confirmada" />
+                android:text="@string/cita_estado_confirmada"
+                app:chipBackgroundColor="@color/estadoConfirmadaColor"
+                android:textColor="@android:color/white"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipEstadoPospuesta"
@@ -119,7 +126,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="@string/cita_estado_pospuesta" />
+                android:text="@string/cita_estado_pospuesta"
+                app:chipBackgroundColor="@color/estadoPospuestaColor"
+                android:textColor="@android:color/white"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipEstadoCancelada"
@@ -127,7 +136,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="@string/cita_estado_cancelada" />
+                android:text="@string/cita_estado_cancelada"
+                app:chipBackgroundColor="@color/estadoCanceladaColor"
+                android:textColor="@android:color/white"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipEstadoCompletada"
@@ -135,7 +146,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkable="true"
-                android:text="@string/cita_estado_completada" />
+                android:text="@string/cita_estado_completada"
+                app:chipBackgroundColor="@color/estadoCompletadaColor"
+                android:textColor="@android:color/white" />
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
 

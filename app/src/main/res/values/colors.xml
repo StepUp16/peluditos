@@ -22,17 +22,19 @@
     <color name="mi_gris_neutral_para_iconos">#757575</color>
     <color name="borde_texto">#BDBDBD</color>
     <color name="texto_oculto">#3A4B42</color>
-    <color name="fondos_texto">#F5F5F5</color>
+    <color name="fondos_texto">#EEEEEE</color>
     <color name="fondos_celular">#FFFFFF</color>
+    <color name="fondoActivo">#FFFFFF</color>
+    <color name="textoInactivo">#000000</color>
 
     <!-- Color para splash screen que coincide con el tema principal -->
     <color name="splash_background">#F3F8F5</color>
     <color name="colorSurfaceElevated">#FFFFFFFF</color>
     <color name="dividerColor">#1AF0F0F0</color>
     <color name="warningColor">#FF9800</color>
-    <color name="estadoPendienteColor">#FFA000</color>
+    <color name="estadoPendienteColor">#FFA726</color>
     <color name="estadoConfirmadaColor">#4CAF50</color>
-    <color name="estadoPospuestaColor">#2196F3</color>
-    <color name="estadoCanceladaColor">#F44336</color>
+    <color name="estadoPospuestaColor">#42A5F5</color>
+    <color name="estadoCanceladaColor">#EF5350</color>
     <color name="estadoCompletadaColor">#6A1B9A</color>
 </resources>

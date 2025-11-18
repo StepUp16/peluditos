@@ -15,6 +15,28 @@
         <item name="postSplashScreenTheme">@style/Theme.Peluditos</item>
     </style>
 
+    <style name="CustomTabStyle" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicatorColor">@color/fondoActivo</item>
+        <item name="tabTextColor">@color/selector_calendario</item>
+        <item name="tabRippleColor">@color/estadoCompletadaColor</item>
+        <item name="tabIndicatorHeight">3dp</item>
+    </style>
+
+    <style name="CalendarDateText">
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="CustomCalendar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <!-- Color del círculo del día seleccionado -->
+        <item name="colorAccent">@color/mi_verde_primario</item>
+        <!-- Color del texto del mes y año en la cabecera -->
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <!-- Color del texto de los días de la semana (L, M, M, etc.) -->
+        <item name="android:textColorSecondary">@color/textColorPrimary</item>
+        <!-- Color del texto de los números de los días del mes -->
+        <item name="android:textColor">@color/estadoConfirmadaColor</item>
+    </style>
+
     <style name="Theme.Peluditos" parent="Base.Theme.Peluditos" />
 
     <style name="ShapeAppearance.App.CircleImageView" parent="">

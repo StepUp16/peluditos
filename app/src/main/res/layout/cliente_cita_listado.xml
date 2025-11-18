@@ -85,7 +85,6 @@
             app:chipSpacingHorizontal="8dp"
             app:chipSpacingVertical="4dp"
             app:singleLine="true"
-            app:singleBackgroundSelection="true"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip

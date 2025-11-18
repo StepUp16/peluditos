@@ -17,8 +17,10 @@
     <color name="mi_gris_neutral_para_iconos">#757575</color>
     <color name="borde_texto">#27E46A</color>
     <color name="texto_oculto">#BDBDBD</color>
-    <color name="fondos_texto">#3A4B42</color>
+    <color name="fondos_texto">#1E1E1E</color>
     <color name="fondos_celular">#121212</color>
+    <color name="fondoActivo">#333333</color>
+    <color name="textoInactivo">#BDBDBD</color>
 
 
     <!-- Color para splash screen en modo noche -->

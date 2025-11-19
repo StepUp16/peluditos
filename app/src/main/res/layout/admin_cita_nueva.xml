@@ -45,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title_nueva_cita"
+                android:textColor="@color/textColorPrimary"
                 android:textStyle="bold"
                 android:textSize="22sp"
                 android:gravity="center"
@@ -178,19 +179,19 @@
     </ScrollView>
 
     <!-- Botón Guardar Cita fijo -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCrearCita"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:text="@string/btn_guardar_cita"
-        android:fontFamily="@font/spline_sans_medium"
+        android:fontFamily="@font/spline_sans_bold"
         android:minHeight="48dp"
         android:paddingVertical="12dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         android:textAlignment="center"
-        android:textColor="@color/textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="16sp"
         app:backgroundTint="@color/mi_verde_primario"
         app:cornerRadius="12dp"

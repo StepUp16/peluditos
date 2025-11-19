@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/fondos_celular">
 
     <ImageButton
         android:id="@+id/btnBack"
@@ -63,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/desc_envio_exitoso"
-                android:textColor="@color/textColorPrimary"
+                android:textColor="@color/texto_oculto"
                 android:textSize="16sp"
                 android:gravity="center"
                 android:lineSpacingExtra="6dp"
@@ -87,8 +88,10 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/spline_sans_bold"
                 android:text="@string/btn_abrir_correo"
-                app:backgroundTint="@null"
-                android:background="@drawable/btn_green_bg"
+                android:minHeight="48dp"
+                android:paddingVertical="12dp"
+                app:backgroundTint="@color/mi_verde_primario"
+                app:cornerRadius="12dp"
                 android:textColor="@color/black"
                 android:textAllCaps="false"
                 android:textStyle="bold"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface">
+    android:background="@color/fondos_celular">
 
     <!-- Barra superior -->
     <ImageButton
@@ -27,6 +27,7 @@
         android:text="@string/title_detalles_paciente"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:textColor="@color/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/btnBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,16 +112,20 @@
                 android:textColor="#6B8E7A"
                 android:textSize="16sp" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEdit"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/btn_edit_bg"
+                android:fontFamily="@font/spline_sans_bold"
+                android:minHeight="48dp"
+                app:backgroundTint="@color/mi_verde_primario"
+                app:cornerRadius="12dp"
+                android:textAlignment="center"
+                android:paddingVertical="12dp"
                 android:text="@string/btn_editar"
-                android:textColor="#081114"
-                android:textSize="18sp"
-                app:backgroundTint="@null" />
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <!-- Información del Cliente -->
             <TextView
@@ -128,6 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/section_info_cliente"
+                android:textColor="@color/texto_oculto"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -159,6 +165,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ana García"
+                        android:textColor="@color/texto_oculto"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
 
@@ -196,17 +203,22 @@
                     android:text="@string/tab_citas_pasadas" />
             </com.google.android.material.tabs.TabLayout>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAgregarHistorial"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="51dp"
                 android:layout_marginTop="12dp"
-                android:background="@drawable/btn_green_bg"
+                android:fontFamily="@font/spline_sans_bold"
+                android:minHeight="48dp"
+                app:strokeColor="@color/border_button"
+                android:textAlignment="center"
+                android:paddingVertical="8dp"
                 android:text="@string/btn_nueva_entrada"
-                android:textColor="#081114"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                app:backgroundTint="@null"/>
+                android:textColor="@color/textColorPrimary"
+                android:textSize="14sp"
+                app:cornerRadius="12dp"
+                app:strokeWidth="3dp"/>
 
             <!-- Contenedor para el historial (RecyclerView) -->
             <androidx.recyclerview.widget.RecyclerView
@@ -230,122 +242,24 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Menú inferior fijo -->
-    <LinearLayout
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomMenu"
         android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:background="@color/navigationBarBackground"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
 
-        <!-- Botón Home -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/iconHome"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_home"
-                app:tint="@color/menu_Cliente_Admin_inactivo" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_home"
-                android:textSize="12sp"
-                android:gravity="center" />
-        </LinearLayout>
+        app:menu="@menu/menu_admin"
 
-        <!-- Botón Clientes -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/iconClientes"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_clientes"
-                app:tint="@color/menu_Cliente_Admin_inactivo" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_clientes"
-                android:textSize="12sp"
-                android:gravity="center" />
-        </LinearLayout>
+        app:itemIconTint="@color/selector_menu_admin"
+        app:itemTextColor="@color/selector_menu_admin"
 
-        <!-- Botón Pacientes (activo) -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/iconPacientes"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_mascotas"
-                app:tint="@color/menu_Cliente_Admin_activo" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_pacientes"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
+        app:labelVisibilityMode="labeled"
 
-        <!-- Botón Citas -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/iconCitas"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_citas"
-                app:tint="@color/menu_Cliente_Admin_inactivo" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_citas"
-                android:textSize="12sp"
-                android:gravity="center" />
-        </LinearLayout>
+        android:background="@color/navigationBarBackground" />
 
-        <!-- Botón Perfil -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/iconPerfil"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/icono_perfil"
-                app:tint="@color/menu_Cliente_Admin_inactivo" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_perfil"
-                android:textSize="12sp"
-                android:gravity="center"/>
-        </LinearLayout>
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

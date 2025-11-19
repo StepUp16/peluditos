@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface">
+    android:background="@color/fondos_celular">
 
     <!-- Barra superior -->
     <ImageButton
@@ -24,6 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_nuevo_historial"
+        android:textColor="@color/textColorPrimary"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/btnBack"
@@ -85,10 +86,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/edittext_bg"
+                    android:background="@android:color/transparent"
                     android:hint="@string/hint_fecha_consulta"
                     android:paddingStart="16dp"
-                    android:textColorHint="@color/textColorPrimary"
+                    android:textColorHint="@color/texto_oculto"
                     android:textSize="18sp"
                     android:inputType="date" />
 
@@ -99,7 +100,7 @@
                     android:layout_marginEnd="16dp"
                     android:contentDescription="@string/hint_fecha_consulta"
                     android:src="@drawable/icono_citas"
-                    app:tint="@color/textColorSecondary" />
+                    app:tint="@color/texto_oculto" />
             </LinearLayout>
 
             <!-- Hora de la Consulta -->
@@ -123,10 +124,10 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/edittext_bg"
+                    android:background="@android:color/transparent"
                     android:hint="@string/hint_hora_consulta"
                     android:paddingStart="16dp"
-                    android:textColorHint="@color/textColorPrimary"
+                    android:textColorHint="@color/texto_oculto"
                     android:textSize="18sp"
                     android:inputType="time" />
 
@@ -137,7 +138,7 @@
                     android:layout_marginEnd="16dp"
                     android:contentDescription="@string/hint_hora_consulta"
                     android:src="@drawable/icono_alarm"
-                    app:tint="@color/textColorSecondary" />
+                    app:tint="@color/texto_oculto" />
             </LinearLayout>
 
             <!-- Motivo de la Consulta -->
@@ -267,19 +268,21 @@
     </ScrollView>
 
     <!-- Botón Guardar Historial -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGuardarHistorial"
         android:layout_width="0dp"
-        android:layout_height="56dp"
+        android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/btn_green_bg"
+        android:fontFamily="@font/spline_sans_bold"
+        android:minHeight="48dp"
+        android:paddingVertical="12dp"
         android:text="@string/btn_guardar_historial"
-        android:textColor="#081114"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:backgroundTint="@color/mi_verde_primario"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

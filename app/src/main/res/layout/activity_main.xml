@@ -49,7 +49,7 @@
         android:paddingVertical="12dp"
         android:textAlignment="center"
         android:text="@string/action_iniciar"
-        android:textColor="@color/textColorPrimary"
+        android:textColor="@color/black"
         android:textSize="18sp"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"

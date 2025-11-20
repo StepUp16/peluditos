@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.veterinaria.peluditos.data.Paciente;
 import com.veterinaria.peluditos.data.Usuario;
@@ -505,57 +506,39 @@ public class AdminPacienteEditarActivity extends AppCompatActivity {
     }
 
     private void setupBottomMenu() {
-        ImageView iconHome = findViewById(R.id.iconHome);
-        ImageView iconClientes = findViewById(R.id.iconClientes);
-        ImageView iconPacientes = findViewById(R.id.iconPacientes);
-        ImageView iconCitas = findViewById(R.id.iconCitas);
-        ImageView iconPerfil = findViewById(R.id.iconPerfil);
+        BottomNavigationView bottomNav = findViewById(R.id.bottomMenu);
+        bottomNav.setSelectedItemId(R.id.iconPacientes);
 
-        if (iconHome != null && iconHome.getParent() instanceof View) {
-            View homeView = (View) iconHome.getParent();
-            homeView.setOnClickListener(v -> {
-                Intent intent = new Intent(this, admin_home.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivityWithAnimation(intent);
-                finish();
-            });
-        }
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId(); // Obtiene el ID del ítem presionado
 
-        if (iconClientes != null && iconClientes.getParent() instanceof View) {
-            View clientesView = (View) iconClientes.getParent();
-            clientesView.setOnClickListener(v -> {
-                Intent intent = new Intent(this, AdminUsuarioClienteListadoActivity.class);
-                startActivityWithAnimation(intent);
-                finish();
-            });
-        }
+            if (itemId == R.id.iconHome) {
+                Intent intent = new Intent(AdminPacienteEditarActivity.this, admin_home.class);
+                startActivity(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconCitas) {
+                Intent intent = new Intent(AdminPacienteEditarActivity.this, admin_cita_listado.class);
+                startActivity(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconPacientes) {
+                // Ya estás en la sección de Pacientes, no hacer nada.
+                return true; // true = la selección fue manejada
+            }
+            else if (itemId == R.id.iconClientes) {
+                Intent intent = new Intent(AdminPacienteEditarActivity.this, AdminUsuarioClienteListadoActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            else if (itemId == R.id.iconPerfil) {
+                Intent intent = new Intent(AdminPacienteEditarActivity.this, AdminPerfil.class);
+                startActivity(intent);
+                return true;
+            }
 
-        if (iconPacientes != null && iconPacientes.getParent() instanceof View) {
-            View pacientesView = (View) iconPacientes.getParent();
-            pacientesView.setOnClickListener(v -> {
-                Intent intent = new Intent(this, AdminPacienteListadoActivity.class);
-                startActivityWithAnimation(intent);
-                finish();
-            });
-        }
-
-        if (iconCitas != null && iconCitas.getParent() instanceof View) {
-            View citasView = (View) iconCitas.getParent();
-            citasView.setOnClickListener(v -> {
-                Intent intent = new Intent(this, admin_cita_listado.class);
-                startActivityWithAnimation(intent);
-                finish();
-            });
-        }
-
-        if (iconPerfil != null && iconPerfil.getParent() instanceof View) {
-            View perfilView = (View) iconPerfil.getParent();
-            perfilView.setOnClickListener(v -> {
-                Intent intent = new Intent(this, AdminPerfil.class);
-                startActivityWithAnimation(intent);
-                finish();
-            });
-        }
+            return false; // false = la selección no fue manejada
+        });
     }
 
     private void startActivityWithAnimation(Intent intent) {

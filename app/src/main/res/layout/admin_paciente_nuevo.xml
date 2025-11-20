@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/fondos_celular">
 
     <!-- Botón de retroceso en la esquina superior izquierda -->
     <ImageButton
@@ -100,7 +101,7 @@
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_nombre_paciente"
                 android:padding="16dp"
-                android:textColorHint="#9EB8A8"
+                android:textColorHint="@color/texto_oculto"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="textPersonName"
@@ -119,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
-                android:textColorHint="#9EB8A8"
+                android:textColorHint="@color/texto_oculto"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
                 android:layout_marginBottom="16dp"/>
@@ -137,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
-                android:textColorHint="#9EB8A8"
+                android:textColorHint="@color/texto_oculto"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
                 android:layout_marginBottom="16dp"/>
@@ -157,7 +158,7 @@
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_edad"
                 android:padding="16dp"
-                android:textColorHint="#6B8E7A"
+                android:textColorHint="@color/texto_oculto"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="number"
@@ -178,7 +179,7 @@
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_peso"
                 android:padding="16dp"
-                android:textColorHint="#6B8E7A"
+                android:textColorHint="@color/texto_oculto"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="numberDecimal"
@@ -197,6 +198,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
+                android:textColorHint="@color/texto_oculto"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
                 android:layout_marginBottom="24dp"/>
@@ -214,6 +216,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
+                android:textColorHint="@color/texto_oculto"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
                 android:layout_marginBottom="24dp"/>
@@ -222,20 +225,24 @@
     </ScrollView>
 
     <!-- Botón fijo en el pie -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGuardarPaciente"
         android:layout_width="0dp"
-        android:layout_height="56dp"
+        android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/btn_green_bg"
+        android:fontFamily="@font/spline_sans_bold"
+        android:minHeight="48dp"
+        app:backgroundTint="@color/mi_verde_primario"
+        app:cornerRadius="12dp"
+        android:textAlignment="center"
+        android:paddingVertical="12dp"
         android:text="@string/btn_guardar_paciente"
-        android:textColor="#081114"
-        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

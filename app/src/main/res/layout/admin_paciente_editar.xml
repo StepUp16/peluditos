@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface">
+    android:background="@color/fondos_celular">
 
     <!-- Barra superior con flecha de retroceso y título -->
     <ImageButton
@@ -154,7 +154,7 @@
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_nombre_paciente"
                 android:padding="16dp"
-                android:textColorHint="#9EB8A8"
+                android:textColorHint="@color/texto_oculto"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="textPersonName"
@@ -173,6 +173,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
+                android:textColorHint="@color/texto_oculto"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
                 android:layout_marginBottom="16dp"/>
@@ -210,7 +211,7 @@
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_edad"
                 android:padding="16dp"
-                android:textColorHint="#9EB8A8"
+                android:textColorHint="@color/texto_oculto"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="number"
@@ -235,7 +236,7 @@
                 android:hint="@string/hint_peso"
                 android:inputType="numberDecimal"
                 android:padding="16dp"
-                android:textColorHint="#9EB8A8"
+                android:textColorHint="@color/texto_oculto"
                 android:textSize="18sp" />
 
             <!-- Sexo -->
@@ -253,6 +254,7 @@
                 android:layout_height="56dp"
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/edittext_bg"
+                android:textColorHint="@color/texto_oculto"
                 android:padding="12dp"
                 android:spinnerMode="dropdown" />
 
@@ -269,6 +271,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
+                android:textColorHint="@color/texto_oculto"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
                 android:layout_marginBottom="24dp"/>
@@ -324,18 +327,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:menu="@menu/menu_admin"
-
         app:itemIconTint="@color/selector_menu_admin"
         app:itemTextColor="@color/selector_menu_admin"
-
         app:labelVisibilityMode="labeled"
-
         android:background="@color/navigationBarBackground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

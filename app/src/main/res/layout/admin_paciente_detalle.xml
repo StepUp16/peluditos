@@ -91,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="Buddy"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -133,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="@string/section_info_cliente"
-                android:textColor="@color/texto_oculto"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -165,7 +166,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ana García"
-                        android:textColor="@color/texto_oculto"
+                        android:textColor="@color/textColorPrimary"
                         android:textSize="16sp"
                         android:textStyle="bold"/>
 
@@ -185,6 +186,9 @@
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/CustomTabStyle"
+                app:tabTextAppearance="@style/CustomTabText"
+                android:background="@drawable/fondo_calendario"
                 android:layout_marginTop="16dp">
 
                 <com.google.android.material.tabs.TabItem

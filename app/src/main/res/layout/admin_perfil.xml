@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface">
+    android:background="@color/fondos_celular">
 
     <!-- Barra superior -->
     <ImageButton
@@ -16,9 +16,9 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/btn_back_desc"
         android:src="@drawable/ic_arrow_back"
+        app:tint="@color/textColorPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/colorControlNormal" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -27,6 +27,7 @@
         android:text="@string/title_perfil"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:textColor="@color/textColorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/btnBack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Dr. Alejandro Vargas"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -117,6 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="@string/section_config_app"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -133,12 +136,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/option_gestionar_roles"
+                    android:textColor="@color/texto_oculto"
                     android:textSize="16sp" />
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_arrow_forward"
-                    app:tint="#638773" />
+                    app:tint="@color/textColorPrimary" />
             </LinearLayout>
 
             <!-- Sección de Reportes -->
@@ -163,39 +167,51 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/option_estadisticas"
+                    android:textColor="@color/texto_oculto"
                     android:textSize="16sp" />
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_arrow_forward"
-                    app:tint="#638773" />
+                    app:tint="@color/textColorPrimary" />
             </LinearLayout>
 
             <!-- Botones de Acción -->
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnViewUsers"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/btn_green_bg"
+                android:fontFamily="@font/spline_sans_bold"
+                android:minHeight="48dp"
+                app:backgroundTint="@color/mi_verde_primario"
+                app:cornerRadius="12dp"
+                android:textAlignment="center"
+                android:paddingVertical="12dp"
                 android:text="@string/btn_ver_usuarios"
-                android:textColor="#081114"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:backgroundTint="@null" />
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnEditarPerfil"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/btn_logout_bg"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/spline_sans_medium"
+                android:minHeight="48dp"
+                android:paddingVertical="12dp"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                app:cornerRadius="12dp"
+                app:strokeColor="@color/border_button"
+                app:strokeWidth="3dp"
                 android:text="@string/btn_editar_perfil"
-                android:textColor="#081114"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:backgroundTint="@null" />
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>

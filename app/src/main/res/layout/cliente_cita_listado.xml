@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
+    android:background="@color/fondos_celular"
     tools:context=".ClienteCitaListadoActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -24,11 +24,14 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
+        style="@style/CustomTabStyle"
+        android:background="@drawable/fondo_calendario"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <com.google.android.material.tabs.TabItem
@@ -46,6 +49,8 @@
         android:id="@+id/calendarView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:theme="@style/CustomCalendar"
+        android:dateTextAppearance="@style/CalendarDateText"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +102,7 @@
                 android:checked="true"
                 android:text="@string/cita_filter_todos"
                 app:chipBackgroundColor="@color/mi_verde_primario"
-                android:textColor="@android:color/white"/>
+                android:textColor="@color/textColorPrimary"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipEstadoPendiente"
@@ -107,7 +112,7 @@
                 android:checkable="true"
                 android:text="@string/cita_estado_pendiente"
                 app:chipBackgroundColor="@color/estadoPendienteColor"
-                android:textColor="@android:color/white"/>
+                android:textColor="@color/textColorPrimary"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipEstadoConfirmada"
@@ -117,7 +122,7 @@
                 android:checkable="true"
                 android:text="@string/cita_estado_confirmada"
                 app:chipBackgroundColor="@color/estadoConfirmadaColor"
-                android:textColor="@android:color/white"/>
+                android:textColor="@color/textColorPrimary"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipEstadoPospuesta"
@@ -127,7 +132,7 @@
                 android:checkable="true"
                 android:text="@string/cita_estado_pospuesta"
                 app:chipBackgroundColor="@color/estadoPospuestaColor"
-                android:textColor="@android:color/white"/>
+                android:textColor="@color/textColorPrimary"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipEstadoCancelada"
@@ -137,7 +142,7 @@
                 android:checkable="true"
                 android:text="@string/cita_estado_cancelada"
                 app:chipBackgroundColor="@color/estadoCanceladaColor"
-                android:textColor="@android:color/white"/>
+                android:textColor="@color/textColorPrimary"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chipEstadoCompletada"
@@ -147,7 +152,7 @@
                 android:checkable="true"
                 android:text="@string/cita_estado_completada"
                 app:chipBackgroundColor="@color/estadoCompletadaColor"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/textColorPrimary" />
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>
 
@@ -172,7 +177,7 @@
         android:layout_height="0dp"
         android:padding="32dp"
         android:text="@string/text_cliente_citas_vacio"
-        android:textColor="@color/textColorSecondary"
+        android:textColor="@color/texto_oculto"
         android:textAlignment="center"
         android:textSize="16sp"
         android:visibility="gone"
@@ -191,6 +196,9 @@
         android:text="@string/btn_solicitar_cita"
         android:contentDescription="@string/content_desc_add_cita_cliente"
         app:icon="@drawable/ic_add"
+        app:backgroundTint="@color/mi_verde_primario"
+        app:iconTint="@color/black"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/btnMenuCliente" />
 

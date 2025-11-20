@@ -169,7 +169,7 @@
                 android:checkable="true"
                 android:text="@string/cita_estado_completada"
                 app:chipBackgroundColor="@color/estadoCompletadaColor"
-                android:textColor="@android:color/white" />
+                android:textColor="@color/textColorPrimary" />
 
         </com.google.android.material.chip.ChipGroup>
     </HorizontalScrollView>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface"
+    android:background="@color/fondos_celular"
     tools:context=".AdminUsuarioEditar">
 
     <!-- Barra de Título -->
@@ -19,7 +19,7 @@
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?attr/colorOnSurface" />
+        app:tint="@color/textColorPrimary" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -28,7 +28,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:text="@string/title_editar_usuario"
-        android:textColor="?attr/colorOnSurface"
+        android:textColor="@color/textColorPrimary"
         android:textSize="24sp"
         android:textStyle="bold"
         android:fontFamily="@font/spline_sans_bold"
@@ -59,7 +59,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/label_nombre"
-                android:textColor="?attr/colorOnSurface"
                 android:fontFamily="@font/spline_sans_medium"
                 android:textSize="20sp" />
 
@@ -82,7 +81,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/label_apellido"
-                android:textColor="?attr/colorOnSurface"
                 android:fontFamily="@font/spline_sans_medium"
                 android:textSize="20sp" />
 
@@ -105,7 +103,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/label_correo"
-                android:textColor="?attr/colorOnSurface"
                 android:fontFamily="@font/spline_sans_medium"
                 android:textSize="20sp" />
 
@@ -128,7 +125,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/label_telefono"
-                android:textColor="?attr/colorOnSurface"
                 android:fontFamily="@font/spline_sans_medium"
                 android:textSize="20sp" />
 
@@ -151,7 +147,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/label_dui"
-                android:textColor="?attr/colorOnSurface"
                 android:fontFamily="@font/spline_sans_medium"
                 android:textSize="20sp" />
 
@@ -174,7 +169,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/label_direccion"
-                android:textColor="?attr/colorOnSurface"
                 android:fontFamily="@font/spline_sans_medium"
                 android:textSize="20sp" />
 
@@ -197,7 +191,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/label_rol"
-                android:textColor="?attr/colorOnSurface"
                 android:fontFamily="@font/spline_sans_medium"
                 android:textSize="20sp" />
 
@@ -207,21 +200,25 @@
                 android:layout_height="56dp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/edittext_bg"
+                android:textColor="@color/texto_oculto"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp" />
 
             <!-- Botón Guardar -->
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGuardar"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="32dp"
                 android:text="@string/btn_guardar_cambios"
-                android:backgroundTint="#38E07A"
-                android:textColor="#121714"
                 android:fontFamily="@font/spline_sans_bold"
-                android:textSize="20sp"
-                app:cornerRadius="28dp" />
+                android:minHeight="48dp"
+                android:paddingVertical="12dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:backgroundTint="@color/mi_verde_primario"
+                app:cornerRadius="12dp"/>
 
         </LinearLayout>
     </ScrollView>

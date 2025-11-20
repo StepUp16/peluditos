@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/fondos_celular">
 
     <!-- Botón de retroceso en la esquina superior izquierda -->
     <ImageButton
@@ -45,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title_nuevo_usuario"
                 android:textStyle="bold"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="22sp"
                 android:gravity="center"
                 android:layout_marginBottom="24dp"/>
@@ -64,7 +66,7 @@
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_nombre"
                 android:padding="16dp"
-                android:textColorHint="#6B8E7A"
+                android:textColorHint="@color/texto_oculto"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="textPersonName"
@@ -85,7 +87,7 @@
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_apellido"
                 android:padding="16dp"
-                android:textColorHint="#6B8E7A"
+                android:textColorHint="@color/texto_oculto"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="textPersonName"
@@ -106,7 +108,7 @@
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_correo"
                 android:padding="16dp"
-                android:textColorHint="#6B8E7A"
+                android:textColorHint="@color/texto_oculto"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="textEmailAddress"
@@ -129,7 +131,7 @@
                 android:maxLength="8"
                 android:digits="0123456789"
                 android:padding="16dp"
-                android:textColorHint="#6B8E7A"
+                android:textColorHint="@color/texto_oculto"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="phone"
@@ -152,7 +154,7 @@
                 android:maxLength="9"
                 android:digits="0123456789"
                 android:padding="16dp"
-                android:textColorHint="#6B8E7A"
+                android:textColorHint="@color/texto_oculto"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="text"
@@ -173,7 +175,7 @@
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_direccion"
                 android:padding="16dp"
-                android:textColorHint="#6B8E7A"
+                android:textColorHint="@color/texto_oculto"
                 android:textSize="18sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="textPostalAddress"
@@ -192,7 +194,7 @@
                 android:layout_height="wrap_content"
                 app:hintEnabled="false"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="#6B8E7A">
+                app:passwordToggleTint="@color/texto_oculto">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassword"
@@ -203,7 +205,7 @@
                     android:inputType="textPassword"
                     android:padding="16dp"
                     android:textSize="18sp"
-                    android:textColorHint="#6B8E7A"
+                    android:textColorHint="@color/texto_oculto"
                     android:autofillHints="password"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -222,7 +224,7 @@
                 android:layout_height="wrap_content"
                 app:hintEnabled="false"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="#6B8E7A">
+                app:passwordToggleTint="@color/texto_oculto">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etConfirmPassword"
@@ -233,7 +235,7 @@
                     android:inputType="textPassword"
                     android:padding="16dp"
                     android:textSize="18sp"
-                    android:textColorHint="#6B8E7A"
+                    android:textColorHint="@color/texto_oculto"
                     android:autofillHints="password"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -252,6 +254,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
+                android:textColorHint="@color/texto_oculto"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
                 android:layout_marginBottom="24dp"/>
@@ -260,20 +263,24 @@
     </ScrollView>
 
     <!-- Botón fijo en el pie -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCrearUsuario"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/btn_green_bg"
+        android:fontFamily="@font/spline_sans_bold"
+        android:minHeight="48dp"
+        android:paddingVertical="12dp"
         android:text="@string/btn_crear_usuario"
-        android:textColor="#081114"
-        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:backgroundTint="@color/mi_verde_primario"
+        app:cornerRadius="12dp"
         android:textStyle="bold"
-        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

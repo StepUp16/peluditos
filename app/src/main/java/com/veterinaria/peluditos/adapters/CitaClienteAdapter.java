@@ -26,6 +26,11 @@ public class CitaClienteAdapter extends RecyclerView.Adapter<CitaClienteAdapter.
     private final List<Cita> citas = new ArrayList<>();
     private final SimpleDateFormat fechaFormato = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
     private final SimpleDateFormat horaFormato = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+    private OnCitaClickListener listener;
+
+    public interface OnCitaClickListener {
+        void onCitaClick(Cita cita);
+    }
 
     public void setCitas(List<Cita> nuevasCitas) {
         citas.clear();
@@ -33,6 +38,10 @@ public class CitaClienteAdapter extends RecyclerView.Adapter<CitaClienteAdapter.
             citas.addAll(nuevasCitas);
         }
         notifyDataSetChanged();
+    }
+
+    public void setOnCitaClickListener(OnCitaClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -66,6 +75,13 @@ public class CitaClienteAdapter extends RecyclerView.Adapter<CitaClienteAdapter.
             tvFechaHora = itemView.findViewById(R.id.tvFechaHora);
             tvMotivo = itemView.findViewById(R.id.tvMotivo);
             tvEstado = itemView.findViewById(R.id.tvEstadoCita);
+
+            itemView.setOnClickListener(v -> {
+                int pos = getBindingAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION && listener != null) {
+                    listener.onCitaClick(citas.get(pos));
+                }
+            });
         }
 
         void bind(Cita cita) {

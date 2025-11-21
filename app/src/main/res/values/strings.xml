@@ -206,7 +206,7 @@
     <string name="msg_cita_eliminada">Cita eliminada correctamente</string>
     <string name="msg_cita_eliminada_pendiente">Cita eliminada. Se sincronizará cuando vuelva la conexión.</string>
     <string name="confirm_eliminar_cita_title">Eliminar cita</string>
-    <string name="confirm_eliminar_cita_message">¿Deseas eliminar esta cita? Esta acción no se puede deshacer.</string>
+    <string name="confirm_eliminar_cita_message">¿Deseas eliminar esta cita?</string>
     <string name="msg_estado_actualizado">Estado actualizado</string>
     <string name="cita_filter_todos">Todos</string>
     <string name="cita_estado_pendiente">Pendiente</string>

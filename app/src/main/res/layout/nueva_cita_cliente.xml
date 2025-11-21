@@ -193,18 +193,16 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/etMotivo"
+            <Spinner
+                android:id="@+id/spinnerMotivo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:background="@drawable/edittext_cliente"
-                android:fontFamily="@font/spline_sans"
-                android:hint="@string/hint_motivo"
-                android:inputType="textCapSentences"
                 android:padding="16dp"
-                android:textColor="@color/textColorPrimary"
-                android:textColorHint="@color/textColorSecondary"
-                android:textSize="18sp" />
+                android:layout_marginBottom="16dp"
+                android:spinnerMode="dropdown"
+                android:fontFamily="@font/spline_sans"
+                android:prompt="@string/hint_motivo" />
 
             <TextView
                 android:layout_width="match_parent"

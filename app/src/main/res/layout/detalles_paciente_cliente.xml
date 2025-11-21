@@ -63,6 +63,7 @@
                             android:id="@+id/ivPacientePhoto"
                             android:layout_width="120dp"
                             android:layout_height="120dp"
+                            android:layout_marginTop="10dp"
                             android:scaleType="centerCrop"
                             android:src="@drawable/paciente"
                             android:contentDescription="@string/content_desc_foto_paciente"
@@ -239,23 +240,17 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <com.google.android.material.card.MaterialCardView
+            <TextView
+                android:id="@+id/tvUltimaActualizacion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:padding="20dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp">
-
-                <TextView
-                    android:id="@+id/tvUltimaActualizacion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/spline_sans"
-                    android:textColor="@color/textColorSecondary"
-                    android:textSize="14sp"
-                    tools:text="Actualizado el 12 de noviembre, 10:35 AM" />
-            </com.google.android.material.card.MaterialCardView>
+                android:fontFamily="@font/spline_sans"
+                android:textColor="@color/textColorSecondary"
+                android:textSize="14sp"
+                android:gravity="center"
+                tools:text="Actualizado el 12 de noviembre, 10:35 AM" />
 
             <!-- Reemplazado: botón primario primero (btnProgramarCita) -->
             <com.google.android.material.button.MaterialButton

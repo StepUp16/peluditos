@@ -36,7 +36,7 @@ public class NuevaCitaClienteActivity extends AppCompatActivity {
     private TextView tvClienteActual;
     private EditText etFecha;
     private EditText etHora;
-    private EditText etMotivo;
+    private Spinner spinnerMotivo;
     private EditText etNotas;
     private Button btnCrearCita;
 
@@ -48,6 +48,7 @@ public class NuevaCitaClienteActivity extends AppCompatActivity {
     private final List<Paciente> todosLosPacientes = new ArrayList<>();
     private final List<Paciente> pacientesDelCliente = new ArrayList<>();
     private ArrayAdapter<String> pacienteAdapter;
+    private ArrayAdapter<String> motivoAdapter;
 
     private final Calendar fechaSeleccionada = Calendar.getInstance();
     private final SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -93,7 +94,7 @@ public class NuevaCitaClienteActivity extends AppCompatActivity {
         tvClienteActual = findViewById(R.id.tvClienteActual);
         etFecha = findViewById(R.id.etFecha);
         etHora = findViewById(R.id.etHora);
-        etMotivo = findViewById(R.id.etMotivo);
+        spinnerMotivo = findViewById(R.id.spinnerMotivo);
         etNotas = findViewById(R.id.etNotasAdicionales);
         btnCrearCita = findViewById(R.id.btnCrearCita);
         ImageButton btnPickFecha = findViewById(R.id.btnPickFecha);
@@ -108,6 +109,8 @@ public class NuevaCitaClienteActivity extends AppCompatActivity {
         View.OnClickListener horaListener = v -> mostrarSelectorHora();
         etHora.setOnClickListener(horaListener);
         btnPickHora.setOnClickListener(horaListener);
+
+        setupMotivoSpinner();
     }
 
     private void setupPacienteSpinner() {
@@ -116,6 +119,18 @@ public class NuevaCitaClienteActivity extends AppCompatActivity {
         pacienteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, placeholder);
         spinnerPaciente.setAdapter(pacienteAdapter);
         spinnerPaciente.setEnabled(false);
+    }
+
+    private void setupMotivoSpinner() {
+        List<String> motivos = new ArrayList<>();
+        motivos.add(getString(R.string.hint_motivo));
+        motivos.add("Consulta general");
+        motivos.add("Vacunación");
+        motivos.add("Desparasitación");
+        motivos.add("Control");
+        motivos.add("Otro");
+        motivoAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, motivos);
+        spinnerMotivo.setAdapter(motivoAdapter);
     }
 
     private void cargarClienteActual() {
@@ -251,10 +266,9 @@ public class NuevaCitaClienteActivity extends AppCompatActivity {
             return;
         }
 
-        String motivo = etMotivo.getText().toString().trim();
-        if (TextUtils.isEmpty(motivo)) {
-            etMotivo.setError(getString(R.string.error_motivo));
-            etMotivo.requestFocus();
+        String motivo = obtenerMotivoSeleccionado();
+        if (TextUtils.isEmpty(motivo) || motivo.equals(getString(R.string.hint_motivo))) {
+            Toast.makeText(this, R.string.error_motivo, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -287,6 +301,11 @@ public class NuevaCitaClienteActivity extends AppCompatActivity {
         citaViewModel.insert(cita);
         Toast.makeText(this, R.string.msg_cita_guardada, Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    private String obtenerMotivoSeleccionado() {
+        Object sel = spinnerMotivo != null ? spinnerMotivo.getSelectedItem() : null;
+        return sel != null ? sel.toString().trim() : "";
     }
 
     private Paciente obtenerPacienteSeleccionado() {

@@ -252,7 +252,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/spline_sans"
-                    android:background="@color/fondos_celular"
                     android:textColor="@color/textColorSecondary"
                     android:textSize="14sp"
                     tools:text="Actualizado el 12 de noviembre, 10:35 AM" />

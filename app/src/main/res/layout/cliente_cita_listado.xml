@@ -24,8 +24,8 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
-        style="@style/CustomTabStyle"
-        android:background="@drawable/fondo_calendario"
+        style="@style/TabStyleCliente"
+        android:background="@drawable/edittext_cliente"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -196,7 +196,7 @@
         android:text="@string/btn_solicitar_cita"
         android:contentDescription="@string/content_desc_add_cita_cliente"
         app:icon="@drawable/ic_add"
-        app:backgroundTint="@color/mi_verde_primario"
+        app:backgroundTint="@color/mi_naranja_primario"
         app:iconTint="@color/black"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"

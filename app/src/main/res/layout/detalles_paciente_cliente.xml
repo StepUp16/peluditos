@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetallePacienteClienteActivity">
+    tools:context=".DetallePacienteClienteActivity"
+    android:background="@color/fondos_celular">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -33,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:background="@color/fondos_celular"
             android:orientation="vertical"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
@@ -50,7 +52,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@color/fondos_celular">
 
                     <FrameLayout
                         android:layout_width="wrap_content"
@@ -75,7 +78,7 @@
                             android:contentDescription="@string/btn_cambiar_foto_paciente"
                             android:padding="8dp"
                             android:src="@drawable/ic_camera"
-                            app:tint="@color/textColorPrimary" />
+                            app:tint="@color/texto_oculto_cliente" />
 
                         <com.google.android.material.progressindicator.CircularProgressIndicator
                             android:id="@+id/photoProgress"
@@ -92,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:fontFamily="@font/spline_sans"
-                        android:textColor="@color/textColorPrimary"
+                        android:textColor="@color/texto_oculto_cliente"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:gravity="center"
@@ -116,6 +119,7 @@
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="4dp"
                         android:layout_gravity="center_horizontal"
+                        android:background="@color/fondos_celular"
                         app:singleLine="true">
 
                         <com.google.android.material.chip.Chip
@@ -124,6 +128,7 @@
                             android:layout_height="wrap_content"
                             android:checkable="false"
                             android:clickable="false"
+                            android:backgroundTint="@color/fondos_celular"
                             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                             android:textColor="@color/textColorPrimary"
                             tools:text="5 años" />
@@ -136,6 +141,7 @@
                             android:clickable="false"
                             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                             android:textColor="@color/textColorPrimary"
+                            android:backgroundTint="@color/fondos_celular"
                             tools:text="12.5 kg" />
 
                         <com.google.android.material.chip.Chip
@@ -146,7 +152,8 @@
                             android:clickable="false"
                             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                             android:textColor="@color/textColorPrimary"
-                            tools:text="Hembra" />
+                            tools:text="Hembra"
+                            android:backgroundTint="@color/fondos_celular"/>
                     </com.google.android.material.chip.ChipGroup>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -162,7 +169,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@color/fondos_celular">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -171,7 +179,8 @@
                         android:text="@string/label_propietario_cliente"
                         android:textColor="@color/textColorPrimary"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_gravity="center"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -243,37 +252,48 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/spline_sans"
+                    android:background="@color/fondos_celular"
                     android:textColor="@color/textColorSecondary"
                     android:textSize="14sp"
                     tools:text="Actualizado el 12 de noviembre, 10:35 AM" />
             </com.google.android.material.card.MaterialCardView>
 
-            <Button
-                android:id="@+id/btnVerHistorial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/btn_cliente"
-                android:text="@string/btn_ver_historial_cliente"
-                android:textAllCaps="false"
-                android:textColor="#171412"
-                android:textSize="16sp"
-                android:fontFamily="@font/spline_sans"
-                app:backgroundTint="@null" />
-
-            <Button
+            <!-- Reemplazado: botón primario primero (btnProgramarCita) -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnProgramarCita"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/btn_cliente"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/spline_sans_bold"
                 android:text="@string/btn_programar_cita_cliente"
                 android:textAllCaps="false"
-                android:textColor="#171412"
+                android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/spline_sans"
-                app:backgroundTint="@null" />
+                android:textAlignment="center"
+                app:backgroundTint="@color/mi_naranja_primario"
+                app:cornerRadius="12dp"
+                app:iconTint="@color/black" />
+
+            <!-- Reemplazado: botón secundario después (btnVerHistorial) -->
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVerHistorial"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/spline_sans_medium"
+                android:minHeight="48dp"
+                android:paddingVertical="12dp"
+                android:text="@string/btn_ver_historial_cliente"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                app:cornerRadius="12dp"
+                app:iconTint="@color/textColorPrimary"
+                app:strokeColor="@color/border_button"
+                app:strokeWidth="3dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -290,17 +310,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                app:tabIndicatorColor="@color/menu_Cliente_activo"
-                app:tabSelectedTextColor="@color/textColorPrimary"
-                app:tabTextColor="@color/textColorSecondary">
+                android:background="@drawable/edittext_cliente"
+                app:tabIndicatorColor="@color/mi_naranja_primario"
+                app:tabSelectedTextColor="@color/mi_naranja_primario"
+                app:tabTextColor="@color/texto_oculto_cliente">
 
                 <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/tab_historial_medico" />
 
                 <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/tab_citas_futuras" />
 
                 <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/tab_citas_pasadas" />
             </com.google.android.material.tabs.TabLayout>
 

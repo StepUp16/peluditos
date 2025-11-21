@@ -64,6 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
+                android:textColorHint="@color/texto_oculto"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
                 android:prompt="@string/hint_paciente"
@@ -82,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
+                android:textColorHint="@color/texto_oculto"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
                 android:prompt="@string/hint_cliente"
@@ -100,6 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_bg"
+                android:textColorHint="@color/texto_oculto"
                 android:padding="12dp"
                 android:spinnerMode="dropdown"
                 android:prompt="@string/placeholder_select_estado"
@@ -130,7 +133,7 @@
                     android:hint="@string/hint_fecha"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:textColorHint="@color/textColorPrimary"
+                    android:textColorHint="@color/texto_oculto"
                     android:textSize="18sp"
                     android:inputType="date"
                     android:focusable="false"
@@ -204,7 +207,7 @@
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_motivo"
                 android:padding="16dp"
-                android:textColorHint="@color/textColorPrimary"
+                android:textColorHint="@color/texto_oculto"
                 android:textSize="16sp"
                 android:layout_marginBottom="16dp"
                 android:inputType="textCapSentences" />
@@ -280,13 +283,13 @@
         app:strokeWidth="3dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnEliminarCita"
+        app:layout_constraintBottom_toTopOf="@+id/edtEliminarCita"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Botón Eliminar Cita -->
     <TextView
-        android:id="@+id/btnEliminarCita"
+        android:id="@+id/edtEliminarCita"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btn_eliminar_cita"

@@ -270,18 +270,18 @@
 -->
 
             <!-- Botón Cerrar Sesión -->
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogout"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/btn_cliente"
+                android:fontFamily="@font/spline_sans_bold"
                 android:text="@string/menu_logout"
                 android:textColor="#081114"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/spline_sans"
-                app:backgroundTint="@null" />
+                app:cornerRadius="12dp"
+                app:backgroundTint="@color/mi_naranja_primario" />
 
         </LinearLayout>
     </ScrollView>

@@ -3,13 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@color/fondos_celular">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/dialog_cambiar_estado_instruccion"
-        android:textColor="@color/textColorPrimary"
+        android:textColor="@color/texto_oculto_cliente"
         android:textSize="14sp"
         android:layout_marginBottom="12dp"/>
 
@@ -17,7 +18,8 @@
         android:id="@+id/spinnerDialogEstado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:spinnerMode="dropdown"/>
+        android:spinnerMode="dropdown"
+        android:textColor="@color/textColorPrimary"/>
 
     <LinearLayout
         android:id="@+id/layoutReprogramar"
@@ -63,6 +65,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/hint_nota_estado"
             android:inputType="textMultiLine"
+            android:textColor="@color/texto_oculto_cliente"
             android:minLines="2"/>
     </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>

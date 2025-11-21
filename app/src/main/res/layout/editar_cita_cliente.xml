@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/fondos_celular">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -47,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_cliente"
+                android:textColorHint="@color/texto_oculto_cliente"
                 android:padding="16dp"
                 android:layout_marginBottom="16dp"
                 android:spinnerMode="dropdown"
@@ -59,6 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_cliente"
+                android:textColorHint="@color/texto_oculto_cliente"
                 android:padding="16dp"
                 android:layout_marginBottom="16dp"
                 android:spinnerMode="dropdown"
@@ -82,7 +84,7 @@
                     android:background="@android:color/transparent"
                     android:hint="@string/hint_fecha"
                     android:paddingStart="16dp"
-                    android:textColorHint="@color/textColorSecondary"
+                    android:textColorHint="@color/texto_oculto_cliente"
                     android:textSize="18sp"
                     android:fontFamily="@font/spline_sans"
                     android:inputType="date" />
@@ -93,6 +95,7 @@
                     android:layout_height="32dp"
                     android:src="@drawable/icono_citas"
                     android:contentDescription="Calendario"
+                    app:tint="@color/texto_oculto_cliente"
                     android:layout_marginEnd="16dp" />
 
             </LinearLayout>
@@ -103,6 +106,7 @@
                 android:layout_height="56dp"
                 android:orientation="horizontal"
                 android:background="@drawable/edittext_cliente"
+                android:textColorHint="@color/texto_oculto_cliente"
                 android:layout_marginBottom="16dp"
                 android:gravity="center_vertical">
 
@@ -114,7 +118,7 @@
                     android:background="@android:color/transparent"
                     android:hint="@string/hint_hora"
                     android:paddingStart="16dp"
-                    android:textColorHint="@color/textColorSecondary"
+                    android:textColorHint="@color/texto_oculto_cliente"
                     android:textSize="18sp"
                     android:fontFamily="@font/spline_sans"
                     android:inputType="time"/>
@@ -126,7 +130,7 @@
                     android:src="@drawable/icono_alarm"
                     android:contentDescription="Reloj"
                     android:layout_marginEnd="16dp"
-                    app:tint="@color/textColorSecondary" />
+                    app:tint="@color/texto_oculto_cliente" />
             </LinearLayout>
 
             <!-- Campo Motivo (Spinner) -->
@@ -135,6 +139,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="@drawable/edittext_cliente"
+                android:textColorHint="@color/texto_oculto_cliente"
                 android:padding="16dp"
                 android:layout_marginBottom="16dp"
                 android:spinnerMode="dropdown"
@@ -149,7 +154,7 @@
                 android:background="@drawable/edittext_cliente"
                 android:hint="@string/hint_notas_adicionales"
                 android:padding="16dp"
-                android:textColorHint="@color/textColorSecondary"
+                android:textColorHint="@color/texto_oculto_cliente"
                 android:textSize="18sp"
                 android:inputType="textMultiLine"
                 android:gravity="top|start"
@@ -160,7 +165,8 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
+<!-- xml -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGuardarCambios"
         android:layout_width="0dp"
         android:layout_height="56dp"
@@ -168,18 +174,21 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/btn_cliente"
-        android:fontFamily="@font/spline_sans"
+        android:fontFamily="@font/spline_sans_bold"
+        android:textAlignment="center"
         android:text="Guardar Cambios"
-        android:textColor="#171412"
-        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:backgroundTint="@null"
+        android:textAllCaps="false"
+        app:backgroundTint="@color/mi_naranja_primario"
+        app:cornerRadius="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView" />
 
-    <Button
+    <!-- Botón Cancelar: estilo outlined con los atributos solicitados -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancelar"
         android:layout_width="0dp"
         android:layout_height="56dp"
@@ -187,32 +196,34 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/btn_cliente"
-        android:fontFamily="@font/spline_sans"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:fontFamily="@font/spline_sans_medium"
+        android:minHeight="48dp"
+        android:paddingVertical="12dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
         android:text="Cancelar"
-        android:textColor="#171412"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:backgroundTint="@null"
+        android:textSize="16sp"
+        android:textColor="@color/textColorPrimary"
+        app:cornerRadius="12dp"
+        app:strokeColor="@color/border_button"
+        app:strokeWidth="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnGuardarCambios" />
 
-    <Button
-        android:id="@+id/btnEliminarCita"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
+    <TextView
+        android:id="@+id/edtEliminarCita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/btn_cliente"
-        android:fontFamily="@font/spline_sans"
-        android:text="Eliminar Cita"
-        android:textColor="#171412"
-        android:textSize="24sp"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:backgroundTint="@null"
+        android:padding="8dp"
+        android:text="Eliminar Cita"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCancelar"

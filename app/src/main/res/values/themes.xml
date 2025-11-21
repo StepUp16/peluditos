@@ -1,4 +1,3 @@
-
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Peluditos" parent="Theme.Material3.DayNight.NoActionBar">
@@ -22,6 +21,13 @@
     <style name="CustomTabStyle" parent="Widget.MaterialComponents.TabLayout">
         <item name="tabIndicatorColor">@color/fondoActivo</item>
         <item name="tabTextColor">@color/selector_calendario</item>
+        <item name="tabRippleColor">@color/estadoCompletadaColor</item>
+        <item name="tabIndicatorHeight">3dp</item>
+    </style>
+    <style name="TabStyleCliente" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabTextColor">@color/menu_Cliente_Admin_inactivo</item>
+        <item name="tabSelectedTextColor">@color/mi_naranja_primario</item>
         <item name="tabRippleColor">@color/estadoCompletadaColor</item>
         <item name="tabIndicatorHeight">3dp</item>
     </style>

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/fondos_celular">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -13,6 +14,7 @@
         app:navigationIcon="@drawable/icono_cierre"
         app:navigationContentDescription="@string/btn_back_desc"
         app:title="@string/title_nuevo_paciente"
+        android:textColor="@color/textColorPrimary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -44,7 +46,7 @@
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/spline_sans"
                 android:text="@string/descripcion_nuevo_paciente_cliente"
-                android:textColor="@color/textColorSecondary"
+                android:textColor="@color/texto_oculto_cliente"
                 android:textSize="16sp" />
 
             <TextView
@@ -78,7 +80,7 @@
                 android:inputType="textPersonName"
                 android:padding="16dp"
                 android:fontFamily="@font/spline_sans"
-                android:textColorHint="@color/textColorSecondary"
+                android:textColorHint="@color/texto_oculto_cliente"
                 android:textSize="18sp" />
 
             <TextView
@@ -138,7 +140,7 @@
                 android:fontFamily="@font/spline_sans"
                 android:inputType="number"
                 android:padding="16dp"
-                android:textColorHint="@color/textColorSecondary"
+                android:textColorHint="@color/texto_oculto_cliente"
                 android:textSize="18sp" />
 
             <TextView
@@ -160,7 +162,7 @@
                 android:inputType="numberDecimal"
                 android:fontFamily="@font/spline_sans"
                 android:padding="16dp"
-                android:textColorHint="@color/textColorSecondary"
+                android:textColorHint="@color/texto_oculto_cliente"
                 android:textSize="18sp" />
 
             <TextView
@@ -178,25 +180,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_cliente"
+                android:textColorHint="@color/texto_oculto_cliente"
                 android:padding="12dp"
                 android:spinnerMode="dropdown" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGuardarPaciente"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:background="@drawable/btn_cliente"
-        android:text="@string/btn_guardar_paciente"
         android:fontFamily="@font/spline_sans"
+        android:text="@string/btn_guardar_paciente"
         android:textColor="#171412"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:backgroundTint="@color/mi_naranja_primario" />
 </androidx.constraintlayout.widget.ConstraintLayout>

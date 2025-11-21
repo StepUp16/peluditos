@@ -52,16 +52,6 @@
                 android:layout_marginBottom="24dp"/>
 
             <Spinner
-                android:id="@+id/spinnerPaciente"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/edittext_bg"
-                android:padding="16dp"
-                android:prompt="@string/hint_paciente"
-                android:spinnerMode="dropdown" />
-
-            <Spinner
                 android:id="@+id/spinnerCliente"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
@@ -70,6 +60,16 @@
                 android:layout_marginBottom="16dp"
                 android:spinnerMode="dropdown"
                 android:prompt="@string/hint_cliente"/>
+
+            <Spinner
+                android:id="@+id/spinnerPaciente"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edittext_bg"
+                android:padding="16dp"
+                android:prompt="@string/hint_paciente"
+                android:spinnerMode="dropdown" />
 
             <TextView
                 android:layout_width="match_parent"

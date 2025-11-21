@@ -125,7 +125,7 @@ public class admin_cita_editar extends AppCompatActivity {
         etNotas = findViewById(R.id.etNotas);
         btnGuardarCambios = findViewById(R.id.btnGuardarCambios);
         btnCancelar = findViewById(R.id.btnCancelar);
-        btnEliminarCita = findViewById(R.id.btnEliminarCita);
+        btnEliminarCita = findViewById(R.id.edtEliminarCita);
         btnBack = findViewById(R.id.btnBack);
         iconFecha = findViewById(R.id.iconFecha);
         iconHora = findViewById(R.id.iconHora);

@@ -2,8 +2,9 @@
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="textColorSecondary">#9EB8A8</color>
     <color name="entradaTextoAdmin">#29382E</color>
-    <color name="menu_Cliente_activo">#FFFFFF</color>
-    <color name="menu_Cliente_inactivo">#9EB8A8</color>
+    <color name="textoCliente">#3A4B42</color>
+    <color name="menu_Cliente_activo">@color/mi_naranja_primario</color>
+    <color name="menu_Cliente_inactivo">@color/texto_oculto</color>
     <color name="navigationBarBackground">#00FFFFFF</color>
     <color name="navigationBarBackgrounAdmin">#121714</color>
     <color name="textColorAdminPrimary">#FFFFFF</color>
@@ -15,6 +16,9 @@
     <color name="border_button">#9CA3AF</color>
     <color name="mi_verde_primario">#27E46A</color>
     <color name="mi_gris_neutral_para_iconos">#757575</color>
+    <color name="mi_naranja_primario">#FF8C00</color>
+    <color name="texto_oculto_cliente">#BDBDBD</color>
+    <color name="borde_cliente">@color/mi_naranja_primario</color>
     <color name="borde_texto">#27E46A</color>
     <color name="texto_oculto">#BDBDBD</color>
     <color name="fondos_texto">#1E1E1E</color>

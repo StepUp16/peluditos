@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NuevaCitaClienteActivity">
+    tools:context=".NuevaCitaClienteActivity"
+    android:background="@color/fondos_celular">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -236,23 +237,23 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCrearCita"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:background="@drawable/btn_cliente"
-        android:fontFamily="@font/spline_sans"
+        android:fontFamily="@font/spline_sans_bold"
         android:text="@string/btn_solicitar_cita"
         android:textAllCaps="false"
         android:textColor="#171412"
         android:textSize="20sp"
         android:textStyle="bold"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="@null"/>
+        app:backgroundTint="@color/mi_naranja_primario" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

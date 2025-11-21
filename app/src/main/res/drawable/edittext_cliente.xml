@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-  <solid android:color="@color/entradaTextoCliente"/>
+  <solid android:color="@color/textoCliente"/>
+    <item android:state_focused="true"/>
+    <item android:color="@color/fondos_texto"/>
+    <stroke android:width="2dp" android:color="@color/borde_cliente"/>
   <corners android:radius="12dp"/>
 </shape>

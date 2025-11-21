@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondos_celular"
     android:foregroundTint="#FF5722">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -31,7 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:background="@color/fondos_celular">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -105,7 +107,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:padding="16dp"
+                    android:background="">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -197,7 +200,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="16dp"
+                    android:background="@color/fondos_celular">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvAlertas"
@@ -229,29 +233,38 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAgregarMascota"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:backgroundTint="#ED6E12"
-                android:textColor="@color/textColorPrimary"
+                android:fontFamily="@font/spline_sans_bold"
                 android:text="@string/btn_agregar_mascota"
                 android:textAllCaps="false"
-                android:background="@drawable/btn_cliente"
-                app:backgroundTint="@null"/>
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp"
+                app:backgroundTint="@color/mi_naranja_primario"
+                app:cornerRadius="12dp"
+                app:iconTint="@color/black" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSolicitarCita"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="#ED6E12"
-                android:textColor="@color/textColorPrimary"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:fontFamily="@font/spline_sans_medium"
+                android:minHeight="48dp"
+                android:paddingVertical="12dp"
                 android:text="@string/btn_solicitar_cita"
                 android:textAllCaps="false"
-                android:background="@drawable/btn_cliente"
-                app:backgroundTint="@null"/>
+                android:textAlignment="center"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp"
+                app:cornerRadius="12dp"
+                app:strokeColor="@color/border_button"
+                app:strokeWidth="3dp"
+                app:iconTint="@color/black" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

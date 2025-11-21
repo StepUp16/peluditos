@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListadoPacientesClienteActivity">
+    tools:context=".ListadoPacientesClienteActivity"
+    android:background="@color/fondos_celular">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
@@ -17,6 +18,7 @@
         app:navigationIcon="@drawable/icono_cierre"
         app:navigationContentDescription="@string/btn_back_desc"
         app:title="@string/title_mis_mascotas"
+        android:textColor="@color/textColorPrimary"
         app:menu="@menu/menu_listado_pacientes_cliente" />
 
     <androidx.recyclerview.widget.RecyclerView

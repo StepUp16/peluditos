@@ -92,8 +92,15 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.Pacien
             );
             tvClientInfo.setText(detalle);
 
-            // Limpiamos la vista primero para evitar que se reciclen imágenes viejas
-            ivAvatar.setImageDrawable(null);
+            // 1. EL TRUCO DEL PLACEHOLDER: 
+            // Le decimos a Glide: "Mientras procesas, NO borres lo que ya tiene la imagen".
+            // Esto evita que se ponga blanca o gris por un milisegundo.
+            android.graphics.drawable.Drawable imagenActual = ivAvatar.getDrawable();
+
+            // Limpieza defensiva solo si no hay imagen previa para evitar reciclar basura
+            if (imagenActual == null) {
+                ivAvatar.setImageResource(R.drawable.paciente);
+            }
 
             if (!TextUtils.isEmpty(paciente.getFotoUrl())) {
                 String fotoUrl = paciente.getFotoUrl();
@@ -106,7 +113,8 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.Pacien
                         Glide.with(itemView.getContext())
                                 .asBitmap()
                                 .load(imageByteArray)
-                                .placeholder(R.drawable.paciente)
+                                .placeholder(imagenActual) // Mantiene la imagen vieja (o el icono) mientras carga la nueva
+                                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL) // Guarda la decodificación en disco para no procesar siempre
                                 .dontAnimate()
                                 .into(ivAvatar);
                     } catch (IllegalArgumentException e) {

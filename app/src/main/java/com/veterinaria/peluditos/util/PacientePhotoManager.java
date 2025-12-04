@@ -7,14 +7,15 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Base64; // IMPORTANTE: Agregado para la conversión
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+// IMPORTANTE: Ya no necesitamos Firebase Storage
+// import com.google.firebase.storage.FirebaseStorage;
+// import com.google.firebase.storage.StorageReference;
+// import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,9 +26,12 @@ import java.util.concurrent.Executors;
 public class PacientePhotoManager {
 
     private static final String TAG = "PacientePhotoManager";
-    private static final int MAX_DIMENSION = 1280;
 
-    private final FirebaseStorage storage = FirebaseStorage.getInstance();
+    // REDUCIDO: De 1280 a 800. Firestore explota si el documento pesa mas de 1MB.
+    // 800x800 es suficiente para verla bien en el celular.
+    private static final int MAX_DIMENSION = 800;
+
+    // private final FirebaseStorage storage = FirebaseStorage.getInstance(); // ELIMINADO
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private final String folder;
@@ -41,8 +45,8 @@ public class PacientePhotoManager {
     }
 
     public interface UploadCallback {
+        // El String ahora será la FOTO EN BASE64, no una URL.
         void onSuccess(@NonNull String downloadUrl);
-
         void onError(@NonNull Exception exception);
     }
 
@@ -63,35 +67,17 @@ public class PacientePhotoManager {
                     throw new IOException("No se pudo leer la imagen seleccionada");
                 }
 
-                StorageReference reference = storage.getReference()
-                        .child(folder)
-                        .child(entityId + ".jpg");
+                // Convertir a Base64 en lugar de subir a Firebase Storage
+                String base64Image = android.util.Base64.encodeToString(imageData, android.util.Base64.DEFAULT);
 
-                UploadTask uploadTask = reference.putBytes(imageData);
-                Task<Uri> urlTask = uploadTask.continueWithTask(task -> {
-                    if (!task.isSuccessful()) {
-                        Exception ex = task.getException();
-                        throw ex != null ? ex : new IOException("Error desconocido al subir foto");
+                mainHandler.post(() -> {
+                    if (callback != null) {
+                        callback.onSuccess(base64Image);
                     }
-                    return reference.getDownloadUrl();
                 });
 
-                urlTask.addOnSuccessListener(uri ->
-                        mainHandler.post(() -> {
-                            if (callback != null) {
-                                callback.onSuccess(uri.toString());
-                            }
-                        }))
-                        .addOnFailureListener(e -> {
-                            Log.e(TAG, "Error obteniendo URL de descarga", e);
-                            mainHandler.post(() -> {
-                                if (callback != null) {
-                                    callback.onError(e);
-                                }
-                            });
-                        });
             } catch (Exception e) {
-                Log.e(TAG, "Error al subir foto", e);
+                Log.e(TAG, "Error al procesar foto", e);
                 if (callback != null) {
                     mainHandler.post(() -> callback.onError(e));
                 }
@@ -105,7 +91,11 @@ public class PacientePhotoManager {
             return null;
         }
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream);
+
+        // REDUCIDO: Calidad bajada a 60 para ahorrar espacio.
+        // Aún se ve bien en pantalla de celular.
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 60, stream);
+
         bitmap.recycle();
         return stream.toByteArray();
     }

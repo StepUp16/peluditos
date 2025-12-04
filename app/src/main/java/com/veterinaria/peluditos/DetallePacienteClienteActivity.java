@@ -342,11 +342,23 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
             tvOwnerEmail.setText(getString(R.string.text_cliente_owner_email, correo));
 
             if (!TextUtils.isEmpty(usuario.getFotoUrl())) {
-                Glide.with(this)
-                        .load(usuario.getFotoUrl())
-                        .placeholder(R.drawable.icono_perfil)
-                        .error(R.drawable.icono_perfil)
-                        .into(ivOwnerPhoto);
+                String fotoUrl = usuario.getFotoUrl();
+                if (fotoUrl.startsWith("http")) {
+                    // Legacy URL (broken/paid) - Show placeholder immediately
+                    ivOwnerPhoto.setImageResource(R.drawable.icono_perfil);
+                } else {
+                    try {
+                        byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                        Glide.with(this)
+                                .asBitmap()
+                                .load(imageByteArray)
+                                // .placeholder(R.drawable.icono_perfil) // Removed to prevent flicker
+                                .dontAnimate()
+                                .into(ivOwnerPhoto);
+                    } catch (IllegalArgumentException e) {
+                        ivOwnerPhoto.setImageResource(R.drawable.icono_perfil);
+                    }
+                }
             } else {
                 ivOwnerPhoto.setImageResource(R.drawable.icono_perfil);
             }
@@ -411,11 +423,22 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
             ivPacientePhoto.setImageResource(R.drawable.paciente);
             return;
         }
-        Glide.with(this)
-                .load(fotoUrl)
-                .placeholder(R.drawable.paciente)
-                .error(R.drawable.paciente)
-                .into(ivPacientePhoto);
+        if (fotoUrl.startsWith("http")) {
+            // Legacy URL (broken/paid) - Show placeholder immediately
+            ivPacientePhoto.setImageResource(R.drawable.paciente);
+        } else {
+            try {
+                byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                Glide.with(this)
+                        .asBitmap()
+                        .load(imageByteArray)
+                        // .placeholder(R.drawable.paciente) // Removed to prevent flicker
+                        .dontAnimate()
+                        .into(ivPacientePhoto);
+            } catch (IllegalArgumentException e) {
+                ivPacientePhoto.setImageResource(R.drawable.paciente);
+            }
+        }
     }
 
     private void mostrarHistorial() {

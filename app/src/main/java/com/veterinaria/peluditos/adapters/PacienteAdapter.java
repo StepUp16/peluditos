@@ -92,12 +92,27 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.Pacien
             );
             tvClientInfo.setText(detalle);
 
+            // Limpiamos la vista primero para evitar que se reciclen imágenes viejas
+            ivAvatar.setImageDrawable(null);
+
             if (!TextUtils.isEmpty(paciente.getFotoUrl())) {
-                Glide.with(itemView.getContext())
-                        .load(paciente.getFotoUrl())
-                        .placeholder(R.drawable.paciente)
-                        .error(R.drawable.paciente)
-                        .into(ivAvatar);
+                String fotoUrl = paciente.getFotoUrl();
+                if (fotoUrl.startsWith("http")) {
+                    // Legacy URL (broken/paid) - Show placeholder immediately
+                    ivAvatar.setImageResource(R.drawable.paciente);
+                } else {
+                    try {
+                        byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                        Glide.with(itemView.getContext())
+                                .asBitmap()
+                                .load(imageByteArray)
+                                .placeholder(R.drawable.paciente)
+                                .dontAnimate()
+                                .into(ivAvatar);
+                    } catch (IllegalArgumentException e) {
+                        ivAvatar.setImageResource(R.drawable.paciente);
+                    }
+                }
             } else {
                 ivAvatar.setImageResource(R.drawable.paciente);
             }

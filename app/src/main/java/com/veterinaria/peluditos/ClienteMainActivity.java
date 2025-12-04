@@ -436,13 +436,28 @@ public class ClienteMainActivity extends AppCompatActivity {
             return;
         }
 
-        Object source = TextUtils.isEmpty(fotoUrl) ? R.drawable.icono_perfil : fotoUrl;
-        Glide.with(this)
-                .load(source)
-                .placeholder(R.drawable.icono_perfil)
-                .error(R.drawable.icono_perfil)
-                .centerCrop()
-                .into(imgAvatarCliente);
+        if (TextUtils.isEmpty(fotoUrl)) {
+            imgAvatarCliente.setImageResource(R.drawable.icono_perfil);
+            return;
+        }
+
+        if (fotoUrl.startsWith("http")) {
+            // Legacy URL (broken/paid) - Show placeholder immediately
+            imgAvatarCliente.setImageResource(R.drawable.icono_perfil);
+        } else {
+            try {
+                byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                Glide.with(this)
+                        .asBitmap()
+                        .load(imageByteArray)
+                        // .placeholder(R.drawable.icono_perfil) // REMOVED to prevent flicker on reload
+                        .dontAnimate()
+                        .centerCrop()
+                        .into(imgAvatarCliente);
+            } catch (IllegalArgumentException e) {
+                imgAvatarCliente.setImageResource(R.drawable.icono_perfil);
+            }
+        }
     }
 
     private String construirNombreCompleto(Usuario usuario) {

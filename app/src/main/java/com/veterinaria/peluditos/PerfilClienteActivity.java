@@ -379,11 +379,22 @@ public class PerfilClienteActivity extends AppCompatActivity {
             ivUserProfile.setImageResource(R.drawable.icono_perfil);
             return;
         }
-        Glide.with(this)
-                .load(fotoUrl)
-                .placeholder(R.drawable.icono_perfil)
-                .error(R.drawable.icono_perfil)
-                .into(ivUserProfile);
+        if (fotoUrl.startsWith("http")) {
+            // Legacy URL (broken/paid) - Show placeholder immediately
+            ivUserProfile.setImageResource(R.drawable.icono_perfil);
+        } else {
+            try {
+                byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                Glide.with(this)
+                        .asBitmap()
+                        .load(imageByteArray)
+                        // .placeholder(R.drawable.icono_perfil) // REMOVED to prevent flicker on reload
+                        .dontAnimate()
+                        .into(ivUserProfile);
+            } catch (IllegalArgumentException e) {
+                ivUserProfile.setImageResource(R.drawable.icono_perfil);
+            }
+        }
     }
 
     private void observarPacientes() {

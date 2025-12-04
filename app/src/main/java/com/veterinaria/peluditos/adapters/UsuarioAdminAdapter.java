@@ -114,12 +114,27 @@ public class UsuarioAdminAdapter extends RecyclerView.Adapter<UsuarioAdminAdapte
             tvUserEmail.setText(!TextUtils.isEmpty(usuario.getEmail()) ? usuario.getEmail() : "-");
             tvUserRole.setText(formatRole(usuario.getRol()));
 
+            // Limpiamos la vista primero para evitar que se reciclen imágenes viejas
+            ivUserAvatar.setImageDrawable(null);
+
             if (!TextUtils.isEmpty(usuario.getFotoUrl())) {
-                Glide.with(itemView.getContext())
-                        .load(usuario.getFotoUrl())
-                        .placeholder(R.drawable.user_sofia)
-                        .error(R.drawable.user_sofia)
-                        .into(ivUserAvatar);
+                String fotoUrl = usuario.getFotoUrl();
+                if (fotoUrl.startsWith("http")) {
+                    // Legacy URL (broken/paid) - Show placeholder immediately
+                    ivUserAvatar.setImageResource(R.drawable.user_sofia);
+                } else {
+                    try {
+                        byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                        Glide.with(itemView.getContext())
+                                .asBitmap()
+                                .load(imageByteArray)
+                                .placeholder(R.drawable.user_sofia)
+                                .dontAnimate()
+                                .into(ivUserAvatar);
+                    } catch (IllegalArgumentException e) {
+                        ivUserAvatar.setImageResource(R.drawable.user_sofia);
+                    }
+                }
             } else {
                 ivUserAvatar.setImageResource(R.drawable.user_sofia);
             }

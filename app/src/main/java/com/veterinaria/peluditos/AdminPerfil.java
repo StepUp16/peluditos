@@ -418,11 +418,22 @@ public class AdminPerfil extends AppCompatActivity {
             ivUserProfile.setImageResource(R.drawable.user_sofia);
             return;
         }
-        Glide.with(this)
-                .load(fotoUrl)
-                .placeholder(R.drawable.user_sofia)
-                .error(R.drawable.user_sofia)
-                .into(ivUserProfile);
+        if (fotoUrl.startsWith("http")) {
+            // Legacy URL (broken/paid) - Show placeholder immediately
+            ivUserProfile.setImageResource(R.drawable.user_sofia);
+        } else {
+            try {
+                byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                Glide.with(this)
+                        .asBitmap()
+                        .load(imageByteArray)
+                        .placeholder(R.drawable.user_sofia)
+                        .dontAnimate()
+                        .into(ivUserProfile);
+            } catch (IllegalArgumentException e) {
+                ivUserProfile.setImageResource(R.drawable.user_sofia);
+            }
+        }
     }
 
     private void startActivityWithAnimation(Intent intent) {

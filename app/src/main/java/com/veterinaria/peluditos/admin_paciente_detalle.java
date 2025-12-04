@@ -390,6 +390,12 @@ public class admin_paciente_detalle extends AppCompatActivity {
     }
 
     private void loadPacientePhoto(String fotoUrl) {
+        // 1. EL TRUCO DEL PLACEHOLDER:
+        android.graphics.drawable.Drawable imagenActual = ivPatientPhoto.getDrawable();
+        if (imagenActual == null) {
+            ivPatientPhoto.setImageResource(R.drawable.paciente);
+        }
+
         if (TextUtils.isEmpty(fotoUrl)) {
             ivPatientPhoto.setImageResource(R.drawable.paciente);
             return;
@@ -403,7 +409,8 @@ public class admin_paciente_detalle extends AppCompatActivity {
                 Glide.with(this)
                         .asBitmap()
                         .load(imageByteArray)
-                        .placeholder(R.drawable.paciente)
+                        .placeholder(imagenActual) // Dynamic placeholder
+                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
                         .dontAnimate()
                         .into(ivPatientPhoto);
             } catch (IllegalArgumentException e) {

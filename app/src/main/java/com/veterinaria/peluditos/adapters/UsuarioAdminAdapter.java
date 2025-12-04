@@ -114,8 +114,15 @@ public class UsuarioAdminAdapter extends RecyclerView.Adapter<UsuarioAdminAdapte
             tvUserEmail.setText(!TextUtils.isEmpty(usuario.getEmail()) ? usuario.getEmail() : "-");
             tvUserRole.setText(formatRole(usuario.getRol()));
 
-            // Limpiamos la vista primero para evitar que se reciclen imágenes viejas
-            ivUserAvatar.setImageDrawable(null);
+            // 1. EL TRUCO DEL PLACEHOLDER: 
+            // Le decimos a Glide: "Mientras procesas, NO borres lo que ya tiene la imagen".
+            // Esto evita que se ponga blanca o gris por un milisegundo.
+            android.graphics.drawable.Drawable imagenActual = ivUserAvatar.getDrawable();
+
+            // Limpieza defensiva solo si no hay imagen previa para evitar reciclar basura
+            if (imagenActual == null) {
+                ivUserAvatar.setImageResource(R.drawable.user_sofia);
+            }
 
             if (!TextUtils.isEmpty(usuario.getFotoUrl())) {
                 String fotoUrl = usuario.getFotoUrl();
@@ -128,7 +135,8 @@ public class UsuarioAdminAdapter extends RecyclerView.Adapter<UsuarioAdminAdapte
                         Glide.with(itemView.getContext())
                                 .asBitmap()
                                 .load(imageByteArray)
-                                .placeholder(R.drawable.user_sofia)
+                                .placeholder(imagenActual) // Mantiene la imagen vieja (o el icono) mientras carga la nueva
+                                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL) // Guarda la decodificación en disco para no procesar siempre
                                 .dontAnimate()
                                 .into(ivUserAvatar);
                     } catch (IllegalArgumentException e) {

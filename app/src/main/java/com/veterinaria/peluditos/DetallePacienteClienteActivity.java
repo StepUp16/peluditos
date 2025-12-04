@@ -341,6 +341,12 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
                     : usuario.getEmail();
             tvOwnerEmail.setText(getString(R.string.text_cliente_owner_email, correo));
 
+            // 1. EL TRUCO DEL PLACEHOLDER (Owner)
+            android.graphics.drawable.Drawable imagenActual = ivOwnerPhoto.getDrawable();
+            if (imagenActual == null) {
+                ivOwnerPhoto.setImageResource(R.drawable.icono_perfil);
+            }
+
             if (!TextUtils.isEmpty(usuario.getFotoUrl())) {
                 String fotoUrl = usuario.getFotoUrl();
                 if (fotoUrl.startsWith("http")) {
@@ -352,7 +358,8 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
                         Glide.with(this)
                                 .asBitmap()
                                 .load(imageByteArray)
-                                // .placeholder(R.drawable.icono_perfil) // Removed to prevent flicker
+                                .placeholder(imagenActual) // Dynamic placeholder
+                                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
                                 .dontAnimate()
                                 .into(ivOwnerPhoto);
                     } catch (IllegalArgumentException e) {
@@ -419,6 +426,12 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
     }
 
     private void loadPacientePhoto(String fotoUrl) {
+        // 1. EL TRUCO DEL PLACEHOLDER (Paciente)
+        android.graphics.drawable.Drawable imagenActual = ivPacientePhoto.getDrawable();
+        if (imagenActual == null) {
+            ivPacientePhoto.setImageResource(R.drawable.paciente);
+        }
+
         if (TextUtils.isEmpty(fotoUrl)) {
             ivPacientePhoto.setImageResource(R.drawable.paciente);
             return;
@@ -432,7 +445,8 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
                 Glide.with(this)
                         .asBitmap()
                         .load(imageByteArray)
-                        // .placeholder(R.drawable.paciente) // Removed to prevent flicker
+                        .placeholder(imagenActual) // Dynamic placeholder
+                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
                         .dontAnimate()
                         .into(ivPacientePhoto);
             } catch (IllegalArgumentException e) {

@@ -375,25 +375,41 @@ public class PerfilClienteActivity extends AppCompatActivity {
     }
 
     private void loadProfilePhoto(String fotoUrl) {
+        // 1. Obtener la imagen que se está viendo AHORA MISMO en la pantalla
+        android.graphics.drawable.Drawable imagenActual = ivUserProfile.getDrawable();
+
+        // Si por alguna razón es nula (está vacía), ponemos la default inmediatamente
+        if (imagenActual == null) {
+            imagenActual = androidx.core.content.ContextCompat.getDrawable(this, R.drawable.icono_perfil);
+            ivUserProfile.setImageDrawable(imagenActual);
+        }
+
         if (TextUtils.isEmpty(fotoUrl)) {
             ivUserProfile.setImageResource(R.drawable.icono_perfil);
             return;
         }
+
         if (fotoUrl.startsWith("http")) {
             // Legacy URL (broken/paid) - Show placeholder immediately
             ivUserProfile.setImageResource(R.drawable.icono_perfil);
-        } else {
-            try {
-                byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
-                Glide.with(this)
-                        .asBitmap()
-                        .load(imageByteArray)
-                        // .placeholder(R.drawable.icono_perfil) // REMOVED to prevent flicker on reload
-                        .dontAnimate()
-                        .into(ivUserProfile);
-            } catch (IllegalArgumentException e) {
-                ivUserProfile.setImageResource(R.drawable.icono_perfil);
-            }
+            return;
+        }
+
+        try {
+            byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+
+            Glide.with(this)
+                    .asBitmap()
+                    .load(imageByteArray)
+                    // LA CLAVE: Le decimos a Glide "Usa la imagen que YA está puesta mientras cargas la nueva"
+                    .placeholder(imagenActual)
+                    .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.NONE) // En perfil a veces es mejor no cachear si se edita mucho, o usa ALL
+                    .skipMemoryCache(true) // Forzamos recarga fresca para perfil
+                    .dontAnimate() // <--- OBLIGATORIO: Elimina el efecto "Fade In" que se ve como parpadeo
+                    .into(ivUserProfile);
+
+        } catch (IllegalArgumentException e) {
+            ivUserProfile.setImageResource(R.drawable.icono_perfil);
         }
     }
 

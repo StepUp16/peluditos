@@ -436,6 +436,15 @@ public class ClienteMainActivity extends AppCompatActivity {
             return;
         }
 
+        // 1. EL TRUCO DEL PLACEHOLDER:
+        // Le decimos a Glide: "Mientras procesas, NO borres lo que ya tiene la imagen".
+        android.graphics.drawable.Drawable imagenActual = imgAvatarCliente.getDrawable();
+
+        // Limpieza defensiva solo si no hay imagen previa
+        if (imagenActual == null) {
+            imgAvatarCliente.setImageResource(R.drawable.icono_perfil);
+        }
+
         if (TextUtils.isEmpty(fotoUrl)) {
             imgAvatarCliente.setImageResource(R.drawable.icono_perfil);
             return;
@@ -450,7 +459,8 @@ public class ClienteMainActivity extends AppCompatActivity {
                 Glide.with(this)
                         .asBitmap()
                         .load(imageByteArray)
-                        // .placeholder(R.drawable.icono_perfil) // REMOVED to prevent flicker on reload
+                        .placeholder(imagenActual) // Mantiene la imagen vieja mientras carga la nueva
+                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL) // Cache decoded image
                         .dontAnimate()
                         .centerCrop()
                         .into(imgAvatarCliente);

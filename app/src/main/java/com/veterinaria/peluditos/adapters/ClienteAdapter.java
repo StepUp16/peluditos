@@ -89,14 +89,32 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
             tvUserName.setText(nombreCompleto);
             tvUserRole.setText(usuario.getRol());
 
+            // 1. EL TRUCO DEL PLACEHOLDER:
+            android.graphics.drawable.Drawable imagenActual = ivUserAvatar.getDrawable();
+            if (imagenActual == null) {
+                ivUserAvatar.setImageResource(R.drawable.icono_perfil);
+            }
+
             String fotoUrl = usuario.getFotoUrl();
             if (!TextUtils.isEmpty(fotoUrl)) {
-                Glide.with(itemView.getContext())
-                        .load(fotoUrl)
-                        .placeholder(R.drawable.icono_perfil)
-                        .error(R.drawable.icono_perfil)
-                        .centerCrop()
-                        .into(ivUserAvatar);
+                if (fotoUrl.startsWith("http")) {
+                    // Legacy URL (broken/paid) - Show placeholder immediately
+                    ivUserAvatar.setImageResource(R.drawable.icono_perfil);
+                } else {
+                    try {
+                        byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                        Glide.with(itemView.getContext())
+                                .asBitmap()
+                                .load(imageByteArray)
+                                .placeholder(imagenActual) // Dynamic placeholder
+                                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                                .dontAnimate()
+                                .centerCrop()
+                                .into(ivUserAvatar);
+                    } catch (IllegalArgumentException e) {
+                        ivUserAvatar.setImageResource(R.drawable.icono_perfil);
+                    }
+                }
             } else {
                 ivUserAvatar.setImageResource(R.drawable.icono_perfil);
             }

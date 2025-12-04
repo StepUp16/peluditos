@@ -414,6 +414,16 @@ public class AdminPerfil extends AppCompatActivity {
         if (ivUserProfile == null) {
             return;
         }
+
+        // 1. EL TRUCO DEL PLACEHOLDER:
+        // Le decimos a Glide: "Mientras procesas, NO borres lo que ya tiene la imagen".
+        android.graphics.drawable.Drawable imagenActual = ivUserProfile.getDrawable();
+
+        // Limpieza defensiva solo si no hay imagen previa
+        if (imagenActual == null) {
+            ivUserProfile.setImageResource(R.drawable.user_sofia);
+        }
+
         if (TextUtils.isEmpty(fotoUrl)) {
             ivUserProfile.setImageResource(R.drawable.user_sofia);
             return;
@@ -427,7 +437,8 @@ public class AdminPerfil extends AppCompatActivity {
                 Glide.with(this)
                         .asBitmap()
                         .load(imageByteArray)
-                        .placeholder(R.drawable.user_sofia)
+                        .placeholder(imagenActual) // Dynamic placeholder
+                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
                         .dontAnimate()
                         .into(ivUserProfile);
             } catch (IllegalArgumentException e) {

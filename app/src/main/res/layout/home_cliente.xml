@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="16dp"
-                    android:background="">
+                    android:background="@color/fondos_celular">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -162,7 +162,7 @@
                         android:layout_height="100dp"
                         android:contentDescription="@string/menu_citas"
                         android:src="@drawable/icono_citas"
-                        android:tint="@color/textColorPrimary" />
+                        app:tint="@color/textColorPrimary" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

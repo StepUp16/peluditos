@@ -436,13 +436,38 @@ public class ClienteMainActivity extends AppCompatActivity {
             return;
         }
 
-        Object source = TextUtils.isEmpty(fotoUrl) ? R.drawable.icono_perfil : fotoUrl;
-        Glide.with(this)
-                .load(source)
-                .placeholder(R.drawable.icono_perfil)
-                .error(R.drawable.icono_perfil)
-                .centerCrop()
-                .into(imgAvatarCliente);
+        // 1. EL TRUCO DEL PLACEHOLDER:
+        // Le decimos a Glide: "Mientras procesas, NO borres lo que ya tiene la imagen".
+        android.graphics.drawable.Drawable imagenActual = imgAvatarCliente.getDrawable();
+
+        // Limpieza defensiva solo si no hay imagen previa
+        if (imagenActual == null) {
+            imgAvatarCliente.setImageResource(R.drawable.icono_perfil);
+        }
+
+        if (TextUtils.isEmpty(fotoUrl)) {
+            imgAvatarCliente.setImageResource(R.drawable.icono_perfil);
+            return;
+        }
+
+        if (fotoUrl.startsWith("http")) {
+            // Legacy URL (broken/paid) - Show placeholder immediately
+            imgAvatarCliente.setImageResource(R.drawable.icono_perfil);
+        } else {
+            try {
+                byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                Glide.with(this)
+                        .asBitmap()
+                        .load(imageByteArray)
+                        .placeholder(imagenActual) // Mantiene la imagen vieja mientras carga la nueva
+                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL) // Cache decoded image
+                        .dontAnimate()
+                        .centerCrop()
+                        .into(imgAvatarCliente);
+            } catch (IllegalArgumentException e) {
+                imgAvatarCliente.setImageResource(R.drawable.icono_perfil);
+            }
+        }
     }
 
     private String construirNombreCompleto(Usuario usuario) {

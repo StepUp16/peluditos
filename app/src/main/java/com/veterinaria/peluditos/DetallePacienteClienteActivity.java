@@ -24,6 +24,10 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.tabs.TabLayout;
+import com.veterinaria.peluditos.adapters.CitaClienteAdapter;
+import com.veterinaria.peluditos.adapters.HistorialMedicoAdapter;
+import com.veterinaria.peluditos.data.Cita;
+import com.veterinaria.peluditos.data.HistorialMedico;
 import com.veterinaria.peluditos.data.Paciente;
 import com.veterinaria.peluditos.data.Usuario;
 import com.veterinaria.peluditos.util.NetworkUtils;
@@ -31,7 +35,9 @@ import com.veterinaria.peluditos.util.PacientePhotoManager;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DetallePacienteClienteActivity extends AppCompatActivity {
 
@@ -53,13 +59,19 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private RecyclerView recyclerHistorial;
     private TextView tvEmptyList;
+    private HistorialMedicoAdapter historialAdapter;
+    private CitaClienteAdapter citaAdapter;
 
     private AdminPacienteViewModel pacienteViewModel;
     private AdminUsuarioViewModel usuarioViewModel;
+    private AdminHistorialMedicoViewModel historialViewModel;
+    private AdminCitaViewModel citaViewModel;
     private PacientePhotoManager photoManager;
     private ActivityResultLauncher<String> photoPickerLauncher;
     private Paciente pacienteActual;
     private String pacienteId;
+    private final List<HistorialMedico> cacheHistorial = new ArrayList<>();
+    private final List<Cita> cacheCitas = new ArrayList<>();
 
     private boolean ignoreFirstMenuSelection = true;
 
@@ -97,6 +109,8 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
 
         pacienteViewModel = new ViewModelProvider(this).get(AdminPacienteViewModel.class);
         usuarioViewModel = new ViewModelProvider(this).get(AdminUsuarioViewModel.class);
+        historialViewModel = new ViewModelProvider(this).get(AdminHistorialMedicoViewModel.class);
+        citaViewModel = new ViewModelProvider(this).get(AdminCitaViewModel.class);
 
         pacienteViewModel.getPaciente(pacienteId).observe(this, paciente -> {
             if (paciente == null) {
@@ -108,6 +122,9 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
             renderPaciente(paciente);
             cargarDatosPropietario(paciente.getClienteId());
         });
+
+        observeHistorial();
+        observeCitas();
     }
 
     private void setupTabs() {
@@ -137,21 +154,12 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
     }
 
     private void actualizarSeccionSeleccionada(int position) {
-        if (tvEmptyList == null) {
-            return;
-        }
-        int message;
-        if (position == 1) {
-            message = R.string.empty_citas_futuras;
+        if (position == 0) {
+            mostrarHistorial();
+        } else if (position == 1) {
+            mostrarCitasFuturas();
         } else if (position == 2) {
-            message = R.string.empty_citas_pasadas;
-        } else {
-            message = R.string.empty_historial;
-        }
-        tvEmptyList.setText(message);
-        tvEmptyList.setVisibility(View.VISIBLE);
-        if (recyclerHistorial != null) {
-            recyclerHistorial.setVisibility(View.GONE);
+            mostrarCitasPasadas();
         }
     }
 
@@ -188,6 +196,9 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
         if (recyclerHistorial != null) {
             recyclerHistorial.setLayoutManager(new LinearLayoutManager(this));
             recyclerHistorial.setVisibility(View.GONE);
+            historialAdapter = new HistorialMedicoAdapter();
+            citaAdapter = new CitaClienteAdapter();
+            recyclerHistorial.setAdapter(historialAdapter);
         }
         if (tvEmptyList != null) {
             tvEmptyList.setVisibility(View.VISIBLE);
@@ -275,6 +286,39 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
         usuarioViewModel.getUsuario(clienteId).observe(this, this::mostrarDatosPropietario);
     }
 
+    private void observeHistorial() {
+        if (historialViewModel == null || TextUtils.isEmpty(pacienteId)) {
+            return;
+        }
+        historialViewModel.getPorPaciente(pacienteId).observe(this, historiales -> {
+            cacheHistorial.clear();
+            if (historiales != null) {
+                cacheHistorial.addAll(historiales);
+            }
+            if (tabLayout != null && tabLayout.getSelectedTabPosition() == 0) {
+                mostrarHistorial();
+            }
+        });
+    }
+
+    private void observeCitas() {
+        if (citaViewModel == null) {
+            return;
+        }
+        citaViewModel.getAllCitas().observe(this, citas -> {
+            cacheCitas.clear();
+            if (citas != null) {
+                cacheCitas.addAll(citas);
+            }
+            int pos = tabLayout != null ? tabLayout.getSelectedTabPosition() : 0;
+            if (pos == 1) {
+                mostrarCitasFuturas();
+            } else if (pos == 2) {
+                mostrarCitasPasadas();
+            }
+        });
+    }
+
     private void mostrarDatosPropietario(Usuario usuario) {
         if (usuario == null && pacienteActual != null) {
             tvOwnerName.setText(pacienteActual.getClienteNombre());
@@ -297,12 +341,31 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
                     : usuario.getEmail();
             tvOwnerEmail.setText(getString(R.string.text_cliente_owner_email, correo));
 
+            // 1. EL TRUCO DEL PLACEHOLDER (Owner)
+            android.graphics.drawable.Drawable imagenActual = ivOwnerPhoto.getDrawable();
+            if (imagenActual == null) {
+                ivOwnerPhoto.setImageResource(R.drawable.icono_perfil);
+            }
+
             if (!TextUtils.isEmpty(usuario.getFotoUrl())) {
-                Glide.with(this)
-                        .load(usuario.getFotoUrl())
-                        .placeholder(R.drawable.icono_perfil)
-                        .error(R.drawable.icono_perfil)
-                        .into(ivOwnerPhoto);
+                String fotoUrl = usuario.getFotoUrl();
+                if (fotoUrl.startsWith("http")) {
+                    // Legacy URL (broken/paid) - Show placeholder immediately
+                    ivOwnerPhoto.setImageResource(R.drawable.icono_perfil);
+                } else {
+                    try {
+                        byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                        Glide.with(this)
+                                .asBitmap()
+                                .load(imageByteArray)
+                                .placeholder(imagenActual) // Dynamic placeholder
+                                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                                .dontAnimate()
+                                .into(ivOwnerPhoto);
+                    } catch (IllegalArgumentException e) {
+                        ivOwnerPhoto.setImageResource(R.drawable.icono_perfil);
+                    }
+                }
             } else {
                 ivOwnerPhoto.setImageResource(R.drawable.icono_perfil);
             }
@@ -363,15 +426,95 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
     }
 
     private void loadPacientePhoto(String fotoUrl) {
+        // 1. EL TRUCO DEL PLACEHOLDER (Paciente)
+        android.graphics.drawable.Drawable imagenActual = ivPacientePhoto.getDrawable();
+        if (imagenActual == null) {
+            ivPacientePhoto.setImageResource(R.drawable.paciente);
+        }
+
         if (TextUtils.isEmpty(fotoUrl)) {
             ivPacientePhoto.setImageResource(R.drawable.paciente);
             return;
         }
-        Glide.with(this)
-                .load(fotoUrl)
-                .placeholder(R.drawable.paciente)
-                .error(R.drawable.paciente)
-                .into(ivPacientePhoto);
+        if (fotoUrl.startsWith("http")) {
+            // Legacy URL (broken/paid) - Show placeholder immediately
+            ivPacientePhoto.setImageResource(R.drawable.paciente);
+        } else {
+            try {
+                byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                Glide.with(this)
+                        .asBitmap()
+                        .load(imageByteArray)
+                        .placeholder(imagenActual) // Dynamic placeholder
+                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                        .dontAnimate()
+                        .into(ivPacientePhoto);
+            } catch (IllegalArgumentException e) {
+                ivPacientePhoto.setImageResource(R.drawable.paciente);
+            }
+        }
+    }
+
+    private void mostrarHistorial() {
+        if (recyclerHistorial == null || historialAdapter == null || tvEmptyList == null) {
+            return;
+        }
+        if (cacheHistorial.isEmpty()) {
+            tvEmptyList.setVisibility(View.VISIBLE);
+            tvEmptyList.setText(R.string.empty_historial);
+            recyclerHistorial.setVisibility(View.GONE);
+            return;
+        }
+        historialAdapter.setHistoriales(cacheHistorial);
+        recyclerHistorial.setAdapter(historialAdapter);
+        tvEmptyList.setVisibility(View.GONE);
+        recyclerHistorial.setVisibility(View.VISIBLE);
+    }
+
+    private void mostrarCitasFuturas() {
+        if (recyclerHistorial == null || citaAdapter == null || tvEmptyList == null) {
+            return;
+        }
+        List<Cita> filtradas = new ArrayList<>();
+        long ahora = System.currentTimeMillis();
+        for (Cita cita : cacheCitas) {
+            if (pacienteId.equals(cita.getPacienteId()) && cita.getFechaHoraTimestamp() >= ahora) {
+                filtradas.add(cita);
+            }
+        }
+        if (filtradas.isEmpty()) {
+            tvEmptyList.setVisibility(View.VISIBLE);
+            tvEmptyList.setText(R.string.empty_citas_futuras);
+            recyclerHistorial.setVisibility(View.GONE);
+            return;
+        }
+        citaAdapter.setCitas(filtradas);
+        recyclerHistorial.setAdapter(citaAdapter);
+        tvEmptyList.setVisibility(View.GONE);
+        recyclerHistorial.setVisibility(View.VISIBLE);
+    }
+
+    private void mostrarCitasPasadas() {
+        if (recyclerHistorial == null || citaAdapter == null || tvEmptyList == null) {
+            return;
+        }
+        List<Cita> filtradas = new ArrayList<>();
+        long ahora = System.currentTimeMillis();
+        for (Cita cita : cacheCitas) {
+            if (pacienteId.equals(cita.getPacienteId()) && cita.getFechaHoraTimestamp() < ahora) {
+                filtradas.add(cita);
+            }
+        }
+        if (filtradas.isEmpty()) {
+            tvEmptyList.setVisibility(View.VISIBLE);
+            tvEmptyList.setText(R.string.empty_citas_pasadas);
+            recyclerHistorial.setVisibility(View.GONE);
+            return;
+        }
+        citaAdapter.setCitas(filtradas);
+        recyclerHistorial.setAdapter(citaAdapter);
+        tvEmptyList.setVisibility(View.GONE);
+        recyclerHistorial.setVisibility(View.VISIBLE);
     }
 
     @Override

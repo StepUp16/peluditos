@@ -114,12 +114,35 @@ public class UsuarioAdminAdapter extends RecyclerView.Adapter<UsuarioAdminAdapte
             tvUserEmail.setText(!TextUtils.isEmpty(usuario.getEmail()) ? usuario.getEmail() : "-");
             tvUserRole.setText(formatRole(usuario.getRol()));
 
+            // 1. EL TRUCO DEL PLACEHOLDER: 
+            // Le decimos a Glide: "Mientras procesas, NO borres lo que ya tiene la imagen".
+            // Esto evita que se ponga blanca o gris por un milisegundo.
+            android.graphics.drawable.Drawable imagenActual = ivUserAvatar.getDrawable();
+
+            // Limpieza defensiva solo si no hay imagen previa para evitar reciclar basura
+            if (imagenActual == null) {
+                ivUserAvatar.setImageResource(R.drawable.user_sofia);
+            }
+
             if (!TextUtils.isEmpty(usuario.getFotoUrl())) {
-                Glide.with(itemView.getContext())
-                        .load(usuario.getFotoUrl())
-                        .placeholder(R.drawable.user_sofia)
-                        .error(R.drawable.user_sofia)
-                        .into(ivUserAvatar);
+                String fotoUrl = usuario.getFotoUrl();
+                if (fotoUrl.startsWith("http")) {
+                    // Legacy URL (broken/paid) - Show placeholder immediately
+                    ivUserAvatar.setImageResource(R.drawable.user_sofia);
+                } else {
+                    try {
+                        byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                        Glide.with(itemView.getContext())
+                                .asBitmap()
+                                .load(imageByteArray)
+                                .placeholder(imagenActual) // Mantiene la imagen vieja (o el icono) mientras carga la nueva
+                                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL) // Guarda la decodificación en disco para no procesar siempre
+                                .dontAnimate()
+                                .into(ivUserAvatar);
+                    } catch (IllegalArgumentException e) {
+                        ivUserAvatar.setImageResource(R.drawable.user_sofia);
+                    }
+                }
             } else {
                 ivUserAvatar.setImageResource(R.drawable.user_sofia);
             }

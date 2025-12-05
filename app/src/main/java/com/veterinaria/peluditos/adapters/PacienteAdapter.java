@@ -92,12 +92,35 @@ public class PacienteAdapter extends RecyclerView.Adapter<PacienteAdapter.Pacien
             );
             tvClientInfo.setText(detalle);
 
+            // 1. EL TRUCO DEL PLACEHOLDER: 
+            // Le decimos a Glide: "Mientras procesas, NO borres lo que ya tiene la imagen".
+            // Esto evita que se ponga blanca o gris por un milisegundo.
+            android.graphics.drawable.Drawable imagenActual = ivAvatar.getDrawable();
+
+            // Limpieza defensiva solo si no hay imagen previa para evitar reciclar basura
+            if (imagenActual == null) {
+                ivAvatar.setImageResource(R.drawable.paciente);
+            }
+
             if (!TextUtils.isEmpty(paciente.getFotoUrl())) {
-                Glide.with(itemView.getContext())
-                        .load(paciente.getFotoUrl())
-                        .placeholder(R.drawable.paciente)
-                        .error(R.drawable.paciente)
-                        .into(ivAvatar);
+                String fotoUrl = paciente.getFotoUrl();
+                if (fotoUrl.startsWith("http")) {
+                    // Legacy URL (broken/paid) - Show placeholder immediately
+                    ivAvatar.setImageResource(R.drawable.paciente);
+                } else {
+                    try {
+                        byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                        Glide.with(itemView.getContext())
+                                .asBitmap()
+                                .load(imageByteArray)
+                                .placeholder(imagenActual) // Mantiene la imagen vieja (o el icono) mientras carga la nueva
+                                .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL) // Guarda la decodificación en disco para no procesar siempre
+                                .dontAnimate()
+                                .into(ivAvatar);
+                    } catch (IllegalArgumentException e) {
+                        ivAvatar.setImageResource(R.drawable.paciente);
+                    }
+                }
             } else {
                 ivAvatar.setImageResource(R.drawable.paciente);
             }

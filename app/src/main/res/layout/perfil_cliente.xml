@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSurface">
+    android:background="@color/fondos_celular">
 
     <!-- Barra superior -->
     <ImageButton
@@ -184,16 +184,21 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnVerCitas"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
+                android:minHeight="48dp"
+                android:paddingVertical="12dp"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:text="@string/btn_ver_citas_cliente"
                 android:textAllCaps="false"
-                android:textSize="14sp"
+                android:textSize="16sp"
+                android:textAlignment="center"
                 android:fontFamily="@font/spline_sans"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                app:cornerRadius="12dp"
+                app:iconTint="@color/textColorPrimary"
+                app:strokeColor="@color/border_button"
+                app:strokeWidth="3dp"/>
 
             <!-- Sección Configuración -->
             <TextView

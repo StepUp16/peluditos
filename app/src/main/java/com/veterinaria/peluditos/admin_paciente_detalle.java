@@ -390,15 +390,33 @@ public class admin_paciente_detalle extends AppCompatActivity {
     }
 
     private void loadPacientePhoto(String fotoUrl) {
+        // 1. EL TRUCO DEL PLACEHOLDER:
+        android.graphics.drawable.Drawable imagenActual = ivPatientPhoto.getDrawable();
+        if (imagenActual == null) {
+            ivPatientPhoto.setImageResource(R.drawable.paciente);
+        }
+
         if (TextUtils.isEmpty(fotoUrl)) {
             ivPatientPhoto.setImageResource(R.drawable.paciente);
             return;
         }
-        Glide.with(this)
-                .load(fotoUrl)
-                .placeholder(R.drawable.paciente)
-                .error(R.drawable.paciente)
-                .into(ivPatientPhoto);
+        if (fotoUrl.startsWith("http")) {
+            // Legacy URL (broken/paid) - Show placeholder immediately
+            ivPatientPhoto.setImageResource(R.drawable.paciente);
+        } else {
+            try {
+                byte[] imageByteArray = android.util.Base64.decode(fotoUrl, android.util.Base64.DEFAULT);
+                Glide.with(this)
+                        .asBitmap()
+                        .load(imageByteArray)
+                        .placeholder(imagenActual) // Dynamic placeholder
+                        .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                        .dontAnimate()
+                        .into(ivPatientPhoto);
+            } catch (IllegalArgumentException e) {
+                ivPatientPhoto.setImageResource(R.drawable.paciente);
+            }
+        }
     }
 
     @Override

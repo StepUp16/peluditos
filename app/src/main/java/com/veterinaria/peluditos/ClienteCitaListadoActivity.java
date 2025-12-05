@@ -116,6 +116,12 @@ public class ClienteCitaListadoActivity extends AppCompatActivity {
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(citaAdapter);
+        citaAdapter.setOnCitaClickListener(cita -> {
+            Intent intent = new Intent(this, EditarCitaClienteActivity.class);
+            intent.putExtra(EditarCitaClienteActivity.EXTRA_CITA_ID, cita.getId());
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        });
     }
 
     private void setupFab() {

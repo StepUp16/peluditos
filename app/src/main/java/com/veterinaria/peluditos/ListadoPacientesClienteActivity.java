@@ -92,6 +92,15 @@ public class ListadoPacientesClienteActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView menu = findViewById(R.id.btnMenuCliente);
+        if (menu != null && menu.getSelectedItemId() != R.id.nav_mascotas) {
+            menu.setSelectedItemId(R.id.nav_mascotas);
+        }
+    }
+
     private void resolverClienteDesdeUsuario(FirebaseUser user) {
         String email = user.getEmail();
         if (!TextUtils.isEmpty(email)) {

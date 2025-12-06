@@ -111,6 +111,15 @@ public class PerfilClienteActivity extends AppCompatActivity {
         observarCitas();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView menu = findViewById(R.id.btnMenuCliente);
+        if (menu != null && menu.getSelectedItemId() != R.id.nav_perfil) {
+            menu.setSelectedItemId(R.id.nav_perfil);
+        }
+    }
+
     private void initViews() {
         ImageButton btnBack = findViewById(R.id.btnBack);
         ivUserProfile = findViewById(R.id.ivUserProfile);

@@ -79,6 +79,15 @@ public class ClienteCitaListadoActivity extends AppCompatActivity {
         cargarClienteActual();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView menu = findViewById(R.id.btnMenuCliente);
+        if (menu != null && menu.getSelectedItemId() != R.id.nav_citas) {
+            menu.setSelectedItemId(R.id.nav_citas);
+        }
+    }
+
     private void setupToolbar() {
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

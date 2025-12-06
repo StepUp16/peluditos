@@ -79,6 +79,15 @@ public class ClienteMainActivity extends AppCompatActivity {
         configurarMenuInferior();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView menu = findViewById(R.id.btnMenuCliente);
+        if (menu != null && menu.getSelectedItemId() != R.id.nav_home) {
+            menu.setSelectedItemId(R.id.nav_home);
+        }
+    }
+
     private void configurarSaludo() {
         TextView txtMensaje = findViewById(R.id.txtMensajeBenvenida);
         FirebaseUser currentUser = mAuth.getCurrentUser();

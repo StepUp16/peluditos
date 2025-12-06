@@ -118,6 +118,15 @@ public class admin_home extends AppCompatActivity {
         layoutNotificaciones = findViewById(R.id.layoutNotificaciones);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView bottomNav = findViewById(R.id.bottomMenu);
+        if (bottomNav != null && bottomNav.getSelectedItemId() != R.id.iconHome) {
+            bottomNav.setSelectedItemId(R.id.iconHome);
+        }
+    }
+
     private void setupListeners() {
         // Lógica de los botones de acceso rápido
         btnVerClientes.setOnClickListener(v -> {

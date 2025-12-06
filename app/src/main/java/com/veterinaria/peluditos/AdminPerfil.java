@@ -347,6 +347,12 @@ public class AdminPerfil extends AppCompatActivity {
         super.onResume();
         // Recargar datos cuando regresamos a la actividad
         loadUserData();
+        
+        // Resetear selección del menú inferior
+        BottomNavigationView bottomNav = findViewById(R.id.bottomMenu);
+        if (bottomNav != null && bottomNav.getSelectedItemId() != R.id.iconPerfil) {
+            bottomNav.setSelectedItemId(R.id.iconPerfil);
+        }
     }
 
     @Override

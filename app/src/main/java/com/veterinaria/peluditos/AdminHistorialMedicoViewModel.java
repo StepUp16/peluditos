@@ -28,6 +28,10 @@ public class AdminHistorialMedicoViewModel extends AndroidViewModel {
         return repository.getHistorialPorPaciente(pacienteId);
     }
 
+    public void syncPaciente(String pacienteId) {
+        repository.syncDesdeFirestore(pacienteId);
+    }
+
     public void insert(HistorialMedico historialMedico) {
         repository.insert(historialMedico);
     }

@@ -12,6 +12,7 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -272,15 +273,23 @@ public class CitaRepository {
                     }
 
                     AppDatabase.databaseWriteExecutor.execute(() -> {
-                        for (QueryDocumentSnapshot document : snapshots) {
+                        for (DocumentChange change : snapshots.getDocumentChanges()) {
                             try {
-                                Cita citaRemota = createCitaFromDocument(document);
-                                if (citaRemota.isPendienteEliminacion()) {
-                                    citaDao.deleteById(citaRemota.getId());
-                                } else {
-                                    citaRemota.setSincronizado(true);
-                                    citaRemota.setPendienteEliminacion(false);
-                                    citaDao.insert(citaRemota);
+                                switch (change.getType()) {
+                                    case REMOVED:
+                                        citaDao.deleteById(change.getDocument().getId());
+                                        break;
+                                    case ADDED:
+                                    case MODIFIED:
+                                        Cita citaRemota = createCitaFromDocument(change.getDocument());
+                                        if (citaRemota.isPendienteEliminacion()) {
+                                            citaDao.deleteById(citaRemota.getId());
+                                        } else {
+                                            citaRemota.setSincronizado(true);
+                                            citaRemota.setPendienteEliminacion(false);
+                                            citaDao.insert(citaRemota);
+                                        }
+                                        break;
                                 }
                             } catch (Exception e) {
                                 Log.e(TAG, "Error procesando cita remota", e);

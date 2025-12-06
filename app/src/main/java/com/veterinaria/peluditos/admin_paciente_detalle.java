@@ -246,27 +246,73 @@ public class admin_paciente_detalle extends AppCompatActivity {
                 !TextUtils.isEmpty(paciente.getSexo()) ? paciente.getSexo() : "-");
         tvPatientInfo.setText(info);
 
-        tvClientName.setText(!TextUtils.isEmpty(paciente.getClienteNombre())
+        String nombreCliente = !TextUtils.isEmpty(paciente.getClienteNombre())
                 ? paciente.getClienteNombre()
-                : getString(R.string.paciente_sin_cliente));
-        cargarTelefonoCliente(paciente.getClienteId());
+                : getString(R.string.paciente_sin_cliente);
+        tvClientName.setText(nombreCliente);
 
+        cargarDatosCliente(paciente.getClienteId(), nombreCliente);
         loadPacientePhoto(paciente.getFotoUrl());
-        ivClientPhoto.setImageResource(R.drawable.user_sofia);
+        ivClientPhoto.setImageResource(R.drawable.icono_perfil);
     }
 
-    private void cargarTelefonoCliente(String clienteId) {
+    private void cargarDatosCliente(String clienteId, String nombreFallback) {
         if (TextUtils.isEmpty(clienteId)) {
             tvClientPhone.setText(R.string.msg_seleccione_cliente);
+            ivClientPhoto.setImageResource(R.drawable.icono_perfil);
             return;
         }
         usuarioViewModel.getUsuario(clienteId).observe(this, usuario -> {
-            if (usuario != null && !TextUtils.isEmpty(usuario.getTelefono())) {
-                tvClientPhone.setText(getString(R.string.cliente_telefono_formato, usuario.getTelefono()));
+            if (usuario != null) {
+                if (!TextUtils.isEmpty(usuario.getNombre()) || !TextUtils.isEmpty(usuario.getApellido())) {
+                    String nombre = (usuario.getNombre() != null ? usuario.getNombre().trim() : "") + " " +
+                            (usuario.getApellido() != null ? usuario.getApellido().trim() : "");
+                    tvClientName.setText(nombre.trim());
+                } else {
+                    tvClientName.setText(nombreFallback);
+                }
+
+                if (!TextUtils.isEmpty(usuario.getTelefono())) {
+                    tvClientPhone.setText(getString(R.string.cliente_telefono_formato, usuario.getTelefono()));
+                } else {
+                    tvClientPhone.setText(R.string.msg_seleccione_cliente);
+                }
+                cargarFotoCliente(usuario.getFotoUrl());
             } else {
                 tvClientPhone.setText(R.string.msg_seleccione_cliente);
+                tvClientName.setText(nombreFallback);
+                ivClientPhoto.setImageResource(R.drawable.icono_perfil);
             }
         });
+    }
+
+    private void cargarFotoCliente(String fotoBase64) {
+        // Placeholder dinámico como en listado de clientes
+        android.graphics.drawable.Drawable imagenActual = ivClientPhoto.getDrawable();
+        if (imagenActual == null) {
+            ivClientPhoto.setImageResource(R.drawable.icono_perfil);
+        }
+        if (TextUtils.isEmpty(fotoBase64)) {
+            ivClientPhoto.setImageResource(R.drawable.icono_perfil);
+            return;
+        }
+        if (fotoBase64.startsWith("http")) {
+            ivClientPhoto.setImageResource(R.drawable.icono_perfil);
+            return;
+        }
+        try {
+            byte[] imageByteArray = android.util.Base64.decode(fotoBase64, android.util.Base64.DEFAULT);
+            Glide.with(this)
+                    .asBitmap()
+                    .load(imageByteArray)
+                    .placeholder(imagenActual)
+                    .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                    .dontAnimate()
+                    .centerCrop()
+                    .into(ivClientPhoto);
+        } catch (IllegalArgumentException e) {
+            ivClientPhoto.setImageResource(R.drawable.icono_perfil);
+        }
     }
 
     private void manejarSeleccionTab(int position) {

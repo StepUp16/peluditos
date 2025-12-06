@@ -83,6 +83,15 @@ public class AdminPacienteListadoActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView bottomNav = findViewById(R.id.bottomMenu);
+        if (bottomNav != null && bottomNav.getSelectedItemId() != R.id.iconPacientes) {
+            bottomNav.setSelectedItemId(R.id.iconPacientes);
+        }
+    }
+
     private void setupAddPacienteButton() {
         ImageButton btnAddPaciente = findViewById(R.id.btnAddPaciente);
         if (btnAddPaciente != null) {

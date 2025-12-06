@@ -127,6 +127,15 @@ public class admin_cita_listado extends AppCompatActivity {
         setupEstadoChips();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView bottomNav = findViewById(R.id.bottomMenu);
+        if (bottomNav != null && bottomNav.getSelectedItemId() != R.id.iconCitas) {
+            bottomNav.setSelectedItemId(R.id.iconCitas);
+        }
+    }
+
     private void setupTabs() {
         if (tabLayout == null) {
             return;

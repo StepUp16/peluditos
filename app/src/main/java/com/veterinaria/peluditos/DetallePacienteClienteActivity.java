@@ -290,12 +290,27 @@ public class DetallePacienteClienteActivity extends AppCompatActivity {
         if (historialViewModel == null || TextUtils.isEmpty(pacienteId)) {
             return;
         }
-        historialViewModel.getPorPaciente(pacienteId).observe(this, historiales -> {
+        // Dispara sincronización remota para asegurar que los registros de Firestore
+        // se reflejen en la base local del cliente.
+        historialViewModel.syncPaciente(pacienteId);
+        // Consumimos todos los historiales y filtramos por el paciente actual para evitar
+        // cualquier problema de consulta vacía en Room y asegurar consistencia con admin.
+        historialViewModel.getTodos().observe(this, historiales -> {
             cacheHistorial.clear();
             if (historiales != null) {
-                cacheHistorial.addAll(historiales);
+                for (HistorialMedico h : historiales) {
+                    if (pacienteId.equals(h.getPacienteId())) {
+                        cacheHistorial.add(h);
+                    }
+                }
             }
-            if (tabLayout != null && tabLayout.getSelectedTabPosition() == 0) {
+            // Refresca el adaptador y la pestaña seleccionada (historial o la que esté activa)
+            if (historialAdapter != null) {
+                historialAdapter.setHistoriales(cacheHistorial);
+            }
+            if (tabLayout != null) {
+                actualizarSeccionSeleccionada(tabLayout.getSelectedTabPosition());
+            } else {
                 mostrarHistorial();
             }
         });

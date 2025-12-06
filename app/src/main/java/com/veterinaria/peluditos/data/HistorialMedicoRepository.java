@@ -42,6 +42,57 @@ public class HistorialMedicoRepository {
         return historialMedicoDao.getHistorialPorPaciente(pacienteId);
     }
 
+    /**
+     * Fuerza una sincronización desde Firestore para un paciente específico y persiste en Room.
+     */
+    public void syncDesdeFirestore(String pacienteId) {
+        if (TextUtils.isEmpty(pacienteId)) {
+            return;
+        }
+        firestore.collection(COLLECTION)
+                .whereEqualTo("pacienteId", pacienteId)
+                .get()
+                .addOnSuccessListener(querySnapshot -> executor.execute(() -> {
+                    for (com.google.firebase.firestore.DocumentSnapshot doc : querySnapshot) {
+                        String id = doc.getString("id");
+                        if (TextUtils.isEmpty(id)) {
+                            id = doc.getId();
+                        }
+                        String pacienteNombre = doc.getString("pacienteNombre");
+                        String fechaConsulta = doc.getString("fechaConsulta");
+                        String horaConsulta = doc.getString("horaConsulta");
+                        String motivoConsulta = doc.getString("motivoConsulta");
+                        String diagnostico = doc.getString("diagnostico");
+                        String tratamiento = doc.getString("tratamiento");
+                        String medicacion = doc.getString("medicacion");
+                        String notasAdicionales = doc.getString("notasAdicionales");
+                        Long tsRegistro = doc.getLong("timestampRegistro");
+                        Long tsMod = doc.getLong("timestampModificacion");
+
+                        long tsRegValue = tsRegistro != null ? tsRegistro : System.currentTimeMillis();
+                        long tsModValue = tsMod != null ? tsMod : tsRegValue;
+
+                        HistorialMedico historial = new HistorialMedico(
+                                id != null ? id : "",
+                                pacienteId,
+                                pacienteNombre,
+                                fechaConsulta,
+                                horaConsulta,
+                                motivoConsulta,
+                                diagnostico,
+                                tratamiento,
+                                medicacion,
+                                notasAdicionales,
+                                tsRegValue
+                        );
+                        historial.setTimestampModificacion(tsModValue);
+                        historial.setSincronizado(true);
+                        historialMedicoDao.insert(historial);
+                    }
+                }))
+                .addOnFailureListener(e -> Log.w(TAG, "Error al obtener historial de Firestore", e));
+    }
+
     public void insert(HistorialMedico historialMedico) {
         historialMedico.setTimestampModificacion(System.currentTimeMillis());
         historialMedico.setSincronizado(false);
